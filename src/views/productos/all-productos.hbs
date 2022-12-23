@@ -1,0 +1,13 @@
+<div class="row">
+    {{#each productos}}
+        <div class="card">
+                <h4>{{nombre}} <a href="/producto/edit/{{_id}}"><i>icono_edit</i></a></h4>
+                <p>{{marca}}</p>
+                <p>{{imagenes}}</p>
+                <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="sumbmit">Delete</button>
+                </form>
+        </div>
+    {{/each}}
+</div>

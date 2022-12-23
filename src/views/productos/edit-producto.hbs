@@ -1,0 +1,29 @@
+<div class="card-header">
+    <h3>Edit Producto</h3>
+</div>
+
+<div class="card-body">
+    <form action="/producto/edit/{{producto._id}}?_method=PUT" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <div>
+        <textarea name="nombre" class="form-control">{{producto.nombre}}</textarea>
+        </div>
+            <div>
+        <textarea name="marca" class="form-control">{{producto.marca}}</textarea>
+        </div>
+        <div>
+        <textarea name="categoria" class="form-control">{{producto.categoria}}</textarea>
+        </div>
+        <div>
+        <textarea name="elementos" class="form-control">{{producto.elementos}}</textarea>
+        </div>
+        <div>
+        <textarea name="imagenes" class="form-control">{{producto.imagenes}}</textarea>
+        </div>
+            <div class="form-group">
+        <button class="btn" type="submit">
+            Save
+        </button>
+    </div>
+    </form>
+</div>
