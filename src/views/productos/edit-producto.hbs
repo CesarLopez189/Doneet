@@ -6,22 +6,22 @@
     <form action="/producto/edit/{{producto._id}}?_method=PUT" method="POST">
     <input type="hidden" name="_method" value="PUT">
     <div>
-        <textarea name="nombre" class="form-control">{{producto.nombre}}</textarea>
+        <input type="text" name="nombre" value="{{producto.nombre}}"></input>
         </div>
             <div>
-        <textarea name="marca" class="form-control">{{producto.marca}}</textarea>
+        <input type="text" name="marca" value="{{producto.marca}}"></input>
         </div>
         <div>
-        <textarea name="categoria" class="form-control">{{producto.categoria}}</textarea>
+        <input type="text" name="categoria" value="{{producto.categoria}}"></input>
         </div>
         <div>
-        <textarea name="elementos" class="form-control">{{producto.elementos}}</textarea>
+        <input type="text" name="elementos" value="{{producto.elementos}}"></input>
         </div>
         <div>
-        <textarea name="imagenes" class="form-control">{{producto.imagenes}}</textarea>
+        <input type="text" name="imagenes" value="{{producto.imagenes}}">Imagen 1</input>
         </div>
             <div class="form-group">
-        <button class="btn" type="submit">
+        <button type="submit">
             Save
         </button>
     </div>
