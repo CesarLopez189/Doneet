@@ -1,7 +1,20 @@
 <nav>
     <a href="/" class="nav-link">Inicio</a>
     <a href="/productos" class="nav-link">Dulces</a>
-    <a href="/about" class="nav-link">Acerca de</a>
+    <div class="dropdown">
+        <button class="dropbtn">Categorias</button>
+            <div class="dropdown-content">
+                <a href="#">Polvorosos</a>
+                <a href="#">Chocolates</a>
+                <a href="#">Caramelo Suave</a>
+                <a href="#">Biscochos</a>
+                <a href="#">Picosos</a>
+                <a href="#">Típicos</a>
+                <a href="#">Paletas</a>
+            </div>
+        </div>
+    <!-- <a href="/about" class="nav-link">Acerca de</a> -->
+    <input type="text" name="busqueda" placeholder="Buscar dulce">
     {{#if user}}
     <a href="/perfil" class="nav-link">Perfil</a>
     <a href="/usuarios/logout" class="nav-link">Cerrar sesión</a>
