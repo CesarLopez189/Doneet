@@ -9,7 +9,10 @@
                     <input type="text" name="name" placeholder="Nombre" value="{{name}}">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="apellidos" placeholder="Apellidos" value="{{apellidos}}">
+                    <input type="text" name="last_names" placeholder="Apellidos" value="{{last_names}}">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="age" placeholder="Edad" value="{{age}}">
                 </div>
                 <div class="form-group">
                     <input type="email" name="email" placeholder="Email" value="{{email}}">
@@ -20,8 +23,31 @@
                 <div class="form-group">
                     <input type="password" name="confirm_password" placeholder="Confirma la contraseña">
                 </div>
+                <div>
+                    <p>Seleccione los ingredientes a los que es alergico</p>
+                    <input type="checkbox" id="almendra" name="elements" value="almendra">
+                        <label for="almendra">Almendra</label><br>
+                    <input type="checkbox" id="cacahuate" name="elements" value="cacahuate">
+                        <label for="cacahuate">Cacahuate</label><br>
+                    <input type="checkbox" id="chocolate" name="elements" value="chocolate">
+                        <label for="chocolate">Chocolate</label><br>
+                    <input type="checkbox" id="nuez" name="elements" value="nuez">
+                        <label for="nuez">Nuez</label><br>
+                    <input type="checkbox" id="fresa" name="elements" value="fresa">
+                        <label for="fresa">Fresa</label><br>
+                    <input type="checkbox" id="gluten" name="elements" value="gluten">
+                        <label for="gluten">Gluten</label><br>
+                    <input type="checkbox" id="huevo" name="elements" value="huevo">
+                        <label for="huevo">Huevo</label><br>
+                    <input type="checkbox" id="lacteo" name="elements" value="lacteo">
+                        <label for="lacteo">Lacteo</label><br>
+                    <input type="checkbox" id="tamarindo" name="elements" value="tamarindo">
+                        <label for="tamarindo">Tamarindo</label><br>
+                    <input type="checkbox" id="soya" name="elements" value="soya">
+                        <label for="soya">Soya</label><br>
+                </div>
                 <button>
-                    Signup
+                    Registrarse
                 </button>
             </form>
         </div>
