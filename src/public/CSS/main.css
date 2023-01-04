@@ -1,5 +1,8 @@
-body {
-    background-color: cyan;
+:root{
+  --blanco:#ffff; 
+  --rosa:#F31260;
+
+  
 }
 .parent {
     border: 1px solid black;
@@ -47,3 +50,38 @@ body {
   .dropdown:hover .dropdown-content {display: block;}
   
   .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+  .sombra{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+  }
+  .gradienteRosa{
+    background: linear-gradient(180deg, #FF512F 0%, #DD2476 100%);
+  }
+
+  .fondo{
+    background: radial-gradient(167.67% 167.67% at -41.91% -23.88%, rgba(255, 78, 80, 0.9) 27.1%, rgba(255, 235, 57, 0.9) 55.96%, rgba(231, 96, 67, 0.9) 89.86%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    width: 100%;
+    min-height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .rectangulo{
+    background: var(--blanco);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 66px;
+
+  }
+
+  .titulo{
+    font-family: 'Bungee Inline';
+    color: var(--rosa);
+  }
+
+  .titulo2{
+    font-family: 'Poppins', bold;
+    font-weight: 700;
+    color: var(--rosa);
+  }
