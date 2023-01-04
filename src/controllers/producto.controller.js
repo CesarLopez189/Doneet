@@ -19,6 +19,11 @@ productoCtrl.renderProductos = async (req, res) => {
     res.render('productos/all-productos', { productos });
 };
 
+productoCtrl.renderProducto = async (req, res) => {
+    const producto = await Producto.findById(req.params.id).lean();
+    res.render('productos/ver-producto', { producto });
+};
+
 productoCtrl.renderEditForm = async (req, res) => {
     const producto = await Producto.findById(req.params.id).lean();
     res.render('productos/edit-producto', { producto });
