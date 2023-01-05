@@ -1,6 +1,9 @@
+
+
 :root{
   --blanco:#ffff; 
   --rosa:#F31260;
+  --gris:#544E5C;
 
   
 }
@@ -75,6 +78,13 @@
 
   }
 
+  .rectangulo1{ /* inputs registro*/
+    background: #F0F0F0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    
+  }
+
   .titulo{
     font-family: 'Bungee Inline';
     color: var(--rosa);
@@ -82,6 +92,97 @@
 
   .titulo2{
     font-family: 'Poppins', bold;
-    font-weight: 700;
+    font-weight: 650;
     color: var(--rosa);
   }
+   
+  .titulo3{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 21px;
+  }
+
+  .titulo4{
+    font-family: 'Roboto';
+    font-style: normal;
+    color: var(--blanco);
+    font-weight: 700;
+  }
+
+  .form-element {
+    position:relative;
+    width:100px;
+    height:100px;
+    margin: 6px;
+  }
+  .form-element input {
+    display:none;
+  }
+  .form-element label {
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    height:100%;
+    cursor:pointer;
+    border:2px solid #ddd;
+    background:#fff;
+    box-shadow:0px 5px 20px 2px rgba(0,0,0,0.1);
+    text-align:center;
+    transition:all 200ms ease-in-out;
+    border-radius:5px;
+  }
+  .form-element .icon {
+    margin-top:10px;
+    font-size:30px;
+    color:#555;
+    transition:all 200ms ease-in-out;
+  }
+  .form-element .title {
+    font-size:15px;
+    color:#555;
+    padding:5px 0px;
+    transition:all 200ms ease-in-out;
+  }
+  .form-element label:before {
+    content:"✓";
+    position:absolute;
+    width:18px;
+    height:18px;
+    top:8px;
+    left:8px;
+    background:#0d0df1;
+    color:#fff;
+    text-align:center;
+    line-height:18px;
+    font-size:14px;
+    font-weight:600;
+    border-radius:50%;
+    opacity:0;
+    transform:scale(0.5);
+    transition:all 200ms ease-in-out;
+  }
+  .form-element input:checked + label:before {
+    opacity:1;
+    transform:scale(1);
+  }
+  .form-element input:checked + label .icon {
+    color:#0d0df1;
+  }
+  .form-element input:checked + label .title {
+    color:#0d0df1;
+  }
+  .form-element input:checked + label {
+    border:2px solid #0d0df1;
+  }
+ .list{
+  display: flex;
+  flex-wrap: wrap;
+ }
+
+ .btn-warning{
+  width: 302px;
+
+ }
