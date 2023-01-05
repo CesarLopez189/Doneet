@@ -21,53 +21,52 @@
     {{else}}
     <a href="/usuarios/signin">Acceder</a>
     <a href="/usuarios/signup">Registrar</a>
-    {{/if}} -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary sombra m-4">
-    <div class="container-fluid">
-        <img src="/images/000Logo.png" alt="Logo" class="d-inline-block align-text-top Responsive image">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-            aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    {{/if}} --> 
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sombra m-4">
+  <div class="container-fluid">
+    <img src="/images/000Logo.png" alt="Logo" class="d-inline-block align-text-top R
+    esponsive image">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/productos" >Dulces</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle dropbtn gradienteRosa " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorias
+          </a>
+          <ul class="dropdown-content center ">
+           <a href="#">Polvorosos</a>
+                <a href="#">Chocolates</a>
+                <a href="#">Caramelo Suave</a>
+                <a href="#">Biscochos</a>
+                <a href="#">Picosos</a>
+                <a href="#">Típicos</a>
+                <a href="#">Paletas</a>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Link</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar dulces" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+      {{#if user}}
+    <a href="/perfil" class="nav-link disabled p-2">Perfil</a>
+    <a href="/usuarios/logout ">Cerrar sesión</a>
+    {{else}}
+    <a href="/usuarios/signin" class="nav-link active p-2">Acceder</a>
+    <a href="/usuarios/signup" class="nav-link active p-2">Registrar</a>
+    {{/if}}
 
-        <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="/productos">Dulces</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle dropbtn gradienteRosa " href="#" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Categorias
-                    </a>
-                    <ul class="dropdown-content center ">
-                        <a href="#">Polvorosos</a>
-                        <a href="#">Chocolates</a>
-                        <a href="#">Caramelo Suave</a>
-                        <a href="#">Biscochos</a>
-                        <a href="#">Picosos</a>
-                        <a href="#">Típicos</a>
-                        <a href="#">Paletas</a>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Link</a>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar dulces" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Buscar</button>
-            </form>
-            {{#if user}}
-            <a href="/perfil" class="nav-link disabled p-2">Perfil</a>
-            <a href="/usuarios/logout ">Cerrar sesión</a>
-            {{else}}
-            <a href="/usuarios/signin" class="nav-link active p-2">Acceder</a>
-            <a href="/usuarios/signup" class="nav-link active p-2">Registrar</a>
-            {{/if}}
-        </div>
     </div>
 </nav>
