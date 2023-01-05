@@ -21,44 +21,40 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Poppins:wght@500;800&display=swap"
-        rel="stylesheet">
-</head>
-
 <body>
     <section>
-        <div class="container-xl rectangulo">
+        <div class="container-xl rectangulo p-4">
             <div class="row">
+                
                 <!--Columna izquierda-->
-                <div class="col">
-                    <h5 class="card-title"
-                        style="text-align:center; color:#F31260; font-family: 'Poppins', sans-serif; font-style:normal; font-weight:700; font-size: 40px; position:relative; top:95px;">
-                        ¡Bienvenido de nuevo!
-                    </h5>
-                    
-                    <!--Container que tiene toda la parte de los inputs y el boton-->
-                    <div class="container-fluid" style="position:relative; top:145px;">
-                        <div class="mb-3">
-                            <label for="nombreDeUsuario" class="form-label">Nombre de usuario</label>
-                            <input type="text" class="form-control" id="nombreDeUsuario" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50px;">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="contrasenia" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="contrasenia" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 50px;">
-                        </div>
-
-                        <button type="submit" class="btn btn-warning">Iniciar
-                            Sesión</button>
+                <div class="col gx-5">
+                    <h2 class="titulo2 p-5 gy-5" align="CENTER" >¡Bienvenido de nuevo!</h2>
+                    <center>
+                    <div class="col-6"> 
+                    <h5 class="titulo3 p-2" align="left">Ingresa tu correo electronico </h5>
+                    <input type="emial" class="form-control form-control-sm rectangulo1" name="email" placeholder="correo electronico" >
+                    <h5 class="titulo3 pt-4 p-2" align="left"> Ingresa tu contraseña </h5>
+                    <input type="password" class="form-control form-control-sm rectangulo1" name="password" placeholder="contraseña">
                     </div>
-                </div>
+                    </center>
+
+                
+
+                        <div class="col-12 gy-2 p-4 "align="CENTER">
+                            <button type="button" class="btn btn-warning titulo4 gy-2" >Iniciar Sesion</button>
+                            <p class="p-2 titulo5">¿No tienes cuenta? <a href="https://www.google.com/search?client=opera-gx&q=margin+y+padding&sourceid=opera&ie=UTF-8&oe=UTF-8#imgrc=z8mTN75juZlaBM">Registrate</a></p>
+                        </div>
+                    <!--Container que tiene toda la parte de los inputs y el boton-->
+                        
+                    </div>
+                
                 <!--Columna derecha-->
-                <div class="col">
-                    <img src="/images/Allura_Giant_Phone.png" class="img-fluid" alt="Responsive image"
-                        style="float: right;">
+                <div class="col" align="CENTER">
+                    
+                    <img src="/images/02imagenlogin.png" class="img-fluid  " alt="Responsive image"  >
+
+                    
+                </div>
                 </div>
             </div>
         </div>

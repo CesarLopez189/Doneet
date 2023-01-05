@@ -111,6 +111,14 @@
     font-weight: 700;
   }
 
+  .titulo5{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--gris);
+  }
+
   .form-element {
     position:relative;
     width:100px;
@@ -186,3 +194,5 @@
   width: 302px;
 
  }
+
+ 
