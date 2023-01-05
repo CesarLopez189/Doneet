@@ -3,9 +3,9 @@ const {Schema, model} = require('mongoose')
 const ProductoSchema = new Schema({
     nombre: {type:String, required: true},
     marca: {type: String, required: true},
-    categoria: {type: String, required: true},
-    elementos: {type: Object, default: [], required: true},
-    imagenes: {type: Object, default: [], required: true}
+    categoria: {type: [], required: true},
+    elementos: {type: [], required: true},
+    imagenes: {type: [], required: true}
 }, {
     timestamps: true
 })
