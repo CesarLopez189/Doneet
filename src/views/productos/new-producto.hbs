@@ -3,7 +3,7 @@
         <h3>New Producto</h3>
     </div>
     <div class="card-body">
-        <form action="/producto/new-producto" method="POST">
+        <form action="/producto/new-producto" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <textarea name="nombre" placeholder="Nombre"></textarea>
             </div>
@@ -55,13 +55,24 @@
                     <input type="checkbox" id="soya" name="elementos" value="soya">
                         <label for="soya">Soya</label><br>
                 </div>
+            <!--
             <div class="form-group">
                 <textarea name="imagenes" placeholder="Imagene 1"></textarea>
             </div>
             <div class="form-group">
                 <textarea name="imagenes" placeholder="Imagene 2"></textarea>
-            </div>            
-            <div class="form-group">
+            </div> -->
+            <br>
+            <div>
+            <p>Imagen 1</p>
+            <input type="file" name="image">
+            </div>
+             <br>
+            <div>
+            <p>Imagen 2</p>
+            <input type="file" name="image">
+            </div>
+            <div class="form-group" >
                 <button class="btn">
                     Save
                 </button>
