@@ -36,7 +36,7 @@ const upload = multer({
         }
         cb("Error: Archivo debe ser una imagen valida");
     }
-}).single("image")
+}).array("image")
 
 router.post('/producto/new-producto', upload, createNewProducto);
 
