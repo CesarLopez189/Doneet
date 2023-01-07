@@ -15,6 +15,7 @@ const {
     renderProductoForm, 
     createNewProducto, 
     renderProductos,
+    renderProductoSus,
     renderProducto, 
     renderEditForm, 
     updateProducto, 
@@ -44,7 +45,7 @@ router.post('/producto/new-producto', upload, createNewProducto);
 router.get('/productos', renderProductos);
 
 // Get Producto
-router.get('/producto/ver/:id', renderProductos);
+router.get('/producto/ver/:id', renderProducto);
 
 // Edit Productos
 router.get('/producto/edit/:id', renderEditForm);

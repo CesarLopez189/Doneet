@@ -1,19 +1,22 @@
-<h1>NOMBRE DE PRODUCTO</h1>
+<h1>{{producto.nombre}}</h1>
 <div>
     <div>imagen de producto</div>
     <div>imagen de sus componentes</div>
-    <p>elementos alergicos</p>
-    <p>tipos de dulces (categoria)</p>    
+    <p>Elementos: {{producto.elementos}}</p>
+    <p>Categoria: {{producto.categoria}}</p>    
 </div>
 <div>
     <h2>Sustitutos</h2>
     <div class="child">
-    <p>...lugar de sustitutos</p>
-        {{#each productos}}
+    <p>...lugar de sustitutos</p>         
+        
+        {{#each productoSus}}
             <div class="card">
                     <h4>{{nombre}}</h4>
                     <p>{{marca}}</p>
                     <p>{{imagenes}}</p>
+                    <p>{{elementos}}</p>
+                    <p>{{categoria}}</p>
             </div>
         {{/each}}
     </div>

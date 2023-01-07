@@ -20,8 +20,22 @@ productoCtrl.renderProductos = async (req, res) => {
 };
 
 productoCtrl.renderProducto = async (req, res) => {
-    const productos = await Producto.findById(req.params.id).lean();
-    res.render('productos/ver-producto', { productos });
+    console.log(req.params);
+    const producto = await Producto.findById(req.params.id).lean();
+    console.log(producto);
+    const productoSus = await Producto.find(
+        {
+          //'$match': {
+           // 'categoria': "picoso", 
+           // 'elementos': {'$nin': "cacahuate"}
+           // 'categoria': {'$in': ["picoso", "chocolate"]}, 
+           // 'elementos': {'$nin': ["cacahuate"]}
+            'categoria': {'$in': producto.categoria}, 
+            'elementos': {'$nin': producto.elementos}
+         // }
+        }
+    ).lean();
+    res.render('productos/ver-producto', { producto, productoSus });
 };
 
 productoCtrl.renderEditForm = async (req, res) => {
