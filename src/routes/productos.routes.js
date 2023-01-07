@@ -15,6 +15,7 @@ const {
     renderProductoForm, 
     createNewProducto, 
     renderProductos,
+    renderProductoSus,
     renderProducto, 
     renderEditForm, 
     updateProducto, 
