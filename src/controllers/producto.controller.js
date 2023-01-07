@@ -20,6 +20,13 @@ productoCtrl.renderProductos = async (req, res) => {
     res.render('productos/all-productos', { productos });
 };
 
+productoCtrl.renderSearchProducto = async (req, res) => {
+    const searchproducto = await Producto.find(
+        {'nombre': { $regex: /pa/ }}        
+    ).lean();
+    res.render('productos/search-produco', { searchproducto });
+};
+
 productoCtrl.renderProducto = async (req, res) => {
     console.log(req.params);
     const producto = await Producto.findById(req.params.id).lean();
