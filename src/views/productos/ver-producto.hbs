@@ -8,16 +8,19 @@
 <div>
     <h2>Sustitutos</h2>
     <div class="child">
-    <p>...lugar de sustitutos</p>         
-        
-        {{#each productoSus}}
-            <div class="card">
-                    <h4>{{nombre}}</h4>
-                    <p>{{marca}}</p>
-                    <p>{{imagenes}}</p>
-                    <p>{{elementos}}</p>
-                    <p>{{categoria}}</p>
-            </div>
-        {{/each}}
+    <p>...lugar de sustitutos</p>
+        {{#if productoSus}}                 
+            {{#each productoSus}}
+                <div class="card">
+                        <h4>{{nombre}}</h4>
+                        <p>{{marca}}</p>
+                        <p>{{imagenes}}</p>
+                        <p>{{elementos}}</p>
+                        <p>{{categoria}}</p>
+                </div>
+            {{/each}}
+        {{else}}
+            <p>No hay sustitutos en datos...</p>
+        {{/if}}
     </div>
 </div>

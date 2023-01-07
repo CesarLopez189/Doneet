@@ -1,6 +1,7 @@
 const productoCtrl = {};
 
 const Producto = require('../models/Producto');
+const Usuario = require('../models/Usuario');
 
 productoCtrl.renderProductoForm = (req, res) => {
     res.render('productos/new-producto');
@@ -22,7 +23,7 @@ productoCtrl.renderProductos = async (req, res) => {
 productoCtrl.renderProducto = async (req, res) => {
     console.log(req.params);
     const producto = await Producto.findById(req.params.id).lean();
-    console.log(producto);
+    //console.log(producto);
     const productoSus = await Producto.find(
         {
           //'$match': {
@@ -30,7 +31,8 @@ productoCtrl.renderProducto = async (req, res) => {
            // 'elementos': {'$nin': "cacahuate"}
            // 'categoria': {'$in': ["picoso", "chocolate"]}, 
            // 'elementos': {'$nin': ["cacahuate"]}
-            'categoria': {'$in': producto.categoria}, 
+            'categoria': {'$in': producto.categoria},
+           // 'elementos': {'$nin': Usuario.elementos}
             'elementos': {'$nin': producto.elementos}
          // }
         }
