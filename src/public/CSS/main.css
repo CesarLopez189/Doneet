@@ -258,10 +258,10 @@
   text-align: center;
   min-height: 280px;
   height: auto;
-  min-width:170px;/*Este es para la anchura de la targeta*/
+  min-width: 170px; /*Este es para la anchura de la targeta*/
   width: auto;
   border-radius: 10px;
-  color: #fff;
+  color: #fff;  /*Color de la letra*/
   font-size: 1.5rem;
 }
 
@@ -371,19 +371,19 @@
   transform-style: preserve-3d;
 }
 
-.frontCard .innerCard p{
+.frontCard .innerCard p {
   font-size: 2rem;
   margin-bottom: 2rem;
   position: relative;
-  font-family:'Arvo', serif;
+  font-family: 'Arvo', serif;
 }
 
-.frontCard .innerCard p:after{
+.frontCard .innerCard p:after {
   content: '';
   width: 4rem;
   height: 2px;
   position: absolute;
-  background-color: rgb(255,255,255,.65);
+  background-color: rgb(255, 255, 255, .65);
   display: block;
   left: 0;
   right: 0;
@@ -391,60 +391,66 @@
   bottom: -.75rem;
 }
 
-.frontCard .innerCard span{
-  color: rgba(255,255,255,.85);
+.frontCard .innerCard span {
+  color: rgba(255, 255, 255, .85);
   font-family: 'Arvo', serif;
   font-weight: 300;
-  font-size:1rem
+  font-size: 1rem
 }
 
-@media screen and (max-width: 85rem){
-  .columnaCard{
+@media screen and (max-width: 85rem) {
+  .columnaCard {
     width: calc(30% - 2rem);
     margin: 0 2rem 1.5rem;
   }
 }
 
-@media screen and (max-width: 60rem){
-  .columnaCard{
+@media screen and (max-width: 60rem) {
+  .columnaCard {
     width: calc(33.333% - 3rem);
     margin: 0 1rem 1.5rem;
   }
 }
 
-@media screen and (max-width: 48rem){
-  .columnaCard{
+@media screen and (max-width: 48rem) {
+  .columnaCard {
     width: calc(50% - 2rem);
     margin: 0 1rem 1.5rem;
   }
 }
 
-@media screen and (max-width: 32rem){
-  .columnaCard{
+@media screen and (max-width: 32rem) {
+  .columnaCard {
     width: 100%;
     margin: 0 2.5rem 1.5rem;
   }
+
   h1.logo {
     text-align: center;
-  margin: 2rem 0 0 ;
-  font-size: 2.5rem;
+    margin: 2rem 0 0;
+    font-size: 2.5rem;
     font-family: 'Arvo', serif;
-  font-weight: normal;
+    font-weight: normal;
     color: #555;
-  letter-spacing:-.5px;
-}
-  p.sm-logo {
-    font-family: 'Arvo', serif;
-  text-align: center;
-  font-weight:600;
-  color:#12a79d; 
-  letter-spacing: 29.5px;
-  margin:0 0 2.5rem 1.8rem;
-  }
-  
-  h2 {
-    margin: 2rem 0 1rem;
-    font-size:1.25rem;
+    letter-spacing: -.5px;
   }
 
+  p.sm-logo {
+    font-family: 'Arvo', serif;
+    text-align: center;
+    font-weight: 600;
+    color: #12a79d;
+    letter-spacing: 29.5px;
+    margin: 0 0 2.5rem 1.8rem;
+  }
+
+  h2 {
+    margin: 2rem 0 1rem;
+    font-size: 1.25rem;
+  }
+
+}
+
+.buttonCard{
+  color: deeppink;
 }

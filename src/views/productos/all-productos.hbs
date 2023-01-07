@@ -1,3 +1,4 @@
+<!--
 <div class="parent">
     <div class='child'>
         <h3>Filtros</h3>
@@ -25,9 +26,7 @@
     {{/each}}
     </div>    
 </div>
-
-
-
+-->
 
 <body>
     <section>
@@ -45,15 +44,28 @@
                         <div class="backCard" style="background-image: url(/images/ACIDULADITO.jpg);">
                             <div class="innerCard">
                                 <p>Dulce suave picoso</p>
+
+                                <!--Aqui son los botones detras de la tarjeta-->
+                                <div class="buttonCard">
+                                    <!--boton DELETE-->
+                                    <form action="/producto/delete/{{_id}}?_method=DELETE"
+                                        method="POST">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="sumbmit">Delete</button>
+                                    </form>
+                                    <!--Boton VER-->
+                                    <form action="" method="">
+                                        <input type="hidden" name="" value="VER">
+                                        <button type="submit" href="/producto/ver/{{_id}}">Ver</button>
+                                    </form>
+                                    <!--Boton Editar-->
+                                    <form action="" method="">
+                                        <input type="hidden" name="" value="VER">
+                                        <button type="submit" href="/producto/ver/{{_id}}">Editar</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
-                        <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="sumbmit">Delete</button>
-                        </form>
-                        <a href="/producto/ver/{{_id}}"><i>icono_ver</i></a>
-                        
                     </div>
                 </div>
                 <!--Tarjeta 2-->
@@ -645,4 +657,3 @@
         </div>
     </section>
 </body>
-
