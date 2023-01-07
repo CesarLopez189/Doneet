@@ -22,7 +22,11 @@ productoCtrl.renderProductos = async (req, res) => {
 
 productoCtrl.renderSearchProducto = async (req, res) => {
     const searchproducto = await Producto.find(
-        {'nombre': { $regex: /pa/ }}        
+        {
+            //'nombre': "panditas"
+            'nombre': { $regex: /ta/ } //regex: regular expretion, /ta/ : en SQL: like %ta% o regular *ta*
+        }
+        
     ).lean();
     res.render('productos/search-produco', { searchproducto });
 };
