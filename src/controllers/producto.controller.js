@@ -20,8 +20,8 @@ productoCtrl.renderProductos = async (req, res) => {
 };
 
 productoCtrl.renderProducto = async (req, res) => {
-    const producto = await Producto.findById(req.params.id).lean();
-    res.render('productos/ver-producto', { producto });
+    const productos = await Producto.findById(req.params.id).lean();
+    res.render('productos/ver-producto', { productos });
 };
 
 productoCtrl.renderEditForm = async (req, res) => {

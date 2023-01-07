@@ -44,7 +44,7 @@ router.post('/producto/new-producto', upload, createNewProducto);
 router.get('/productos', renderProductos);
 
 // Get Producto
-router.get('/producto/ver/:id', renderProducto);
+router.get('/producto/ver/:id', renderProductos);
 
 // Edit Productos
 router.get('/producto/edit/:id', renderEditForm);
