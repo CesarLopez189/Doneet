@@ -1,0 +1,17 @@
+<div class="parent">
+    <h3>Oja</h3>
+    <div class="child">
+        {{#if searchproducto}}    
+            {{#each searchproducto}}
+                <div class="card">
+                    <h4>{{nombre}} </h4>
+                    <p>{{marca}}</p>
+                    <p>{{imagenes}}</p>
+                    <a href="/producto/ver/{{_id}}"><i>icono_ver</i></a>
+                </div>
+            {{/each}}
+                {{else}}
+                <p>No hay el producto en datos...</p>
+        {{/if}}
+    </div>    
+</div>
