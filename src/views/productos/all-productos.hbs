@@ -47,6 +47,13 @@
                                 <p>Dulce suave picoso</p>
                             </div>
                         </div>
+
+                        <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="sumbmit">Delete</button>
+                        </form>
+                        <a href="/producto/ver/{{_id}}"><i>icono_ver</i></a>
+                        
                     </div>
                 </div>
                 <!--Tarjeta 2-->
