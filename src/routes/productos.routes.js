@@ -16,7 +16,8 @@ const {
     createNewProducto, 
     renderProductos,
     renderProductoSus,
-    renderProducto, 
+    renderProducto,
+    renderSearchProducto, 
     renderEditForm, 
     updateProducto, 
     deleteProducto 
@@ -46,6 +47,10 @@ router.get('/productos', renderProductos);
 
 // Get Producto
 router.get('/producto/ver/:id', renderProducto);
+
+// Search Producto
+router.get('/producto/search', renderSearchProducto);
+//router.get('/producto/search/:nombre', renderSearchProducto);
 
 // Edit Productos
 router.get('/producto/edit/:id', renderEditForm);
