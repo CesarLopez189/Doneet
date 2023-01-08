@@ -56,8 +56,8 @@
           <a class="nav-link disabled">Link</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar dulces" aria-label="Search">
+      <form class="d-flex" role="search" action="/producto/search" method="POST" >
+        <input class="form-control me-2" type="search" name="item" placeholder="Buscar dulces" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
       {{#if user}}
