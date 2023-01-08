@@ -10,6 +10,10 @@ productoCtrl.renderProductoForm = (req, res) => {
 productoCtrl.createNewProducto = async (req, res) => {
     const {nombre, marca, categoria, elementos, imagenes} = req.body;
     const newProducto = new Producto({nombre, marca, categoria, elementos, imagenes});
+    const filearray=req.files;
+    const arrayFN=[];
+    filearray.forEach(elem=>arrayFN.push(`/images/${elem.filename}`))
+    newProducto.imagenes = arrayFN;
     await newProducto.save();
     req.flash('success_msg', 'Producto Agregado Correctamente');
     res.redirect('/productos');
@@ -20,8 +24,14 @@ productoCtrl.renderProductos = async (req, res) => {
     res.render('productos/all-productos', { productos });
 };
 
+productoCtrl.renderProdCategory = async (req, res) => {
+    await Producto.find({ categoria: { $all: [req.body.categoria]} }).lean()
+        .then(productos => res.render('productos/all-productos', { productos }))
+        .catch(e => console.log("Ha ocurrido un error: ", e));
+};
+
 productoCtrl.renderSearchProducto = async (req, res) => {
-    await Producto.find({ nombre: req.body.item }).lean()
+    await Producto.find({ nombre: { '$regex': `^${req.body.item}$`, $options: 'i' } }).lean()
         .then(searchproducto => res.render('productos/search-produco', { searchproducto }))
         .catch(e => console.log("Ha ocurrido un error: ", e));
 };
