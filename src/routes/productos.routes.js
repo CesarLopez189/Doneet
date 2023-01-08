@@ -64,4 +64,6 @@ router.put('/producto/edit/:id', updateProducto);
 // Delete Producto
 router.delete('/producto/delete/:id', deleteProducto);
 
+
+
 module.exports = router;
