@@ -10,8 +10,4 @@ const ProductoSchema = new Schema({
     timestamps: true
 })
 
-ProductoSchema.methods.setImgUrl = function setImgUrl (filename) {
-    this.imagenes = `http://localhost:4000/public/images/${filename}`
-}
-
 module.exports = model('Producto', ProductoSchema);
