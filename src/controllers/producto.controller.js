@@ -21,14 +21,9 @@ productoCtrl.renderProductos = async (req, res) => {
 };
 
 productoCtrl.renderSearchProducto = async (req, res) => {
-    const searchproducto = await Producto.find(
-        {
-            //'nombre': "panditas"
-            'nombre': { $regex: /ta/ } //regex: regular expretion, /ta/ : en SQL: like %ta% o regular *ta*
-        }
-        
-    ).lean();
-    res.render('productos/search-produco', { searchproducto });
+    await Producto.find({ nombre: req.body.item }).lean()
+        .then(searchproducto => res.render('productos/search-produco', { searchproducto }))
+        .catch(e => console.log("Ha ocurrido un error: ", e));
 };
 
 productoCtrl.renderProducto = async (req, res) => {

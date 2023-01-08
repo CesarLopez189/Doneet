@@ -49,7 +49,7 @@ router.get('/productos', renderProductos);
 router.get('/producto/ver/:id', renderProducto);
 
 // Search Producto
-router.get('/producto/search', renderSearchProducto);
+router.post('/producto/search', renderSearchProducto);
 //router.get('/producto/search/:nombre', renderSearchProducto);
 
 // Edit Productos
