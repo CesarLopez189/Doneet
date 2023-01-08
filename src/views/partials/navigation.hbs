@@ -24,17 +24,14 @@
     {{/if}} --> 
     <nav class="navbar navbar-expand-lg bg-body-tertiary sombra m-4">
   <div class="container-fluid">
-    <img src="/images/000Logo.png" alt="Logo" class="d-inline-block align-text-top R
-    esponsive image">
+    <a class="nav-link active" aria-current="page" href="/"><img src="/images/000Logo.png" alt="Logo" class="d-inline-block align-text-top R
+    esponsive image"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link " href="/productos" >Dulces</a>
         </li>
@@ -43,13 +40,14 @@
             Categorias
           </a>
           <ul class="dropdown-content center ">
-           <a href="#">Polvorosos</a>
-                <a href="#">Chocolates</a>
-                <a href="#">Caramelo Suave</a>
-                <a href="#">Biscochos</a>
-                <a href="#">Picosos</a>
-                <a href="#">Típicos</a>
-                <a href="#">Paletas</a>
+            <form action="/productos-category" method="post" >
+              <input type="submit" value="polvoroso" name="categoria" />
+              <input type="submit" value="chocolate" name="categoria" />
+              <input type="submit" value="picoso" name="categoria" />
+              <input type="submit" value="gomita" name="categoria" />
+              <input type="submit" value="tipicos" name="categoria" />
+              <input type="submit" value="paletas" name="categoria" />
+            </form>
           </ul>
         </li>
         <li class="nav-item">

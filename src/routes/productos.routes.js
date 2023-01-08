@@ -20,7 +20,8 @@ const {
     renderSearchProducto, 
     renderEditForm, 
     updateProducto, 
-    deleteProducto 
+    deleteProducto, 
+    renderProdCategory
 } = require('../controllers/producto.controller');
 
 // New producto
@@ -44,6 +45,9 @@ router.post('/producto/new-producto', upload, createNewProducto);
 
 // Get All Productos
 router.get('/productos', renderProductos);
+
+
+router.post('/productos-category', renderProdCategory);
 
 // Get Producto
 router.get('/producto/ver/:id', renderProducto);
