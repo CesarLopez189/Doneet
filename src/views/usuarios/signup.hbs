@@ -1,224 +1,233 @@
 <section> 
-    <div class="container-sm rectangulo p-4 "> 
+  <div class="container-sm rectangulo p-4 "> 
     <form action="/usuarios/signup" method="POST">
-    <div class="row ">
-               
-            <div class="col"> 
-                <h2 class="titulo2 px-5 m-2">Registro de cuenta</h2>
-                    <img src="/images/01imagenregistro.png" class="img-fluid" alt="Responsive image">
-                    
-                    
-                
-            </div>
+      <div class="row ">
+
+        <div class="col"> 
+          <h2 class="titulo2 px-5 m-2">Registro de cuenta</h2>
+          <img src="/images/01imagenregistro.png" class="img-fluid" alt="Responsive image">
+        </div>
             
-                <div class="col-7">
-                <div class="row"> 
-                
-                <div class="col ">
-                    <h5 class="titulo3"> Ingresa tu nombre </h5>
-                    <input type="text" class="form-control form-control-sm rectangulo1" name="name" placeholder="nombre" aria-label="First name" value="{{name}}">
-                    <h5 class="titulo3 pt-3"> Ingresa tu edad </h5>
-                    <input type="number" class="form-control form-control-sm rectangulo1" name="age" placeholder="edad"  value="{{age}}">
-                    <h5 class="titulo3 pt-3"> Ingresa tu contraseña </h5>
-                    <input type="password" class="form-control form-control-sm rectangulo1" name="password" placeholder="contraseña">
-    
+        <div class="col-7">
+            
+          <div class="row"> 
+              
+            <div class="col ">
+                <h5 class="titulo3"> Ingresa tu nombre </h5>
+                <input type="text" class="form-control form-control-sm rectangulo1" name="name" placeholder="nombre" aria-label="name" value="{{name}}">
+                <h5 class="titulo3 pt-3"> Ingresa tu edad </h5>
+                <input type="text" class="form-control form-control-sm rectangulo1" name="age" placeholder="edad"  value="{{age}}">
+                <h5 class="titulo3 pt-3"> Ingresa tu contraseña </h5>
+                <input type="password" class="form-control form-control-sm rectangulo1" name="password" placeholder="contraseña">
             </div>
+
             <div class="col gx-5">
-                <h5 class="titulo3"> Ingresa tus apellidos </h5>
-                    <input type="text" class="form-control form-control-sm rectangulo1 " name="last_name" placeholder="apellidos" aria-label="last_name" value="{{last_names}}">
-                    <h5 class="titulo3 pt-3"> Ingresa tu correo electronico </h5>
-                    <input type="email" class="form-control form-control-sm rectangulo1" name="email" placeholder="email"  value="{{email}}">
-                    <h5 class="titulo3 pt-3"> Ingresa tu correo electronico </h5>
-                    <input type="password" class="form-control form-control-sm rectangulo1" name="confirm_password" placeholder="confirma la contraseña">
-        
+              <h5 class="titulo3"> Ingresa tus apellidos </h5>
+              <input type="text" class="form-control form-control-sm rectangulo1 " name="last_names" placeholder="apellidos" aria-label="last_names" value="{{last_names}}">
+              <h5 class="titulo3 pt-3"> Ingresa tu correo electronico </h5>
+              <input type="email" class="form-control form-control-sm rectangulo1" name="email" placeholder="email"  value="{{email}}">
+              <h5 class="titulo3 pt-3"> Ingresa tu correo electronico </h5>
+              <input type="password" class="form-control form-control-sm rectangulo1" name="confirm_password" placeholder="confirma la contraseña">
             </div>
-            </div>
-            <div class="row">
-        <h2 class="gy-4 titulo3" align="CENTER">Seleccione los ingredientes a los que es alérgico</h2>
-        <div class="list">
-        <div class="form-element">
-        <input type="checkbox" name="elements" value="huevo" id="huevo">
-        <label for="huevo">
-        <div class="icon">
-          <i class="fa fa-egg"></i>
-        </div>
-        <div class="title">
-          huevo
-        </div>
-      </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="fresa" id="fresa">
-            <label for="fresa">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                fresa
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="lacteo" id="lacteo">
-            <label for="lacteo">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                lacteo
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="almendra" id="almendra">
-            <label for="almendra">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                almendra
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="cacahuate" id="cacahuate">
-            <label for="cacahuate">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                cacahuate
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="chocolate" id="chocolate">
-            <label for="chocolate">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                chocolate
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="nuez" id="nuez">
-            <label for="nuez">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                nuez
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="gluten" id="gluten">
-            <label for="gluten">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                gluten
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="tamarindo" id="tamarindo">
-            <label for="tamarindo">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                tamarindo
-                </div>
-            </label>
-      </div>
-      <div class="form-element">
-        <input type="checkbox" name="elements" value="soya" id="soya">
-            <label for="soya">
-                <div class="icon">
-                    <i class="fa fa-kiwi-fruit"></i>
-                 </div>
-                <div class="title">
-                soya
-                </div>
-            </label>
-      </div>
-</div>
+          </div>
+            
+          <div class="row">
+            <h2 class="gy-4 titulo3" align="CENTER">Seleccione los ingredientes a los que es alérgico</h2>
+            <div class="list">
 
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="huevo" id="huevo">
+                <label for="huevo">
+                  <div class="icon">
+                    <i class="fa fa-egg"></i>
+                  </div>
+                  <div class="title">
+                    huevo
+                  </div>
+                </label>
+              </div>
+      
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="fresa" id="fresa">
+                <label for="fresa">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    fresa
+                  </div>
+                </label>
+              </div>
 
-    </div>
-    <div class="col-11 gy-2"align="CENTER">
-        <button type="button" class="btn btn-warning titulo4" >Crear cuenta</button>
-    </div>
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="lacteo" id="lacteo">
+                <label for="lacteo">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    lacteo
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="almendra" id="almendra">
+                <label for="almendra">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    almendra
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="cacahuate" id="cacahuate">
+                <label for="cacahuate">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    cacahuate
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="chocolate" id="chocolate">
+                <label for="chocolate">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    chocolate
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="nuez" id="nuez">
+                <label for="nuez">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    nuez
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="gluten" id="gluten">
+                <label for="gluten">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    gluten
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="tamarindo" id="tamarindo">
+                <label for="tamarindo">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    tamarindo
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-element">
+                <input type="checkbox" name="elements" value="soya" id="soya">
+                <label for="soya">
+                  <div class="icon">
+                    <i class="fa fa-kiwi-fruit"></i>
+                  </div>
+                  <div class="title">
+                    soya
+                  </div>
+                </label>
+              </div>
             </div>
-        
-        
-        
+          </div>
+          
+          <div class="col-11 gy-2" align="CENTER">
+            <button class="btn btn-warning titulo4">Registrarse</button>
+          </div>
         </div>
-    </div>
+      </div>
     </form>
-        </div>
-   
+  </div>  
 </section>
 
 
-<!--<div class="row">
-    <div class="card">
-        <div class="card-header">
-            Registro de Cuenta
+<!--
+<div class="container-sm rectangulo p-4">  
+
+  <form action="/usuarios/signup" method="POST">
+
+    <div class="row">
+    
+      <div class="col"> 
+        <h2 class="titulo2 px-5 m-2">Registro de cuenta</h2>
+        <img src="/images/01imagenregistro.png" class="img-fluid" alt="Responsive image">
+      </div>
+
+      <div></div>
+
+      <div class="col ">
+        <h5 class="titulo3"> Ingresa tu nombre </h5>
+        <input type="text" class="form-control form-control-sm rectangulo1" name="name" placeholder="nombre" aria-label="name" value="{{name}}">
+        <h5 class="titulo3 pt-3"> Ingresa tu edad </h5>
+        <input type="text" class="form-control form-control-sm rectangulo1" name="age" placeholder="edad"  value="{{age}}">
+        <h5 class="titulo3 pt-3"> Ingresa tu contraseña </h5>
+        <input type="password" class="form-control form-control-sm rectangulo1" name="password" placeholder="contraseña">
+      </div>
+
+      <div class="col gx-5">
+        <h5 class="titulo3"> Ingresa tus apellidos </h5>
+        <input type="text" class="form-control form-control-sm rectangulo1 " name="last_names" placeholder="apellidos" aria-label="last_names" value="{{last_names}}">
+        <h5 class="titulo3 pt-3"> Ingresa tu correo electronico </h5>
+        <input type="email" class="form-control form-control-sm rectangulo1" name="email" placeholder="email"  value="{{email}}">
+        <h5 class="titulo3 pt-3">Confirma tu contraseña</h5>
+        <input type="password" class="form-control form-control-sm rectangulo1" name="confirm_password" placeholder="confirma la contraseña">
+      </div>
+
+      <div>
+          <p>Seleccione los ingredientes a los que es alergico</p>
+          <input type="checkbox" id="almendra" name="elements" value="almendra">
+          <label for="almendra">Almendra</label><br>
+          <input type="checkbox" id="cacahuate" name="elements" value="cacahuate">
+          <label for="cacahuate">Cacahuate</label><br>
+          <input type="checkbox" id="chocolate" name="elements" value="chocolate">
+          <label for="chocolate">Chocolate</label><br>
+          <input type="checkbox" id="nuez" name="elements" value="nuez">
+          <label for="nuez">Nuez</label><br>
+          <input type="checkbox" id="fresa" name="elements" value="fresa">
+          <label for="fresa">Fresa</label><br>
+          <input type="checkbox" id="gluten" name="elements" value="gluten">
+          <label for="gluten">Gluten</label><br>
+          <input type="checkbox" id="huevo" name="elements" value="huevo">
+          <label for="huevo">Huevo</label><br>
+          <input type="checkbox" id="lacteo" name="elements" value="lacteo">
+          <label for="lacteo">Lacteo</label><br>
+          <input type="checkbox" id="tamarindo" name="elements" value="tamarindo">
+          <label for="tamarindo">Tamarindo</label><br>
+          <input type="checkbox" id="soya" name="elements" value="soya">
+          <label for="soya">Soya</label><br>
         </div>
-        
-        <div class="card-body">
-            <form action="/usuarios/signup" method="POST">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Nombre" value="{{name}}"/>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="last_names" placeholder="Apellidos" value="{{last_names}}"/>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="age" placeholder="Edad" value="{{age}}"/>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" value="{{email}}"/>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" placeholder="Contraseña"/>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="confirm_password" placeholder="Confirma la contraseña"/>
-                </div>
-                <div>
-                    <p>Seleccione los ingredientes a los que es alergico</p>
-                    <input type="checkbox" id="almendra" name="elements" value="almendra">
-                        <label for="almendra">Almendra</label><br>
-                    <input type="checkbox" id="cacahuate" name="elements" value="cacahuate">
-                        <label for="cacahuate">Cacahuate</label><br>
-                    <input type="checkbox" id="chocolate" name="elements" value="chocolate">
-                        <label for="chocolate">Chocolate</label><br>
-                    <input type="checkbox" id="nuez" name="elements" value="nuez">
-                        <label for="nuez">Nuez</label><br>
-                    <input type="checkbox" id="fresa" name="elements" value="fresa">
-                        <label for="fresa">Fresa</label><br>
-                    <input type="checkbox" id="gluten" name="elements" value="gluten">
-                        <label for="gluten">Gluten</label><br>
-                    <input type="checkbox" id="huevo" name="elements" value="huevo">
-                        <label for="huevo">Huevo</label><br>
-                    <input type="checkbox" id="lacteo" name="elements" value="lacteo">
-                        <label for="lacteo">Lacteo</label><br>
-                    <input type="checkbox" id="tamarindo" name="elements" value="tamarindo">
-                        <label for="tamarindo">Tamarindo</label><br>
-                    <input type="checkbox" id="soya" name="elements" value="soya">
-                        <label for="soya">Soya</label><br>
-                </div>
-                <button>
-                    Registrarse
-                </button>
-            </form>
-        </div>
+                
+        <button>
+          Registrarse
+        </button>
+      </div>
     </div>
+  </form>
 </div>
 -->

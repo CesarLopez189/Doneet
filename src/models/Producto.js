@@ -5,7 +5,7 @@ const ProductoSchema = new Schema({
     marca: {type: String, required: true},
     categoria: {type: [], required: true},
     elementos: {type: [], required: true},
-    imagenes: {type: [], required: true}
+    imagenes: {type: [], required: false}
 }, {
     timestamps: true
 })
