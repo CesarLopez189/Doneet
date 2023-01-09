@@ -726,3 +726,25 @@ color: #260077;
 .md-button-yellow:hover {
   background-color: #d7ea01;
 }
+
+/*animacion fondo*/
+
+.animated-background{
+    background: radial-gradient(167.67% 167.67% at -41.91% -23.88%, #5F3387 27.1%,rgba(231, 96, 67, 0.9) 55.96%, rgba(255, 235, 57, 0.9) 89.86%) ;
+    background-size: 400% 400%;
+    animation: animate-background 10s infinite ease-in-out; 
+}
+
+@keyframes animate-background {
+  0%{
+    background-position: 0 50%;
+
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0 50%;
+  }
+  
+}
