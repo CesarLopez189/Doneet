@@ -8,8 +8,8 @@ productoCtrl.renderProductoForm = (req, res) => {
 };
 
 productoCtrl.createNewProducto = async (req, res) => {
-    const {nombre, marca, categoria, elementos, imagenes, descripcion} = req.body;
-    const newProducto = new Producto({nombre, marca, categoria, elementos, imagenes, descripcion});
+    const {nombre, marca, categoria, elementos, imagenes, descripcion, trazas} = req.body;
+    const newProducto = new Producto({nombre, marca, categoria, elementos, imagenes, descripcion, trazas});
     const filearray=req.files;
     const arrayFN=[];
     filearray.forEach(elem=>arrayFN.push(`/images/${elem.filename}`));

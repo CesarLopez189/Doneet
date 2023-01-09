@@ -30,7 +30,9 @@
                         <label for="chocolate">Chocolate</label><br>
                     <input type="checkbox" id="biscocho" name="categoria" value="biscocho">
                         <label for="biscocho">Biscocho</label><br>
-                        
+                    <input type="checkbox" id="tipico" name="categoria" value="tipico">
+                        <label for="tipico">Tipico</label><br>
+                    
             </div>
             <div>
                     <p>Seleccione los ingredientes alérgenos del dulce</p>
@@ -55,6 +57,29 @@
                     <input type="checkbox" id="soya" name="elementos" value="soya">
                         <label for="soya">Soya</label><br>
                 </div>
+                <div>
+                    <p>Seleccione las trazas alérgenas si es que contiene</p>
+                    <input type="checkbox" id="almendra" name="trazas" value="almendra">
+                        <label for="almendra">Almendra</label><br>
+                    <input type="checkbox" id="cacahuate" name="trazas" value="cacahuate">
+                        <label for="cacahuate">Cacahuate</label><br>
+                    <input type="checkbox" id="chocolate" name="trazas" value="chocolate">
+                        <label for="chocolate">Chocolate</label><br>
+                    <input type="checkbox" id="nuez" name="trazas" value="nuez">
+                        <label for="nuez">Nuez</label><br>
+                    <input type="checkbox" id="fresa" name="trazas" value="fresa">
+                        <label for="fresa">Fresa</label><br>
+                    <input type="checkbox" id="gluten" name="trazas" value="gluten">
+                        <label for="gluten">Gluten</label><br>
+                    <input type="checkbox" id="huevo" name="trazas" value="huevo">
+                        <label for="huevo">Huevo</label><br>
+                    <input type="checkbox" id="lacteo" name="trazas" value="lacteo">
+                        <label for="lacteo">Lacteo</label><br>
+                    <input type="checkbox" id="tamarindo" name="trazas" value="tamarindo">
+                        <label for="tamarindo">Tamarindo</label><br>
+                    <input type="checkbox" id="soya" name="trazas" value="soya">
+                        <label for="soya">Soya</label><br>
+                </div>
             <br>
             <div>
             <p>Imagen 1</p>
@@ -66,7 +91,7 @@
             <input type="file" name="image">
             </div>
             <div><br>
-        <textarea type="text" name="descripcion" value="{{producto.descripcion}}" placeholder="Descripcion"></textarea>
+        <textarea class="form-control" rows="5" type="text" name="descripcion" value="{{producto.descripcion}}" placeholder="Descripcion"></textarea>
         </div>
             <div class="form-group" >
                 <button>
