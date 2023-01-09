@@ -31,13 +31,12 @@
 
 <section> 
   <div class="container-sm rectangulo "> 
-    <form action="/usuarios/signup" method="POST">
       <div class="row ">
 
         <div class="col"> 
             <div class="row">
           <h2 class="titulo2 pt-md-5 m-4" align="center">{{producto.nombre}}</h2>
-          <img src="/images/DELICE.jpg" class="img-fluid  p-5 mt-xxl-4">
+          <img src="{{producto.imagenes}}" class="img-fluid  p-5 mt-xxl-4">
                           <img src="/images/DELICEing.jpg"  class="img-fluid p-4" alt="">
 
         </div>
@@ -50,8 +49,8 @@
               
             <div class="col ">
                 <h5 class="titulo7"> Descripción del producto: <i class="titulo8">{{producto.descripcion}}</i> </h5> 
-                <h5 class="titulo7 pt-3"> Marca <i class="titulo8">{{producto.marca}}</i> </h5>
-                <h5 class="titulo7 pt-3"> Categorias <i class="titulo8">{{producto.categoria}}</i> </h5>
+                <h5 class="titulo7 pt-3"> Marca: <i class="titulo8">{{producto.marca}}</i> </h5>
+                <h5 class="titulo7 pt-3"> Categorias: <i class="titulo8">{{producto.categoria}}</i> </h5>
             </div>
           </div>
             
@@ -65,7 +64,7 @@
 <path d="M14.5 18H13V19.5C13 20.33 13.67 21 14.5 21C15.33 21 16 20.33 16 19.5C16 18.67 15.33 18 14.5 18Z" stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M9 8.5C9 7.67 8.33 7 7.5 7H2.5C1.67 7 1 7.67 1 8.5C1 9.33 1.67 10 2.5 10H7.5C8.33 10 9 9.33 9 8.5Z" stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M7.5 4H9V2.5C9 1.67 8.33 1 7.5 1C6.67 1 6 1.67 6 2.5C6 3.33 6.67 4 7.5 4Z" stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>  Ingredientes alergenos:  </h2>
+</svg>  Ingredientes alergenos: <i class="titulo8">{{producto.elementos}}</i></h2>
             <div class="list">
 
               <div class="nocon">
@@ -212,12 +211,55 @@
               </div>
             </div>
           </div>
-          
+          <br>
+          <h2 class="titulo7" align="CENTER">¡Registrate para ver los sustitutos!</h2>
           <div class="col-11 gy-2" align="CENTER">
-            <button class="btn btn-warning titulo4">Registrarse</button>
+            <a href="/usuarios/signup"><button class="btn btn-warning titulo4">Registrarse</button></a>
           </div>
+          {{#if user}}
+          <h2>Sustitutos</h2>
+    <div class="child">
+       {{#if productoSus}}                 
+            {{#each productoSus}}
+                <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+                    <div class="containerCard">
+                        <div class="frontCard" style="background-image:url({{imagenes}})">
+                            <div class="innerCard">
+                                <p>{{nombre}}</p>       
+                            </div>
+                        </div>
+                        <div class="backCard" style="background-image: url({{imagenes}});">
+                            <div class="innerCard">
+                                
+
+    
+                                <div class="buttonCard">
+                                    
+                                    <form action="/producto/edit/{{_id}}" method="">
+                                        <button type="submit">Editar</button>
+                                    </form>
+
+                                    <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="sumbmit">Eliminar</button>
+                                    </form>
+                                    
+                                    <form action="/producto/ver/{{_id}}">
+                                        <button type="submit">Ver</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <p>No hay sustitutos en datos...</p>
+        {{/if}}
+        {{/if}}
+    </div>
         </div>
       </div>
-    </form>
+
   </div>  
 </section>
