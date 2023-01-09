@@ -159,9 +159,25 @@ input[type="submit"] {
   background: #F1F3F5;
   border-radius: 46px;
 }
+
+.rectangulo5{
+  background: linear-gradient(180deg, #FF512F 0%, #DD2476 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
 .titulo {
   font-family: 'Bungee Inline';
   color: var(--rosa);
+}
+
+.titulo1{
+  font-family: 'Bungee', cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 48px;
+  color: #F31260;
 }
 
 .titulo2 {
@@ -217,6 +233,26 @@ color: #260077;
   font-weight: 400;
   font-size: 20px;
   color: #000000;
+
+}
+
+.titulo9{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 60px;
+  color: #FFFFFF;
+}
+
+.titulo10{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #FFFFFF;
 }
 
 .espacio {
@@ -601,3 +637,4 @@ color: #260077;
   padding: 5px 0px;
   transition: all 200ms ease-in-out;
 }
+
