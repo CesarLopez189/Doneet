@@ -212,10 +212,14 @@
             </div>
           </div>
           <br>
-          <h2 class="titulo7" align="CENTER">¡Registrate para ver los sustitutos!</h2>
+          {{#if user}}
+          {{else}}
+        
           <div class="col-11 gy-2" align="CENTER">
-            <a href="/usuarios/signup"><button class="btn btn-warning titulo4">Registrarse</button></a>
+            <h2 class="titulo7" align="CENTER">¡Inicia sesión para ver los sustitutos!</h2>
+            <a href="/usuarios/signin"><button class="btn btn-warning titulo4">Ingresar</button></a>
           </div>
+          {{/if}}
           {{#if user}}
           <h2>Sustitutos</h2>
     <div class="child">
