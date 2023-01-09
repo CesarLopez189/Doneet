@@ -638,3 +638,91 @@ color: #260077;
   transition: all 200ms ease-in-out;
 }
 
+/*boton flotante */
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+  
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.flex-center {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
+
+.md-grid-1-3 {
+  float: right;
+  width: 16%;
+  position: absolute;
+
+}
+
+.md-button {
+  font-weight: 500;
+  margin-top: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: all .5s ease-out;
+  transition: all .5s ease-out;
+}
+
+.md-button-floating {
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+  cursor: pointer;
+  height: 56px;
+  width: 56px;
+}
+
+.md-button-floating:hover {
+  box-shadow: 0 0 6px rgba(0,0,0,.16), 0 6px 12px rgba(0,0,0,.32);
+}
+
+
+/* Colors */
+
+.md-button-flat-blue {
+  color: #2196F3;
+}
+
+.md-button-flat-blue:hover {
+  background-color: rgba(33, 150, 243, .2);
+}
+
+.md-button-flat-orange {
+  color: #FFA83A;
+}
+
+.md-button-flat-orange:hover {
+  background-color: rgba(255 ,168 ,58, .2);
+}
+
+.md-button-flat-red {
+  color: #FF5252;
+}
+
+.md-button-flat-red:hover {
+  background-color: rgba(255, 82, 82, .2);
+}
+
+
+.md-button-yellow {
+  background-color: #EFFE42;
+  color: #444444;
+}
+
+.md-button-yellow:hover {
+  background-color: #d7ea01;
+}

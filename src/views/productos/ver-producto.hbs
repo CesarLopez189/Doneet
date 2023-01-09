@@ -266,4 +266,43 @@
       </div>
 
   </div>  
+  <h1> ¡Hola</h1>
+</section>
+<section>
+    
+    <div id="wrapper">
+            <div class="water-drop"></div>
+            <div class="button button-floating"></div>
+            <div class="button-floating-shadow"></div>
+            <div class="button button-sub" data-color="purple"></div>
+            <div class="button button-sub" data-color="green"></div>
+            <div class="button button-sub" data-color="pink"></div>
+            <div class="button button-sub" data-color="indigo"></div>
+        </div>
+        <footer>
+            By <a href="https://www.twitter.com/louistiti_fr" target="_blank">@louistiti_fr</a> // <a href="http://www.louistiti.fr/tutoriel-html5-css3-jquery-bouton-action-goutte-eau-morphing-material-design/34" target="_blank">Tutorial</a> (French)
+        </footer>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".button-floating").click(function() {
+                    var $wrapper = $("#wrapper");
+
+                    if (!$wrapper.hasClass("button-floating-clicked"))
+                    {
+                        $wrapper.attr("class", "center");
+                        $wrapper.toggleClass("button-floating-clicked-out");
+                    }
+
+                    $wrapper.toggleClass("button-floating-clicked");
+
+                    $(".button-sub").click(function() {
+                        var color = $(this).data("color");
+
+                        $wrapper.attr("class", "center button-floating-clicked button-floating-clicked-out");
+                        $wrapper.addClass("button-sub-" + color + "-clicked");
+                    });
+                });
+            });
+        </script>
 </section>
