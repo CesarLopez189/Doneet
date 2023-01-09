@@ -7,7 +7,8 @@ const UsuarioSchema = new Schema({
     age: {type: String, required: true},
     elements: {type: [], required: true},
     email: { type: String, required: true, unique: true},
-    password: {type: String, required: true}
+    password: {type: String, required: true},
+    admin: {type: Boolean, default: false, required: false},
 }, {
     timestamps: true
 });
