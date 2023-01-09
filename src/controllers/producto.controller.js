@@ -58,6 +58,7 @@ productoCtrl.renderProducto = async (req, res) => {
          // }
         }
     ).lean();
+    console.log(producto)
     res.render('productos/ver-producto', { producto, productoSus });
 };
 
