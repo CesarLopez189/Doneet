@@ -31,7 +31,7 @@
 <body>
     <div class=" clearfix">
   <div class="md-grid-1-3 flex-center">
-    <a class="md-button md-button-floating md-button-yellow flex-center" href="/producto/add">
+    <a class="md-button md-button-floating flex-center" href="/producto/add">
       <svg fill="#444444" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
         <path d="M0 0h24v24H0z" fill="none"/>
@@ -61,16 +61,16 @@
                                 <div class="buttonCard">
                                     
                                     <form action="/producto/edit/{{_id}}" method="">
-                                        <button type="submit">Editar</button>
+                                        <button class="custom-btn btn-9 mb-2" type="submit">Editar</button>
                                     </form>
 
                                     <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="sumbmit">Eliminar</button>
+                                        <button class="custom-btn btn-7 mb-2" type="sumbmit">Eliminar</button>
                                     </form>
                                     
                                     <form action="/producto/ver/{{_id}}">
-                                        <button type="submit">Ver</button>
+                                        <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
                                     </form>
                                 </div>
                             </div>
@@ -83,3 +83,6 @@
          
     </section>
 </body>
+<header>
+   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+</header>
