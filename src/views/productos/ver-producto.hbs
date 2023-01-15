@@ -32,11 +32,13 @@
 <section> 
   <div class="container-sm rectangulo "> 
       <div class="row ">
-
+        
         <div class="col"> 
             <div class="row">
           <h2 class="titulo2 pt-md-5 m-4" align="center">{{producto.nombre}}</h2>
-          <img src="{{producto.imagenes}}" class="img-fluid  p-5 mt-xxl-4">
+          {{#each producto.imagenes}}
+          <img src="{{this}}" class="img-fluid  p-5 mt-xxl-4">
+          {{/each}}
                           <img src="/images/DELICEing.jpg"  class="img-fluid p-4" alt="">
 
         </div>
