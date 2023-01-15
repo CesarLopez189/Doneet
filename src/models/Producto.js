@@ -6,6 +6,8 @@ const ProductoSchema = new Schema({
     categoria: {type: [], required: true},
     elementos: {type: [], required: true},
     imagenes: {type: [], required: false},
+    imagenPrincipal: {type: String, required: true},
+    imagenSecundaria: {type: String, required: true},
     descripcion: {type: String, required: false},
     trazas: {type: [], required: false},
 }, {

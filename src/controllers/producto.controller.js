@@ -8,11 +8,13 @@ productoCtrl.renderProductoForm = (req, res) => {
 };
 
 productoCtrl.createNewProducto = async (req, res) => {
-    const {nombre, marca, categoria, elementos, imagenes, descripcion, trazas} = req.body;
-    const newProducto = new Producto({nombre, marca, categoria, elementos, imagenes, descripcion, trazas});
+    const {nombre, marca, categoria, elementos, imagenes, imagenPrincipal, imagenSecundaria, descripcion, trazas} = req.body;
+    const newProducto = new Producto({nombre, marca, categoria, elementos, imagenes, imagenPrincipal, descripcion, trazas});
     const filearray=req.files;
     const arrayFN=[];
     filearray.forEach(elem=>arrayFN.push(`/images/${elem.filename}`));
+    newProducto.imagenPrincipal = arrayFN[0];
+    newProducto.imagenSecundaria = arrayFN[1];
     newProducto.imagenes = arrayFN;
     await newProducto.save();
     req.flash('success_msg', 'Producto Agregado Correctamente');
