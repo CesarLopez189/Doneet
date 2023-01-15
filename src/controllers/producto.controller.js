@@ -25,14 +25,19 @@ productoCtrl.renderProductos = async (req, res) => {
 };
 
 productoCtrl.renderProdCategory = async (req, res) => {
-    await Producto.find({ categoria: { $all: [req.body.categoria]} }).lean()
+    await Producto.find({ categoria: { $all: [req.params.id]} }).lean()
         .then(productos => res.render('productos/all-productos', { productos }))
         .catch(e => console.log("Ha ocurrido un error: ", e));
 };
 
 productoCtrl.renderSearchProducto = async (req, res) => {
-    await Producto.find({ nombre: { '$regex': `^${req.body.item}$`, $options: 'i' } }).lean()
+    const busqueda=req.body.item
+    const array = busqueda.split(" ")
+    const regex = new RegExp(array.join('|'))
+    console.log("regex",regex)
+    await Producto.find({ nombre: { '$regex':regex, $options: 'i' } }).lean()
         .then(searchproducto => res.render('productos/search-produco', { searchproducto }))
+        //.then(searchproducto => console.log("No hay producto:"+req.body.item))
         .catch(e => console.log("Ha ocurrido un error: ", e));
 };
 
@@ -53,6 +58,7 @@ productoCtrl.renderProducto = async (req, res) => {
          // }
         }
     ).lean();
+    console.log(producto)
     res.render('productos/ver-producto', { producto, productoSus });
 };
 

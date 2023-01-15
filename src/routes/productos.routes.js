@@ -47,7 +47,7 @@ router.post('/producto/new-producto', upload, createNewProducto);
 router.get('/productos', renderProductos);
 
 
-router.post('/productos-category', renderProdCategory);
+router.get('/productos-category/:id', renderProdCategory);
 
 // Get Producto
 router.get('/producto/ver/:id', renderProducto);
