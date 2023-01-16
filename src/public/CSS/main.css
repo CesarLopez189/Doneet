@@ -7,6 +7,7 @@
 }
 
 
+
 .parent {
   border: 1px solid black;
   margin: 1rem;
@@ -91,9 +92,12 @@ input[type="submit"] {
 }
 
 .espacio{
-  padding-left:12em;
-  
-  
+  padding-left:12em; 
+}
+
+.dropdown-item:hover{
+  background-color: #F0B65E;
+
 }
 
 .mac{
@@ -259,14 +263,53 @@ color: #260077;
   color:rgba(0, 0, 0, 0);
 }
 
+.fondo-rojo-titulo{
+  background: rgba(227, 6, 19, 0.24);
+  border-top-left-radius: 40px 40px;
+  border-top-right-radius: 40px 40px;
+}
+.fondo-rojo{
+  background: rgba(227, 6, 19, 0.24);
+  border-radius: 10px;
+  border-radius: 10px;
+}
 
+.fondo-naranja-titulo{
+  background: rgba(255, 200, 55, 0.56);
+  border-top-left-radius: 40px 40px;
+  border-top-right-radius: 40px 40px;
+}
+.fondo-naranja{
+  background: rgba(255, 200, 55, 0.56);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+.fondo-morado-titulo{
+  background: rgba(171, 53, 151, 0.4);;
+  border-top-left-radius: 40px 40px;
+  border-top-right-radius: 40px 40px;
+}
+.fondo-morado{
+  background: rgba(171, 53, 151, 0.4);;
+  border-radius: 10px;
+  border-radius: 10px;
+}
 
-
+.fondo-verde-titulo{
+  background: rgba(147, 171, 53, 0.37);
+  border-top-left-radius: 40px 40px;
+  border-top-right-radius: 40px 40px;
+}
+.fondo-verde{
+  background: rgba(147, 171, 53, 0.37);
+  border-radius: 10px;
+  border-radius: 10px;
+}
 
 /* estilos de las checkbox de las alergias */
 .form-element {
   position: relative;
-  width: 120px;
+  width: 115px;
   height: 120px;
   margin: 6px;
   
