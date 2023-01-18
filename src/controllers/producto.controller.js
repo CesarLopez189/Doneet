@@ -22,7 +22,7 @@ productoCtrl.createNewProducto = async (req, res) => {
 };
 
 productoCtrl.renderProductos = async (req, res) => {
-    const productos = await Producto.find().lean();
+    const productos = await Producto.find().lean(); 
     res.render('productos/all-productos', { productos });
 };
 
@@ -46,28 +46,24 @@ productoCtrl.renderSearchProducto = async (req, res) => {
 productoCtrl.renderProducto = async (req, res) => {    
     const producto = await Producto.findById(req.params.id).lean();
     const user = await User.findOne(User.email);
-    console.log(User);
+    //console.log(User);
     //console.log(req.params);
     const productoSus = await Producto.find(
         {
-          //'$match': {
-           // 'categoria': "picoso", 
-           // 'elementos': {'$nin': "cacahuate"}
-           // 'categoria': {'$in': ["picoso", "chocolate"]}, 
-           // 'elementos': {'$nin': ["cacahuate"]}
+          //'$match': {// 'categoria': "picoso", // 'elementos': {'$nin': "cacahuate"}
+           // 'categoria': {'$in': ["picoso", "chocolate"]},// 'elementos': {'$nin': ["cacahuate"]}
             'categoria': {'$in': producto.categoria},    
             'elementos': {'$nin': user.elements.concat(producto.elementos).concat(producto.trazas)}
-            //'elementos': {'$nin': producto.elementos}
-            //'elementos': {'$nin': user.elements}
-         // }
+            //'elementos': {'$nin': producto.elementos}//'elementos': {'$nin': user.elements} 
         }
     ).lean();
     //console.log(producto)
-    const prodConsumible = await Producto.find({
-        'elementos': producto.categoria.filter(value => user.elements.includes(value))
+    const prodNoConsumible = await Producto.find({
+        'elementos': {'$in': producto.elementos.concat(producto.trazas).filter(value => user.elements.includes(value))}
     }
     ).lean();
-    res.render('productos/ver-producto', { producto, productoSus, prodConsumible});
+
+    res.render('productos/ver-producto', { producto, productoSus, prodNoConsumible});
 };
 
 productoCtrl.renderEditForm = async (req, res) => {
