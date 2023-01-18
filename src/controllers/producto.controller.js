@@ -1,7 +1,7 @@
 const productoCtrl = {};
 
 const Producto = require('../models/Producto');
-const Usuario = require('../models/Usuario');
+const User = require('../models/Usuario');
 
 productoCtrl.renderProductoForm = (req, res) => {
     res.render('productos/new-producto');
@@ -43,10 +43,11 @@ productoCtrl.renderSearchProducto = async (req, res) => {
         .catch(e => console.log("Ha ocurrido un error: ", e));
 };
 
-productoCtrl.renderProducto = async (req, res) => {
-    console.log(req.params);
+productoCtrl.renderProducto = async (req, res) => {    
     const producto = await Producto.findById(req.params.id).lean();
-    //console.log(producto);
+    const user = await User.findOne(User.email);
+    console.log(User);
+    //console.log(req.params);
     const productoSus = await Producto.find(
         {
           //'$match': {
@@ -54,9 +55,10 @@ productoCtrl.renderProducto = async (req, res) => {
            // 'elementos': {'$nin': "cacahuate"}
            // 'categoria': {'$in': ["picoso", "chocolate"]}, 
            // 'elementos': {'$nin': ["cacahuate"]}
-            'categoria': {'$in': producto.categoria},
-           // 'elementos': {'$nin': Usuario.elementos}
-            'elementos': {'$nin': producto.elementos}
+            'categoria': {'$in': producto.categoria},    
+            'elementos': {'$nin': user.elements.concat(producto.elementos)}
+            //'elementos': {'$nin': producto.elementos}
+            //'elementos': {'$nin': user.elements}
          // }
         }
     ).lean();
