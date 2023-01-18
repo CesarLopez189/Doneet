@@ -17,7 +17,6 @@
 
 .child {
   display: inline-block;
-  border: 1px solid red;
   padding: 1rem 1rem;
   vertical-align: middle;
 }
@@ -603,6 +602,19 @@ color: #260077;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.cols2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content:left;
+  margin-right: 3em;
+  padding-right: 1em;
 }
 
 .columnaCard {

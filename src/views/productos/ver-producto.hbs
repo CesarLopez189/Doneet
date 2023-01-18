@@ -267,40 +267,41 @@
           {{#if user}}
           {{#if prodConsumible}}  prod Consumible<br> {{else}} no Consumible <br> {{/if}}
           <h2>Sustitutos</h2>
-    <div class="child">
+    <div class="cols2">
        {{#if productoSus}}                 
             {{#each productoSus}}
+            <center>
                 <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
                     <div class="containerCard">
                         <div class="frontCard" style="background-image:url({{imagenPrincipal}})">
-                            <div class="innerCard">
-                                     
-                            </div>
+                            
                         </div>
                         <div class="backCard" style="background-image: url({{imagenPrincipal}});">
                             <div class="innerCard">
                                 
 
-    
-                                <div class="buttonCard">
+                                
+                                <div class="buttonCard" >
                                     
                                     <form action="/producto/edit/{{_id}}" method="">
-                                        <button type="submit">Editar</button>
+                                        <button class="custom-btn btn-9 mb-2" type="submit">Editar</button>
                                     </form>
 
                                     <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button type="sumbmit">Eliminar</button>
+                                        <button class="custom-btn btn-7 mb-2"  type="sumbmit">Eliminar</button>
                                     </form>
                                     
                                     <form action="/producto/ver/{{_id}}">
-                                        <button type="submit">Ver</button>
+                                        <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
                                     </form>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
+                </center>
             {{/each}}
         {{else}}
             <p>No hay ningun dulce sustituto D:</p>
