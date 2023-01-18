@@ -399,6 +399,200 @@ color: #260077;
 
 }
 
+/*Cuando el producto NO contiene el ingrediente*/
+
+.nocontiene {
+  position: relative;
+  width: 115px;
+  height: 120px;
+  margin: 6px;
+  
+}
+
+.nocontiene input {
+  display: none;
+}
+
+.nocontiene .icon {
+  margin-top:10px;
+  font-size:30px;
+  fill:#bbb8b8;
+  transition:all 200ms ease-in-out;
+}
+
+.nocontiene label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  cursor: pointer;
+  border: 2px solid rgb(238, 238, 238);
+  background: rgb(212, 212, 212);
+  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 200ms ease-in-out;
+  border-radius: 5px;
+
+}
+
+.nocontiene .title {
+  font-size: 15px;
+  color: rgb(180, 180, 180);
+  fill:rgb(173, 173, 173);
+  padding: 5px 0px;
+  transition: all 200ms ease-in-out;
+}
+
+.nocontiene label:before {
+  content: "✓";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 8px;
+  left: 8px;
+  background: #2260ff;
+  color: #fff;
+  text-align: center;
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 200ms ease-in-out;
+}
+
+/*cuando el producto contiene los ingredientes*/
+
+.contiene {
+  position: relative;
+  width: 115px;
+  height: 120px;
+  margin: 6px;
+  
+}
+
+.contiene input {
+  display: none;
+}
+
+.contiene .icon {
+  margin-top:10px;
+  font-size:30px;
+  fill:#fff;
+  stroke: #fff;
+  transition:all 200ms ease-in-out;
+}
+
+.contiene label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  cursor: pointer;
+  border: 2px linear-gradient(360deg, #D31027 0%, #EA384D 100%);
+  background: linear-gradient(360deg, #D31027 0%, #EA384D 100%);
+  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 200ms ease-in-out;
+  border-radius: 5px;
+
+}
+
+.contiene .title {
+  font-size: 15px;
+  color: rgb(250, 250, 250);
+  fill:rgb(173, 173, 173);
+  padding: 5px 0px;
+  transition: all 200ms ease-in-out;
+}
+
+.contiene label:before {
+  content: "✓";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 8px;
+  left: 8px;
+  background: #2260ff;
+  color: #fff;
+  text-align: center;
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 200ms ease-in-out;
+}
+/*contrazas*/
+
+.contrazas {
+  position: relative;
+  width: 115px;
+  height: 120px;
+  margin: 6px;
+  
+}
+
+.contrazas input {
+  display: none;
+}
+
+.contrazas .icon {
+  margin-top:10px;
+  font-size:30px;
+  fill:#fff;
+  stroke: #fff;
+  transition:all 200ms ease-in-out;
+}
+
+.contrazas label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  cursor: pointer;
+  border: linear-gradient(360deg, #FF8008 0%, #FFC837 100%);
+  background:  linear-gradient(360deg, #FF8008 0%, #FFC837 100%);
+  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 200ms ease-in-out;
+  border-radius: 5px;
+
+}
+
+.contrazas .title {
+  font-size: 15px;
+  color: rgb(250, 250, 250);
+  fill:rgb(173, 173, 173);
+  padding: 5px 0px;
+  transition: all 200ms ease-in-out;
+}
+
+.contrazas label:before {
+  content: "✓";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 8px;
+  left: 8px;
+  background: #2260ff;
+  color: #fff;
+  text-align: center;
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 200ms ease-in-out;
+}
+
+
 /*Desde aqui empieza el CSS de las tarjetas*/
 .cols {
   display: -webkit-box;
@@ -639,47 +833,8 @@ color: #260077;
 }
 
 /* Mostrar ingredientes */
-.nocontiene {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 6px;
-  
-}
 
-.nocon input {
-  display: none;
-}
 
-.nocon .icon {
-  margin-top:10px;
-  font-size:30px;
-  fill:var(--grisClaro);
-  transition:all 200ms ease-in-out;
-}
-
-.nocon label {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  cursor: pointer;
-  border: 2px solid #ddd;
-  background: #fff;
-  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: all 200ms ease-in-out;
-  border-radius: 5px;
-  
-}
-
-.nocon .title {
-  font-size: 15px;
-  color: #aaa5a5;
-  padding: 5px 0px;
-  transition: all 200ms ease-in-out;
-}
 
 /*boton flotante */
 
