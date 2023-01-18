@@ -902,6 +902,30 @@ color: #260077;
 }
 
 
+.fab{
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  border-radius: 60%; 
+  background: linear-gradient(180deg, #2facff 0%, #075cbd 100%);
+  box-shadow: 1px 2px 4px #7e7d7d;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.fab:hover{
+  cursor: pointer;
+}
+.fab img{
+  width: 70;
+  transform: rotate(45deg);
+  transition: 0.4s;
+}
+
 /* Colors */
 
 .md-button-flat-blue {
