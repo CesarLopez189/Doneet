@@ -22,9 +22,10 @@ productoCtrl.createNewProducto = async (req, res) => {
 };
 
 productoCtrl.renderProductos = async (req, res) => {
-    const productos = await Producto.find().lean();
+    const productos = await Producto.find().lean(); 
     res.render('productos/all-productos', { productos });
 };
+
 productoCtrl.renderProdCategory = async (req, res) => {
     await Producto.find({ categoria: { $all: [req.params.id]} }).lean()
         .then(productos => res.render('productos/all-productos', { productos }))
