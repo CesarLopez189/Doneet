@@ -639,47 +639,8 @@ color: #260077;
 }
 
 /* Mostrar ingredientes */
-.nocontiene {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 6px;
-  
-}
 
-.nocon input {
-  display: none;
-}
 
-.nocon .icon {
-  margin-top:10px;
-  font-size:30px;
-  fill:var(--grisClaro);
-  transition:all 200ms ease-in-out;
-}
-
-.nocon label {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  cursor: pointer;
-  border: 2px solid #ddd;
-  background: #fff;
-  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: all 200ms ease-in-out;
-  border-radius: 5px;
-  
-}
-
-.nocon .title {
-  font-size: 15px;
-  color: #aaa5a5;
-  padding: 5px 0px;
-  transition: all 200ms ease-in-out;
-}
 
 /*boton flotante */
 
