@@ -267,7 +267,10 @@
           </div>
           {{/if}}
           {{#if user}}
-          <h2>Sustitutos</h2>
+          {{#if prodConsumible}}  prod Consumible<br> {{else}} no Consumible <br> {{/if}}
+          <h2>Sustitutos</h2>  
+    
+
     <div class="child">
        {{#if productoSus}}                 
             {{#each productoSus}}

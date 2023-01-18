@@ -64,7 +64,7 @@ productoCtrl.renderProducto = async (req, res) => {
     ).lean();
     //console.log(producto)
     const prodConsumible = await Producto.find({
-        'elementos': {'$nin': user.elements.concat(producto.elementos)}
+        'elementos': producto.categoria.filter(value => user.elements.includes(value))
     }
     ).lean();
     res.render('productos/ver-producto', { producto, productoSus, prodConsumible});
