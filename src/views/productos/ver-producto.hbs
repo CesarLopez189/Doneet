@@ -109,9 +109,9 @@
 </svg>  Trazas alergenas que puede contener: <i class="titulo8">{{producto.trazas}}</i></h2>
 {{/if}}
 
-            <div class="list">
-
-              <div class="nocontiene">
+            <div class="list">              
+              <!--{{#if producto.elementos == "huevo"}}es huevo<div class="nocontiene">{{else}}no es huevo<div class="contiene">{{/if}} -->             
+              <div class="nocontiene">             
                 <input type="text" name="elements" value="huevo" id="huevo">
                 <label for="huevo">
                     <a class="icon ">
@@ -256,6 +256,8 @@
             </div>
           </div>
           <br>
+
+          
           {{#if user}}
           {{else}}
         
@@ -265,7 +267,7 @@
           </div>
           {{/if}}
           {{#if user}}
-          {{#if prodConsumible}}  prod Consumible<br> {{else}} no Consumible <br> {{/if}}
+          {{#if prodNoConsumible}}  No Consumible<br> {{else}} Consumible <br> {{/if}}
           <h2>Sustitutos</h2>
     <div class="child">
        {{#if productoSus}}                 
