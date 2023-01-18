@@ -54,7 +54,7 @@ productoCtrl.renderProducto = async (req, res) => {
            // 'categoria': {'$in': ["picoso", "chocolate"]},// 'elementos': {'$nin': ["cacahuate"]}
             'categoria': {'$in': producto.categoria},    
             'elementos': {'$nin': user.elements.concat(producto.elementos).concat(producto.trazas)}
-            //'elementos': {'$nin': producto.elementos}//'elementos': {'$nin': user.elements}
+            //'elementos': {'$nin': producto.elementos}//'elementos': {'$nin': user.elements} 
         }
     ).lean();
     //console.log(producto)

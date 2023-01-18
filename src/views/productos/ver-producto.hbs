@@ -81,6 +81,9 @@
 <path d="M9 8.5C9 7.67 8.33 7 7.5 7H2.5C1.67 7 1 7.67 1 8.5C1 9.33 1.67 10 2.5 10H7.5C8.33 10 9 9.33 9 8.5Z" stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M7.5 4H9V2.5C9 1.67 8.33 1 7.5 1C6.67 1 6 1.67 6 2.5C6 3.33 6.67 4 7.5 4Z" stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                  </svg>Categorias: <i class="titulo8">{{producto.categoria}}</i> </h2>
+              {{#each producto.categoria}}              
+              <img src=/images/{{this}}.png>              
+              {{/each}}  
             </div>
           </div>
             
@@ -110,8 +113,13 @@
 {{/if}}
 
             <div class="list">              
-              <!--{{#if producto.elementos == "huevo"}}es huevo<div class="nocontiene">{{else}}no es huevo<div class="contiene">{{/if}} -->             
-              <div class="nocontiene">             
+              {{#each producto.elementos}}              
+              <img src=/images/{{this}}.png>              
+              {{/each}}          
+              {{#each producto.trazas}}
+              <img src=/images/{{this}}.png>
+              {{/each}}          
+                <div class="nocontiene">   
                 <input type="text" name="elements" value="huevo" id="huevo">
                 <label for="huevo">
                     <a class="icon ">
