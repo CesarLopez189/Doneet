@@ -56,14 +56,18 @@ productoCtrl.renderProducto = async (req, res) => {
            // 'categoria': {'$in': ["picoso", "chocolate"]}, 
            // 'elementos': {'$nin': ["cacahuate"]}
             'categoria': {'$in': producto.categoria},    
-            'elementos': {'$nin': user.elements.concat(producto.elementos)}
+            'elementos': {'$nin': user.elements.concat(producto.elementos).concat(producto.trazas)}
             //'elementos': {'$nin': producto.elementos}
             //'elementos': {'$nin': user.elements}
          // }
         }
     ).lean();
-    console.log(producto)
-    res.render('productos/ver-producto', { producto, productoSus });
+    //console.log(producto)
+    const prodConsumible = await Producto.find({
+        'elementos': {'$nin': user.elements.concat(producto.elementos)}
+    }
+    ).lean();
+    res.render('productos/ver-producto', { producto, productoSus, prodConsumible});
 };
 
 productoCtrl.renderEditForm = async (req, res) => {
