@@ -45,25 +45,34 @@ productoCtrl.renderSearchProducto = async (req, res) => {
 
 productoCtrl.renderProducto = async (req, res) => {    
     const producto = await Producto.findById(req.params.id).lean();
-    const user = await User.findOne(User.email);
-    //console.log(User);
-    //console.log(req.params);
-    const productoSus = await Producto.find(
-        {
-          //'$match': {// 'categoria': "picoso", // 'elementos': {'$nin': "cacahuate"}
-           // 'categoria': {'$in': ["picoso", "chocolate"]},// 'elementos': {'$nin': ["cacahuate"]}
-            'categoria': {'$in': producto.categoria},    
-            'elementos': {'$nin': user.elements.concat(producto.elementos).concat(producto.trazas)}
-            //'elementos': {'$nin': producto.elementos}//'elementos': {'$nin': user.elements} 
+    const aux = await Producto.findById(req.params.id).lean()
+    const aux_categoria = await Producto.findById(req.params.id).select("categoria").lean()
+    //console.log("Holaaaaaa ", aux_categoria)
+    const elementos = aux.elementos
+    //console.log("Hoaaaaa category", elementos)
+    let p = await Producto.find({ elementos: { $not: { $all : elementos[0]}} }).lean()
+    //console.log("Brolyyyy ", p)
+    const productoSus = []
+    let flag = true
+    elementos.shift()
+    p.forEach((item) => {
+        flag = true
+        elementos.forEach((word) => {
+            if(item.elementos.includes(word))
+                flag = false
+        })
+        if (flag) {
+            let flag1 = true
+            aux_categoria.categoria.forEach((category) => {
+                if(item.categoria.includes(category) && flag1) {
+                    productoSus.push(item)
+                    flag1 = false
+                }
+            })
         }
-    ).lean();
-    //console.log(producto)
-    const prodNoConsumible = await Producto.find({
-        'elementos': {'$in': producto.elementos.concat(producto.trazas).filter(value => user.elements.includes(value))}
-    }
-    ).lean();
+    })
 
-    res.render('productos/ver-producto', { producto, productoSus, prodNoConsumible});
+    res.render('productos/ver-producto', { producto, productoSus });
 };
 
 productoCtrl.renderEditForm = async (req, res) => {
