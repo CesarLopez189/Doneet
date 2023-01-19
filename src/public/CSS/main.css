@@ -1270,3 +1270,20 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
 .btn-14:active {
   top: 2px;
 }
+
+.feliz{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  color: #00A507;
+}
+
+.sad{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #E30613;
+}
