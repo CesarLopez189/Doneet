@@ -22,8 +22,15 @@ productoCtrl.createNewProducto = async (req, res) => {
 };
 
 productoCtrl.renderProductos = async (req, res) => {
-    const productos = await Producto.find().lean(); 
-    res.render('productos/all-productos', { productos });
+    /*const productos = await Producto.find().lean(); 
+    res.render('productos/all-productos', { productos, user: req.user  });*/
+    try {
+        const productos = await Producto.find().lean();
+        const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
+        res.render('productos/all-productos', { productos, isAdmin });
+      } catch (error) {
+        console.error(error);
+      }
 };
 
 productoCtrl.renderProdCategory = async (req, res) => {
@@ -47,6 +54,7 @@ productoCtrl.renderProducto = async (req, res) => {
     const producto = await Producto.findById(req.params.id).lean();
     const aux = await Producto.findById(req.params.id).lean()
     const aux_categoria = await Producto.findById(req.params.id).select("categoria").lean()
+    const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
     //console.log("Holaaaaaa ", aux_categoria)
     const elementos = aux.elementos
     //console.log("Hoaaaaa category", elementos)

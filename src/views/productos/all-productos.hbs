@@ -28,6 +28,7 @@
 </div>
 -->
 <body>
+  {{#if isAdmin}}
   <div class="">
     <a class="fab" href="/producto/add">
       <svg fill="#fff"  viewBox="0 0 24 24" width="55" xmlns="http://www.w3.org/2000/svg">
@@ -36,57 +37,40 @@
       </svg>
     </a>
   </div>
+  {{/if}}
 
-    <section>
-        
-        <div class="container-xl rectangulo p-4">
-            
-            <div class="cols">
-                
-                {{#each productos}}
-                <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-                    <div class="containerCard">
-                       
-                        <div class="frontCard" style="background-image:url({{imagenPrincipal}})">
-                        
-                            
-                            
-                            <!--<div class="innerCard">
-                                <p>{{nombre}}</p>       
-                            </div>-->
-                        </div>
-            
-                        
-                        <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-                            <div class="innerCard">
-                                
-
-                                
-                                <div class="buttonCard">
-
-                                    
-                                    <form action="/producto/edit/{{_id}}" method="">
-                                        <button class="custom-btn btn-9 mb-2" type="submit">Editar</button>
-                                    </form>
-
-                                    <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button class="custom-btn btn-7 mb-2" type="sumbmit">Eliminar</button>
-                                    </form>
-                                
-                                    <form action="/producto/ver/{{_id}}">
-                                        <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <section>
+    <div class="container-xl rectangulo p-4">
+      <div class="cols">
+        {{#each productos}}
+        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+                {{#if isAdmin2}}
+                {{/if}}
+                <div class="buttonCard">
+                  <form action="/producto/edit/{{_id}}" method="">
+                    <button class="custom-btn btn-9 mb-2" type="submit">Editar</button>
+                  </form>
+                  <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="custom-btn btn-7 mb-2" type="sumbmit">Eliminar</button>
+                  </form>
                 </div>
-                {{/each}}
+                <form action="/producto/ver/{{_id}}">
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+                
+              </div>
             </div>
+          </div>
         </div>
-         
-    </section>
+        {{/each}}
+      </div>
+    </div>
+  </section>
 </body>
 <header>
    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
