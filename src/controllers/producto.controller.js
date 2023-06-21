@@ -29,7 +29,7 @@ productoCtrl.renderProductos = async (req, res) => {
         const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
         res.render('productos/all-productos', { productos, isAdmin });
       } catch (error) {
-        console.error(error);
+        console.error(error);   
       }
 };
 
@@ -55,14 +55,19 @@ productoCtrl.renderProducto = async (req, res) => {
     const aux = await Producto.findById(req.params.id).lean()
     const aux_categoria = await Producto.findById(req.params.id).select("categoria").lean()
     const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
-    //console.log("Holaaaaaa ", aux_categoria)
     const elementos = aux.elementos
-    //console.log("Hoaaaaa category", elementos)
+
     let p = await Producto.find({ elementos: { $not: { $all : elementos[0]}} }).lean()
-    //console.log("Brolyyyy ", p)
+
     const productoSus = []
     let flag = true
     elementos.shift()
+
+    let usuario;
+    if (req.user) {
+        usuario = await User.findById(req.user._id).lean();
+    }
+
     p.forEach((item) => {
         flag = true
         elementos.forEach((word) => {
@@ -73,7 +78,10 @@ productoCtrl.renderProducto = async (req, res) => {
             let flag1 = true
             aux_categoria.categoria.forEach((category) => {
                 if(item.categoria.includes(category) && flag1) {
-                    productoSus.push(item)
+                    // Verifica si el producto es seguro para el usuario.
+                    if (usuario && !usuario.elements.some(element => item.trazas.includes(element))) {
+                        productoSus.push(item)
+                    }
                     flag1 = false
                 }
             })
@@ -82,6 +90,9 @@ productoCtrl.renderProducto = async (req, res) => {
 
     res.render('productos/ver-producto', { producto, productoSus });
 };
+
+
+
 
 productoCtrl.renderEditForm = async (req, res) => {
     const producto = await Producto.findById(req.params.id).lean();
