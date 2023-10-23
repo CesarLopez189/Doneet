@@ -95,7 +95,9 @@
                 'Snickers': ['MilkyWay'],
                 'avellana': ['nuez', 'almendra'],
                 'almendra': ['nuez', 'avellana'],
-                'Bubulubu': ['bocadín', 'Kínder Delice']
+                'Bubulubu': ['bocadín', 'Kínder Delice'],
+                'hola': ['¿Hola, en qué puedo ayudarte?'],
+                'Hola': ['¿Hola, en qué puedo ayudarte?']
                 // Añade más sustitutos para otros ingredientes
             };
 
@@ -112,32 +114,22 @@
             if (sustitutos) {
                 const respuestaMessage = document.createElement('div');
                 respuestaMessage.className = 'message bot-message';
-                respuestaMessage.textContent = 'Sustitutos encontrados:';
                 chatMessages.appendChild(respuestaMessage);
 
                 for (const sustituto of sustitutos) {
                     const sustitutoMessage = document.createElement('div');
                     sustitutoMessage.className = 'message bot-message';
-                    sustitutoMessage.textContent = `- ${sustituto}`;
+                    sustitutoMessage.innerText = `- ${sustituto}`;
                     chatMessages.appendChild(sustitutoMessage);
                 }
-            }else {
-        // Verificar si el mensaje del usuario es un saludo
-                const saludos = ['hola', 'buenos días', 'buenas tardes', 'buenas noches'];
-
-                if (saludos.includes(message.toLowerCase())) {
-                    const saludoMessage = document.createElement('div');
-                    saludoMessage.className = 'message bot-message';
-                    saludoMessage.textContent = '¡Hola! ¿En qué puedo ayudarte hoy?';
-                    chatMessages.appendChild(saludoMessage);
-                } else {
-                    const noSustitutosMessage = document.createElement('div');
-                    noSustitutosMessage.className = 'message bot-message';
-                    noSustitutosMessage.textContent = 'No se encontraron sustitutos para ese alimento.';
-                    chatMessages.appendChild(noSustitutosMessage);
-                }
+            } else {
+                const noSustitutosMessage = document.createElement('div');
+                noSustitutosMessage.className = 'message bot-message';
+                noSustitutosMessage.innerText = 'No se encontraron sustitutos para ese alimento.';
+                chatMessages.appendChild(noSustitutosMessage);
             }
         }
+
     });
     </script>
 

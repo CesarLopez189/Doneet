@@ -1000,7 +1000,7 @@ color: #260077;
 .custom-btn {
   width: 130px;
   height: 40px;
-  color: #fff;
+  
   border-radius: 5px;
   padding: 10px 25px;
   font-family: 'Lato', sans-serif;
@@ -1054,7 +1054,7 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
   height: 2px;
 }
 .btn-8:hover{
-  color: #fff;
+  
   background: transparent;
 }
 .btn-8:hover:before {
@@ -1098,6 +1098,7 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
     line-height: 42px;
     padding: 0;
     border: none;
+    color: #fff;
   }
   .btn-7 span {
     position: relative;
@@ -1111,6 +1112,7 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
     content: "";
     right: 0;
     bottom: 0;
+    color: #fff;
     background: #B83C5F;
     box-shadow:
      -7px -7px 20px 0px rgba(255,255,255,.9),
@@ -1126,17 +1128,18 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
   .btn-7:after {
     width: 0%;
     height: 2px;
+    color: #fff;
   }
   .btn-7:hover{
     color: #fff;
-    background: transparent;
   }
   .btn-7:hover:before {
     height: 100%;
   }
   .btn-7:hover:after {
     width: 100%;
-  }
+    color: #fff
+;  }
   .btn-7 span:before,
   .btn-7 span:after {
     position: absolute;
@@ -1173,6 +1176,7 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
     line-height: 42px;
     padding: 0;
     border: none;
+    color: #fff;
   }
   .btn-9 span {
     position: relative;
@@ -1203,8 +1207,7 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
     height: 2px;
   }
   .btn-9:hover{
-    color: #fff;
-    background: transparent;
+    
   }
   .btn-9:hover:before {
     height: 100%;
@@ -1364,3 +1367,52 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
   color: #000;
   align-self: flex-end;
 }
+
+.text-center{
+  text-align: center;
+}
+
+.custom-btn:hover {
+  background-color: inherit;
+  color: #fff;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  z-index: 1;
+}
+
+.lightbox-content {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 50px;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+}
+.carousel img {
+                          max-width: 250px;
+                          /* Establece el tamaño máximo en 100px */
+                          height: 250px;
+                          /* Mantiene la proporción de aspecto original */
+                      }
+                      .carousel-control-prev-icon, .carousel-control-next-icon {
+      background-color: black; /* Cambia el color de fondo a negro */
+  }

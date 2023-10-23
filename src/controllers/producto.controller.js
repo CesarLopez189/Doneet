@@ -40,6 +40,7 @@ productoCtrl.renderProdCategory = async (req, res) => {
 };
 
 productoCtrl.renderSearchProducto = async (req, res) => {
+    const isAdmin = req.user && req.user.admin;
     const busqueda=req.body.item
     const array = busqueda.split(" ")
     const regex = new RegExp(array.join('|'))
@@ -88,7 +89,7 @@ productoCtrl.renderProducto = async (req, res) => {
         }
     })
 
-    res.render('productos/ver-producto', { producto, productoSus });
+    res.render('productos/ver-producto', { producto, productoSus, isAdmin });
 };
 
 
