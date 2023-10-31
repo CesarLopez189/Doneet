@@ -40,50 +40,59 @@
                     <h2 class="titulo2 pt-md-5 pb-3" align="center">{{producto.nombre}}</h2>
 
 
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-lT1oYREsH4H3Qjh9ZbPHgljBt5uh6FzR1HGLYFvppJL9XslsdEJFuQWJF5c5b4XU" crossorigin="anonymous">
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"
+                        rel="stylesheet"
+                        integrity="sha384-lT1oYREsH4H3Qjh9ZbPHgljBt5uh6FzR1HGLYFvppJL9XslsdEJFuQWJF5c5b4XU"
+                        crossorigin="anonymous">
 
                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" align="center">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="{{producto.imagenPrincipal}}" class="d-block img-fluid" alt="Imagen Principal" onclick="openLightbox('{{producto.imagenPrincipal}}')">
-        </div>
-        <div class="carousel-item">
-            <img src="{{producto.imagenSecundaria}}" class="d-block img-fluid" alt="Imagen Secundaria" onclick="openLightbox('{{producto.imagenSecundaria}}')">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" ariahidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{producto.imagenPrincipal}}" class="d-block img-fluid" alt="Imagen Principal"
+                                    onclick="openLightbox('{{producto.imagenPrincipal}}')">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{producto.imagenSecundaria}}" class="d-block img-fluid"
+                                    alt="Imagen Secundaria" onclick="openLightbox('{{producto.imagenSecundaria}}')">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" ariahidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
 
-<div id="lightbox" class="lightbox">
-    <span class="close" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-image" class="lightbox-content" alt="Lightbox Image">
-</div>
+                    <div id="lightbox" class="lightbox">
+                        <span class="close" onclick="closeLightbox()">&times;</span>
+                        <img id="lightbox-image" class="lightbox-content" alt="Lightbox Image">
+                    </div>
 
-<script>
-    function openLightbox(imageUrl) {
-        var lightbox = document.getElementById('lightbox');
-        var lightboxImage = document.getElementById('lightbox-image');
+                    <script>
+                        function openLightbox(imageUrl) {
+                            var lightbox = document.getElementById('lightbox');
+                            var lightboxImage = document.getElementById('lightbox-image');
 
-        lightboxImage.src = imageUrl;
-        lightbox.style.display = 'block';
-    }
+                            lightboxImage.src = imageUrl;
+                            lightbox.style.display = 'block';
+                        }
 
-    function closeLightbox() {
-        var lightbox = document.getElementById('lightbox');
-        lightbox.style.display = 'none';
-    }
-</script>
+                        function closeLightbox() {
+                            var lightbox = document.getElementById('lightbox');
+                            lightbox.style.display = 'none';
+                        }
+                    </script>
 
 
                     <!--

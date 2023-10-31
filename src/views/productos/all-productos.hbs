@@ -27,56 +27,49 @@
     </div>    
 </div>
 -->
+
 <body>
-  
+
   {{#if isAdmin}}
-  
+
   <div class="">
     <a class="fab" href="/producto/add">
-      <svg fill="#fff"  viewBox="0 0 24 24" width="55" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-        <path d="M0 0h24v24H0z" fill="none"/>
+      <svg fill="#fff" viewBox="0 0 24 24" width="55" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        <path d="M0 0h24v24H0z" fill="none" />
       </svg>
     </a>
   </div>
+
   {{/if}}
 
   <section>
-   
+    
     <div class="container-xl rectangulo p-4">
       <div class="cols">
-        
         {{#each productos}}
         <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          
           <div class="containerCard">
-            
-            <div class="frontCard img-fluid img-thumbnail rounded-circle" style="background-image:url({{imagenPrincipal}})"></div>
-            
+            <div class="frontCard img-fluid img-thumbnail rounded-circle"
+              style="background-image:url({{imagenPrincipal}})"></div>
             <div class="backCard " style="background-image: url({{imagenPrincipal}});">
-              
               <div class="innerCard">
-                <p class="text-center" style="font-family: 'Lato', sans-serif; color: white; text-shadow: 0 0 5px purple">{{nombre}}</p>
-                
-                
+                <p class="text-center"
+                  style="font-family: 'Lato', sans-serif; color: white; text-shadow: 0 0 5px purple">{{nombre}}</p>
                 <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
                 </form>
-                
               </div>
             </div>
-            
-              
-              
           </div>
         </div>
         {{/each}}
       </div>
     </div>
+
   </section>
+  
 </body>
 <header>
-   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </header>
-
-
