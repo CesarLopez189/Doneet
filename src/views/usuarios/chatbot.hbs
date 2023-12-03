@@ -1,137 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
 </head>
+
 <body>
     <div class=" container-sm rectangulo">
-    <div class="row">
-        <div class="chat-header">
-            <img src="/images/01chatbot.png" alt="" class="img-fluid" width="160">
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <div class="message bot-message">
-                Hola, bienvenido a Doneet ¿en qué puedo ayudarte hoy?
+        <div class="row">
+            <div class="chat-header">
+                <img src="/images/01chatbot.png" alt="" class="img-fluid" width="160">
             </div>
-            <!-- Los mensajes serán insertados aquí -->
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    Hola, bienvenido a Doneet ¿en qué puedo ayudarte hoy?
+                </div>
+                <!-- Los mensajes serán insertados aquí -->
+            </div>
+            <div class="chat-input form-control">
+                <form id="message-form" class="row g-3">
+                    <div class="col-md-6">
+                        <input type="text" id="message-input" class="form-control form-control-sm "
+                            placeholder="Escribe un mensaje..." />
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-warning">Enviar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="chat-input form-control">
-            <form id="message-form" class="row g-3">
-               <div class="col-md-6">
-                <input type="text" id="message-input" class="form-control form-control-sm " placeholder="Escribe un mensaje..." />
-                </div>
-                 <div class="col-md-6">
-                <button type="submit" class="btn btn-warning">Enviar</button>
-                </div>
-            </form>
-        </div>     
-     </div>
     </div>
-   
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('message-form');
-        const input = document.getElementById('message-input');
-        const chatMessages = document.getElementById('chat-messages');
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('message-form');
+            const input = document.getElementById('message-input');
+            const chatMessages = document.getElementById('chat-messages');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const message = input.value;
+                if (message) {
+                    const newMessage = document.createElement('div');
+                    newMessage.className = 'message user-message';
+                    newMessage.textContent = message;
+                    chatMessages.appendChild(newMessage);
+                    input.value = '';
+                    // Realizar la solicitud a la API de Wit.ai
+                    const witUrl = `https://api.wit.ai/message?v=20230611&q=${encodeURIComponent(message)}&model_id=226988573429850`;
+                    const witHeaders = {
+                        'Authorization': 'Bearer VL5FJ2MWSGQH62VON22OEEWTO2BUJVCI'
+                    };
+                    fetch(witUrl, {
+                        headers: witHeaders
+                    })
+                        .then(response => response.json())
+                        .then(responseJson => {
+                            // Procesar la respuesta de Wit.ai
+                            const sustitutos = obtenerSustituto(responseJson);
+                            mostrarRespuesta(sustitutos);
+                        })
+                        .catch(error => {
+                            console.error('Error al hacer la solicitud a Wit.ai:', error);
+                        });
+                }
+            });
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-        
-            const message = input.value;
+            function obtenerSustituto(response) {
+                const entities = response.entities;
+                if ('_alimento_:_alimento_' in entities) {
+                    const entidadAlimento = entities['_alimento_:_alimento_'][0];
+                    const sustituto = entidadAlimento.value;
+                    const sustitutosEncontrados = buscarSustitutos(sustituto);
+                    if (sustitutosEncontrados) {
+                        return sustitutosEncontrados;
+                    } else {
+                        return `No se encontró un sustituto para el alimento '${sustituto}'.`;
+                    }
+                } else {
+                    return 'No se encontró un sustituto para ese alimento.';
+                }
+            }
 
-            if (message) {
-                const newMessage = document.createElement('div');
-                newMessage.className = 'message user-message';
-                newMessage.textContent = message;
-                chatMessages.appendChild(newMessage);
-
-                input.value = '';
-
-                // Realizar la solicitud a la API de Wit.ai
-                const witUrl = `https://api.wit.ai/message?v=20230611&q=${encodeURIComponent(message)}&model_id=226988573429850`;
-                const witHeaders = {
-                    'Authorization': 'Bearer VL5FJ2MWSGQH62VON22OEEWTO2BUJVCI'
+            function buscarSustitutos(ingrediente) {
+                const sustitutos = {
+                    'nuez': ['avellana', 'almendra'],
+                    'harina de trigo': ['harina de avena'],
+                    'Snickers': ['MilkyWay'],
+                    'avellana': ['nuez', 'almendra'],
+                    'almendra': ['nuez', 'avellana'],
+                    'Bubulubu': ['bocadín', 'Kínder Delice'],
+                    'hola': ['¿Hola, en qué puedo ayudarte?'],
+                    'Hola': ['¿Hola, en qué puedo ayudarte?']
                 };
+                if (ingrediente in sustitutos) {
+                    return sustitutos[ingrediente];
+                } else {
+                    return null;
+                }
+            }
 
-                fetch(witUrl, {
-                    headers: witHeaders
-                })
-                .then(response => response.json())
-                .then(responseJson => {
-                    // Procesar la respuesta de Wit.ai
-                    const sustitutos = obtenerSustituto(responseJson);
-                    mostrarRespuesta(sustitutos);
-                })
-                .catch(error => {
-                    console.error('Error al hacer la solicitud a Wit.ai:', error);
-                });
+            function mostrarRespuesta(sustitutos) {
+                const chatMessages = document.getElementById('chat-messages');
+                if (sustitutos) {
+                    const respuestaMessage = document.createElement('div');
+                    respuestaMessage.className = 'message bot-message';
+                    chatMessages.appendChild(respuestaMessage);
+                    for (const sustituto of sustitutos) {
+                        const sustitutoMessage = document.createElement('div');
+                        sustitutoMessage.className = 'message bot-message';
+                        sustitutoMessage.innerText = `- ${sustituto}`;
+                        chatMessages.appendChild(sustitutoMessage);
+                    }
+                } else {
+                    const noSustitutosMessage = document.createElement('div');
+                    noSustitutosMessage.className = 'message bot-message';
+                    noSustitutosMessage.innerText = 'No se encontraron sustitutos para ese alimento.';
+                    chatMessages.appendChild(noSustitutosMessage);
+                }
             }
         });
-
-        function obtenerSustituto(response) {
-            const entities = response.entities;
-            if ('_alimento_:_alimento_' in entities) {
-                const entidadAlimento = entities['_alimento_:_alimento_'][0];
-                const sustituto = entidadAlimento.value;
-                const sustitutosEncontrados = buscarSustitutos(sustituto);
-
-                if (sustitutosEncontrados) {
-                    return sustitutosEncontrados;
-                } else {
-                    return `No se encontró un sustituto para el alimento '${sustituto}'.`;
-                }
-            } else {
-                return 'No se encontró un sustituto para ese alimento.';
-            }
-        }
-
-        function buscarSustitutos(ingrediente) {
-            const sustitutos = {
-                'nuez': ['avellana', 'almendra'],
-                'harina de trigo': ['harina de avena'],
-                'Snickers': ['MilkyWay'],
-                'avellana': ['nuez', 'almendra'],
-                'almendra': ['nuez', 'avellana'],
-                'Bubulubu': ['bocadín', 'Kínder Delice'],
-                'hola': ['¿Hola, en qué puedo ayudarte?'],
-                'Hola': ['¿Hola, en qué puedo ayudarte?']
-                // Añade más sustitutos para otros ingredientes
-            };
-
-            if (ingrediente in sustitutos) {
-                return sustitutos[ingrediente];
-            } else {
-                return null;
-            }
-        }
-
-        function mostrarRespuesta(sustitutos) {
-            const chatMessages = document.getElementById('chat-messages');
-
-            if (sustitutos) {
-                const respuestaMessage = document.createElement('div');
-                respuestaMessage.className = 'message bot-message';
-                chatMessages.appendChild(respuestaMessage);
-
-                for (const sustituto of sustitutos) {
-                    const sustitutoMessage = document.createElement('div');
-                    sustitutoMessage.className = 'message bot-message';
-                    sustitutoMessage.innerText = `- ${sustituto}`;
-                    chatMessages.appendChild(sustitutoMessage);
-                }
-            } else {
-                const noSustitutosMessage = document.createElement('div');
-                noSustitutosMessage.className = 'message bot-message';
-                noSustitutosMessage.innerText = 'No se encontraron sustitutos para ese alimento.';
-                chatMessages.appendChild(noSustitutosMessage);
-            }
-        }
-
-    });
     </script>
 
 </body>
+
 </html>

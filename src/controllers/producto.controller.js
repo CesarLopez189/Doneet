@@ -41,15 +41,27 @@ productoCtrl.renderProdCategory = async (req, res) => {
 
 productoCtrl.renderSearchProducto = async (req, res) => {
     const isAdmin = req.user && req.user.admin;
-    const busqueda=req.body.item
-    const array = busqueda.split(" ")
-    const regex = new RegExp(array.join('|'))
-    console.log("regex",regex)
-    await Producto.find({ nombre: { '$regex':regex, $options: 'i' } }).lean()
-        .then(searchproducto => res.render('productos/search-produco', { searchproducto }))
-        //.then(searchproducto => console.log("No hay producto:"+req.body.item))
-        .catch(e => console.log("Ha ocurrido un error: ", e));
+    const busqueda = req.body.item;
+    const array = busqueda.split(" ");
+    const regex = new RegExp(array.join('|'));
+    console.log("regex", regex);
+
+    try {
+        const searchproductoArray = await Producto.find({ nombre: { '$regex': regex, $options: 'i' } }).lean();
+
+        // Tomar el primer elemento del arreglo (si existe)
+        const producto = searchproductoArray.length > 0 ? searchproductoArray[0] : null;
+
+        console.log("Contenido de searchproducto:", producto);
+        
+        res.render('productos/ver-producto', { producto, isAdmin });
+      
+    } catch (e) {
+        console.log("Ha ocurrido un error: ", e);
+        res.render('productos/search-producto', { searchproducto: null, isAdmin });
+    }
 };
+
 
 productoCtrl.renderProducto = async (req, res) => {    
     const producto = await Producto.findById(req.params.id).lean();
