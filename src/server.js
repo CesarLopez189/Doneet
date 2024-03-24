@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 
 // Initializations
@@ -27,11 +28,27 @@ app.set('view engine', '.hbs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
+
+// Session Middleware Configuration
 app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
+    secret: 'yourSecretKey', // Cambia 'yourSecretKey' por una clave secreta larga y compleja
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb+srv://root:1234@doneetdb.mqouaag.mongodb.net/test' // Cambia esto por tu cadena de conexión a MongoDB
+    }),
+    cookie: {
+        secure: app.get('env') === 'production', // Asegura las cookies en producción
+        httpOnly: true, // Evita el acceso a la cookie a través de JavaScript en el lado del cliente
+        maxAge: 1000 * 60 * 60 * 24 // Configura la cookie para que expire en 24 horas
+    }
 }));
+
+// Ajustes para producción
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1); // Confía en el primer proxy
+}
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
