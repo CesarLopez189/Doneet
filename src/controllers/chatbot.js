@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         newMessage.textContent = message;
         chatMessages.appendChild(newMessage);
 
-        // Limpia el input
+        // Limpia 
         input.value = '';
     });
 });
