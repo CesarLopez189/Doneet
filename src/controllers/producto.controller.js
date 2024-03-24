@@ -22,8 +22,15 @@ productoCtrl.createNewProducto = async (req, res) => {
 };
 
 productoCtrl.renderProductos = async (req, res) => {
-    const productos = await Producto.find().lean(); 
-    res.render('productos/all-productos', { productos });
+    /*const productos = await Producto.find().lean(); 
+    res.render('productos/all-productos', { productos, user: req.user  });*/
+    try {
+        const productos = await Producto.find().lean();
+        const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
+        res.render('productos/all-productos', { productos, isAdmin });
+      } catch (error) {
+        console.error(error);   
+      }
 };
 
 productoCtrl.renderProdCategory = async (req, res) => {
@@ -33,28 +40,47 @@ productoCtrl.renderProdCategory = async (req, res) => {
 };
 
 productoCtrl.renderSearchProducto = async (req, res) => {
-    const busqueda=req.body.item
-    const array = busqueda.split(" ")
-    const regex = new RegExp(array.join('|'))
-    console.log("regex",regex)
-    await Producto.find({ nombre: { '$regex':regex, $options: 'i' } }).lean()
-        .then(searchproducto => res.render('productos/search-produco', { searchproducto }))
-        //.then(searchproducto => console.log("No hay producto:"+req.body.item))
-        .catch(e => console.log("Ha ocurrido un error: ", e));
+    const isAdmin = req.user && req.user.admin;
+    const busqueda = req.body.item;
+    const array = busqueda.split(" ");
+    const regex = new RegExp(array.join('|'));
+    console.log("regex", regex);
+
+    try {
+        const searchproductoArray = await Producto.find({ nombre: { '$regex': regex, $options: 'i' } }).lean();
+
+        // Tomar el primer elemento del arreglo (si existe)
+        const producto = searchproductoArray.length > 0 ? searchproductoArray[0] : null;
+
+        console.log("Contenido de searchproducto:", producto);
+        
+        res.render('productos/ver-producto', { producto, isAdmin });
+      
+    } catch (e) {
+        console.log("Ha ocurrido un error: ", e);
+        res.render('productos/search-producto', { searchproducto: null, isAdmin });
+    }
 };
+
 
 productoCtrl.renderProducto = async (req, res) => {    
     const producto = await Producto.findById(req.params.id).lean();
     const aux = await Producto.findById(req.params.id).lean()
     const aux_categoria = await Producto.findById(req.params.id).select("categoria").lean()
-    //console.log("Holaaaaaa ", aux_categoria)
+    const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
     const elementos = aux.elementos
-    //console.log("Hoaaaaa category", elementos)
+
     let p = await Producto.find({ elementos: { $not: { $all : elementos[0]}} }).lean()
-    //console.log("Brolyyyy ", p)
+
     const productoSus = []
     let flag = true
     elementos.shift()
+
+    let usuario;
+    if (req.user) {
+        usuario = await User.findById(req.user._id).lean();
+    }
+
     p.forEach((item) => {
         flag = true
         elementos.forEach((word) => {
@@ -65,15 +91,21 @@ productoCtrl.renderProducto = async (req, res) => {
             let flag1 = true
             aux_categoria.categoria.forEach((category) => {
                 if(item.categoria.includes(category) && flag1) {
-                    productoSus.push(item)
+                    // Verifica si el producto es seguro para el usuario.
+                    if (usuario && !usuario.elements.some(element => item.trazas.includes(element))) {
+                        productoSus.push(item)
+                    }
                     flag1 = false
                 }
             })
         }
     })
 
-    res.render('productos/ver-producto', { producto, productoSus });
+    res.render('productos/ver-producto', { producto, productoSus, isAdmin });
 };
+
+
+
 
 productoCtrl.renderEditForm = async (req, res) => {
     const producto = await Producto.findById(req.params.id).lean();
