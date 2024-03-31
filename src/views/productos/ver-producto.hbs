@@ -204,7 +204,7 @@
                                     stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 <path d="M7.5 4H9V2.5C9 1.67 8.33 1 7.5 1C6.67 1 6 1.67 6 2.5C6 3.33 6.67 4 7.5 4Z"
                                     stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>Categorias: <i class="titulo8 ">{{producto.categoria}}</i> </h2>
+                            </svg>Categorias:  </h2>
                         <div class="list justify-center ms-lg-5">
                             {{#each producto.categoria}}
 
@@ -240,9 +240,16 @@
                                 stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.5 4H9V2.5C9 1.67 8.33 1 7.5 1C6.67 1 6 1.67 6 2.5C6 3.33 6.67 4 7.5 4Z"
                                 stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg> Ingredientes alergenos: <i class="titulo8">{{producto.elementos}}</i></h2>
+                        </svg> Ingredientes alergenos: </h2>
 
                     {{#if producto.trazas}}
+
+                    <div class="list justify-center ms-lg-5">
+                        {{#each producto.elementos}}
+                        <img src=/images/{{this}}-rojo.png>
+                        {{/each}}
+                    </div>
+
                     <h2 class="gy-4 titulo7 p-2"> <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -268,13 +275,10 @@
                                 stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M7.5 4H9V2.5C9 1.67 8.33 1 7.5 1C6.67 1 6 1.67 6 2.5C6 3.33 6.67 4 7.5 4Z"
                                 stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg> Trazas alergenas que puede contener: <i class="titulo8">{{producto.trazas}}</i></h2>
+                        </svg> Trazas alergenas que puede contener: </h2>
                     {{/if}}
 
                     <div class="list justify-center ms-lg-5">
-                        {{#each producto.elementos}}
-                        <img src=/images/{{this}}-rojo.png>
-                        {{/each}}
                         {{#each producto.trazas}}
                         <img src=/images/{{this}}-amarillo.png>
                         {{/each}}
