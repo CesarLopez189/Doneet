@@ -39,7 +39,109 @@
                             <span class="carousel-control-next-icon" ariahidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
+    
+
                     </div>
+                    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var botonReportar = document.getElementById('reportarAlergenoBtn');
+    var formularioContainer = document.getElementById('reportarAlergenoFormContainer');
+
+    botonReportar.addEventListener('click', function() {
+        formularioContainer.style.display = formularioContainer.style.display === 'block' ? 'none' : 'block';
+    });
+});
+</script>
+
+
+
+
+
+                    <div class="d-flex justify-content-center mt-3">
+        <button id="reportarAlergenoBtn" class="btn btn-warning">Reportar Alérgeno</button>
+    </div>
+    <!-- Modal para reportar alérgenos -->
+<!-- Contenedor para el formulario de reporte de alérgenos -->
+<div id="reportarAlergenoFormContainer" style="display:none;" class="mt-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Reportar Alérgeno</h5>
+      <!-- Formulario para reportar alérgeno -->
+      <form id="reportarAlergenoForm" action="/reportar-alergeno" method="POST">
+        <!-- Casillas de verificación para los alérgenos -->
+         <div class="row">
+                    <div class="col-md-6">
+                        <!-- Columna izquierda -->
+                        <input type="checkbox" id="gluten" name="alergenos" value="gluten">
+                        <label for="gluten">Gluten</label><br>
+                        <input type="checkbox" id="nuez" name="alergenos" value="nuez">
+                        <label for="nueces">Nuez</label><br>
+                        <input type="checkbox" id="lacteo" name="alergenos" value="lacteo">
+                        <label for="lactosa">Lactosa</label><br>
+                        <input type="checkbox" id="huevo" name="alergenos" value="huevo">
+                        <label for="huevo">Huevo</label><br>
+                        <input type="checkbox" id="fresa" name="alergenos" value="fresa">
+                        <label for="fresa">Fresa</label><br>
+                    </div>
+                    <div class="col-md-6">
+                        <!-- Columna derecha -->
+                        <input type="checkbox" id="almendra" name="alergenos" value="almendra">
+                        <label for="almendra">Almendra</label><br>
+                        <input type="checkbox" id="cacahuate" name="alergenos" value="cacahuate">
+                        <label for="cacahuate">Cacahuate</label><br>
+                        <input type="checkbox" id="chocolate" name="alergenos" value="chocolate">
+                        <label for="chocolate">Chocolate</label><br>
+                        <input type="checkbox" id="tamarindo" name="alergenos" value="tamarindo">
+                        <label for="tamarindo">Tamarindo</label><br>
+                        <input type="checkbox" id="soya" name="alergenos" value="soya">
+                        <label for="soya">Soya</label><br>
+                    </div>
+                </div>
+        <!-- Campo para la descripción del reporte por el usuario -->
+        <div class="mb-3">
+          <label for="descripcionAlergeno" class="form-label">Descripción (opcional):</label>
+          <textarea class="form-control" id="descripcionAlergeno" name="descripcion" rows="3"></textarea>
+        </div>
+        {{#if user}}
+<input type="hidden" name="usuarioId" value="{{user._id}}">
+{{/if}}
+<input type="hidden" name="productoId" value="{{producto._id}}">
+        <button type="submit" class="btn btn-danger">Reportar</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+function enviarReporteAlergenos() {
+    var checkboxes = document.querySelectorAll('input[name="alergenos"]:checked');
+    var alergenos = Array.from(checkboxes).map(checkbox => checkbox.value);
+    var descripcion = document.getElementById('descripcionAlergeno').value;
+
+
+    
+    console.log('Alergenos seleccionados:', alergenos);
+    console.log('Descripción:', descripcion);
+    
+    // Aquí implementarías el código para enviar los datos al servidor.
+    // Esto podría ser una solicitud AJAX, Fetch API, o similar.
+}
+</script>
+
+<h4 class="titulo7">Reportes de alérgenos</h4>
+<div class="list">
+    {{#each producto.reportes}}
+    <div class="card mb-2">
+        <div class="card-body">
+            <h5 class="card-title">{{this.usuarioNombre}} - {{this.fechaFormateada}}</h5>
+            <p class="card-text">Alergenos: {{this.alergenos}}</p>
+            <p class="card-text">{{this.descripcion}}</p>
+            
+
+</div>
+</div>
+{{/each}}
+</div>
+
 
                     <div id="lightbox" class="lightbox">
                         <span class="close" onclick="closeLightbox()">&times;</span>
@@ -65,6 +167,7 @@
 
 
             </div>
+            
 
 
             <div class="col-7 rectangulo4 p-5">

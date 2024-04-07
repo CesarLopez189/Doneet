@@ -2,6 +2,7 @@ const productoCtrl = {};
 
 const Producto = require('../models/Producto');
 const User = require('../models/Usuario');
+const ReporteAlergeno = require('../models/ReporteAlergeno');
 
 productoCtrl.renderProductoForm = (req, res) => {
     res.render('productos/new-producto');
@@ -52,7 +53,6 @@ productoCtrl.renderSearchProducto = async (req, res) => {
         // Tomar el primer elemento del arreglo (si existe)
         const producto = searchproductoArray.length > 0 ? searchproductoArray[0] : null;
 
-        console.log("Contenido de searchproducto:", producto);
         
         res.render('productos/ver-producto', { producto, isAdmin });
       
@@ -64,50 +64,71 @@ productoCtrl.renderSearchProducto = async (req, res) => {
 
 
 productoCtrl.renderProducto = async (req, res) => {    
-    const producto = await Producto.findById(req.params.id).lean();
-    const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
-    let esCompatibleConUsuario = false;
-    const productoSus = []; // Inicializa la lista de productos sugeridos
+    try {
+        const producto = await Producto.findById(req.params.id).lean();
+        const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
+        let esCompatibleConUsuario = false;
+        const productoSus = []; // Inicializa la lista de productos sugeridos
 
-    console.log("Producto:", producto);
+        // Ver reportes de alergenos y buscar los nombres de usuarios
+        const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();
 
-    let usuario;
-    if (req.user) {
-        usuario = await User.findById(req.user._id).lean();
-        // Verifica si el producto no contiene elementos a los que el usuario es sensible
-        esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
-    }
+        // Obtener nombres de los usuarios de los reportes
+        for (let reporte of reportes) {
+            const usuarioReporte = await User.findById(reporte.usuario).lean();
+            reporte.usuarioNombre = usuarioReporte ? usuarioReporte.name : 'Anónimo';
 
-    // Solo busca productos sugeridos si el producto no es compatible con el usuario
-    if (!esCompatibleConUsuario) {
-        const elementos = producto.elementos.slice(1); // Copia 'elementos' excluyendo el primer elemento
-        let p = await Producto.find({ elementos: { $not: { $all : elementos[0]}} }).lean();
+            if (reporte.createdAt) {
+                const fecha = new Date(reporte.createdAt);
+                reporte.fechaFormateada = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+            }
+        }
+        producto.reportes = reportes;
 
-        p.forEach((item) => {
-            let flag = true;
-            elementos.forEach((word) => {
-                if (item.elementos.includes(word)) {
-                    flag = false;
-                }
-            });
-            if (flag) {
-                let flag1 = true;
-                producto.categoria.forEach((category) => {
-                    if (item.categoria.includes(category) && flag1) {
-                        // Verifica si el producto es seguro para el usuario.
-                        if (usuario && !usuario.elements.some(element => item.trazas.includes(element))) {
-                            productoSus.push(item);
-                        }
-                        flag1 = false;
+        let usuario;
+        if (req.user) {
+            usuario = await User.findById(req.user._id).lean();
+            // Verifica si el producto no contiene elementos a los que el usuario es sensible
+            esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
+        }
+
+        // Solo busca productos sugeridos si el producto no es compatible con el usuario
+        if (!esCompatibleConUsuario) {
+            const elementos = producto.elementos.slice(1); // Copia 'elementos' excluyendo el primer elemento
+            let p = await Producto.find({ elementos: { $not: { $all : elementos[0]}} }).lean();
+
+            p.forEach((item) => {
+                let flag = true;
+                elementos.forEach((word) => {
+                    if (item.elementos.includes(word)) {
+                        flag = false;
                     }
                 });
-            }
-        });
-    }
+                if (flag) {
+                    let flag1 = true;
+                    producto.categoria.forEach((category) => {
+                        if (item.categoria.includes(category) && flag1) {
+                            // Verifica si el producto es seguro para el usuario.
+                            if (usuario && !usuario.elements.some(element => item.trazas.includes(element))) {
+                                productoSus.push(item);
+                            }
+                            flag1 = false;
+                        }
+                    });
+                }
+            });
+        }
 
-    // Renderiza la vista con la información recopilada
-    res.render('productos/ver-producto', { producto, productoSus, isAdmin, esCompatibleConUsuario });
+        console.log("Producto: ", producto);
+
+        // Renderiza la vista con la información recopilada
+        res.render('productos/ver-producto', { producto, productoSus, isAdmin, esCompatibleConUsuario });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Ocurrió un error al procesar la solicitud');
+    }
 };
+
 
 
 

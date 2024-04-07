@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de Alergias</title>
+    <!-- Asegúrate de incluir la biblioteca de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Incluir Bootstrap para estilos y centrado -->
+</head>
+<body>
+    <div class="container-sm rectangulo">
+        <div class="row">
+            <div class="col-12">
+                <!-- Título centrado -->
+                <h2 class="text-center mt-3">Estadísticas de Alergias</h2>
+            </div>
+        </div> 
+        <!-- Contenedor de la gráfica centrado horizontalmente con un ancho del 50% -->
+        <div class="d-flex justify-content-center">
+            <div class="w-75">
+                <canvas id="alergiasChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const estadisticas = JSON.parse('{{alergiasData}}'.replace(/&quot;/g, '"'));
+            const ctx = document.getElementById('alergiasChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: estadisticas.labels,
+                    datasets: [{
+                        label: 'Usuarios',
+                        data: estadisticas.data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
