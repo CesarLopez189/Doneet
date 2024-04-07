@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
+const reporteAlergenoController = require('../src/controllers/reporteAlergenoController');
 
 // Initializations
 const app = express();
@@ -67,7 +68,9 @@ app.use(require('./routes/index.routes'));
 app.use(require('./routes/productos.routes'));
 app.use(require('./routes/users.routes'));
 
+
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 module.exports = app;

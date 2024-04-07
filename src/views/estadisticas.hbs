@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de Alergias</title>
+    <!-- Asegúrate de incluir la biblioteca de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Incluir Bootstrap para estilos y centrado -->
+</head>
 <body>
-  <div class="container-sm rectangulo">
-    <div class="row">
-      <div class="col" align="center">
-        <h1 class="titulo1 mt-4">ESTADÍSTICAS DEL SISTEMA</h1>
-        <p class="pe-5 ps-5 titulo8">Aquí se muestra una visión general del uso del sistema y datos relevantes para la administración.</p>
-      </div>
-      <div>
-        <div class="row" align="center">
-          <!-- Ejemplo de estadísticas con diseño de tarjeta -->
-          <div class="col rectangulo5 me-5 ms-5 mb-5 mt-1">
-            <h2 class="titulo9 mt-4">Usuarios Activos</h2>
-            <p class="titulo10 pe-1 ps-1 pb-4"></p>
-          </div>
-          <div class="col rectangulo5 me-5 ms-5 mb-5 mt-1">
-            <h2 class="titulo9 mt-4">Productos Registrados</h2>
-            <p class="titulo10 pe-1 ps-1 pb-4"></p>
-          </div>
-          <!-- Puedes seguir agregando más tarjetas con diferentes estadísticas -->
+    <div class="container-sm rectangulo">
+        <div class="row">
+            <div class="col-12">
+                <!-- Título centrado -->
+                <h2 class="text-center mt-3">Estadísticas de Alergias</h2>
+            </div>
+        </div> 
+        <!-- Contenedor de la gráfica centrado horizontalmente con un ancho del 50% -->
+        <div class="d-flex justify-content-center">
+            <div class="w-75">
+                <canvas id="alergiasChart"></canvas>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const estadisticas = JSON.parse('{{alergiasData}}'.replace(/&quot;/g, '"'));
+            const ctx = document.getElementById('alergiasChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: estadisticas.labels,
+                    datasets: [{
+                        label: 'Usuarios',
+                        data: estadisticas.data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
