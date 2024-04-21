@@ -28,6 +28,7 @@ productoCtrl.renderProductos = async (req, res) => {
     try {
         const productos = await Producto.find().lean();
         const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
+        console.log(isAdmin)
         res.render('productos/all-productos', { productos, isAdmin });
       } catch (error) {
         console.error(error);   
@@ -128,10 +129,6 @@ productoCtrl.renderProducto = async (req, res) => {
         res.status(500).send('Ocurrió un error al procesar la solicitud');
     }
 };
-
-
-
-
 
 
 productoCtrl.renderEditForm = async (req, res) => {
