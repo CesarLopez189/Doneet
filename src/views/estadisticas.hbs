@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Estadísticas de Alergias y Productos</title>
+    <!-- Asegúrate de incluir la biblioteca de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container-sm rectangulo ">
+        <div class="row">
+            <div class="col-12">
+                <!-- Título centrado -->
+                <h2 class="text-center mt-3">Estadísticas de Alergias</h2>
+            </div>
+        </div> 
+        <!-- Contenedor de la gráfica centrado horizontalmente con un ancho del 75% -->
+        <div class="d-flex justify-content-center">
+            <div class="w-75">
+                <canvas id="alergiasChart"></canvas>
+            </div>
+        </div>
+        <!-- Contenedor para la segunda gráfica de productos -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mt-5">Productos Reportados</h2>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="w-75">
+                <canvas id="productosChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alergiasData = JSON.parse('{{alergiasData}}'.replace(/&quot;/g, '"'));
+            const productosData = JSON.parse('{{productosData}}'.replace(/&quot;/g, '"'));
+
+            // Configuración y creación de la gráfica de alergias
+            const ctxAlergias = document.getElementById('alergiasChart').getContext('2d');
+            const alergiasChart = new Chart(ctxAlergias, {
+                type: 'bar',
+                data: {
+                    labels: alergiasData.labels,
+                    datasets: [{
+                        label: 'Usuarios',
+                        data: alergiasData.data,
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Configuración y creación de la gráfica de productos reportados
+            const ctxProductos = document.getElementById('productosChart').getContext('2d');
+            const productosChart = new Chart(ctxProductos, {
+                type: 'bar',
+                data: {
+                    labels: productosData.labels,
+                    datasets: [{
+                        label: 'Reportes',
+                        data: productosData.data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

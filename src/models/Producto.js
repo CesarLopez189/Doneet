@@ -14,4 +14,6 @@ const ProductoSchema = new Schema({
     timestamps: true
 })
 
+//Cambiominimo
 module.exports = model('Producto', ProductoSchema);
+

@@ -1,93 +1,50 @@
-<!--
-<div class="parent">
-    <div class='child'>
-        <h3>Filtros</h3>
-        <div class="dropdown">
-        <button class="dropbtn">Marca</button>
-            <div class="dropdown-content">
-                <a href="#">De la rosa</a>
-                <a href="#">Dragoncitos</a>
-                <a href="#">Pavito</a>
-            </div>
-        </div>
-    </div>
-    <div class="child">
-    {{#each productos}}
-        <div class="card">
-                <h4>{{nombre}} <a href="/producto/edit/{{_id}}"><i>icono_edit</i></a></h4>
-                <p>{{marca}}</p>
-                <p>{{imagenes}}</p>
-                <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="sumbmit">Delete</button>
-                </form>
-                <a href="/producto/ver/{{_id}}"><i>icono_ver</i></a>
-        </div>
-    {{/each}}
-    </div>    
-</div>
--->
 <body>
+
+  {{#if isAdmin}}
+
   <div class="">
     <a class="fab" href="/producto/add">
-      <svg fill="#fff"  viewBox="0 0 24 24" width="55" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-        <path d="M0 0h24v24H0z" fill="none"/>
+      <svg fill="#fff" viewBox="0 0 24 24" width="55" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        <path d="M0 0h24v24H0z" fill="none" />
       </svg>
     </a>
   </div>
 
-    <section>
-        
-        <div class="container-xl rectangulo p-4">
-            
-            <div class="cols">
-                
-                {{#each productos}}
-                <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-                    <div class="containerCard">
-                       
-                        <div class="frontCard" style="background-image:url({{imagenPrincipal}})">
-                        
-                            
-                            
-                            <!--<div class="innerCard">
-                                <p>{{nombre}}</p>       
-                            </div>-->
-                        </div>
-            
-                        
-                        <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-                            <div class="innerCard">
-                                
+  {{/if}}
 
-                                
-                                <div class="buttonCard">
+  <section>
 
-                                    
-                                    <form action="/producto/edit/{{_id}}" method="">
-                                        <button class="custom-btn btn-9 mb-2" type="submit">Editar</button>
-                                    </form>
+    <div class="container-xl rectangulo p-4">
+      <div class="cols">
 
-                                    <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button class="custom-btn btn-7 mb-2" type="sumbmit">Eliminar</button>
-                                    </form>
-                                
-                                    <form action="/producto/ver/{{_id}}">
-                                        <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
+        {{#each productos}}
+
+        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard img-fluid img-thumbnail rounded-circle"
+              style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard " style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+                <p class="text-center"
+                  style="font-family: 'Lato', sans-serif; color: white; text-shadow: 0 0 5px purple">{{nombre}}</p>
+                <form action="/producto/ver/{{_id}}">
+                <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
-         
-    </section>
+
+        {{/each}}
+
+      </div>
+    </div>
+
+  </section>
+
 </body>
+
 <header>
-   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </header>

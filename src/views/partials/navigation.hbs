@@ -1,41 +1,16 @@
-<!--CESAR-->
-<!-- <nav>
-    <a href="/">Inicio</a>
-    <a href="/productos" >Dulces</a>
-    <div class="dropdown">
-        <button class="dropbtn">Categorias</button>
-            <div class="dropdown-content">
-                <a href="#">Polvorosos</a>
-                <a href="#">Chocolates</a>
-                <a href="#">Caramelo Suave</a>
-                <a href="#">Biscochos</a>
-                <a href="#">Picosos</a>
-                <a href="#">Típicos</a>
-                <a href="#">Paletas</a>
-            </div>
-        </div>
-     <a href="/about" class="nav-link">Acerca de</a> 
-    <input type="text" name="busqueda" placeholder="Buscar dulce">
-    {{#if user}}
-    <a href="/perfil">Perfil</a>
-    <a href="/usuarios/logout">Cerrar sesión</a>
-    {{else}}
-    <a href="/usuarios/signin">Acceder</a>
-    <a href="/usuarios/signup">Registrar</a>
-    {{/if}} --> 
-
-
 <nav class="navbar navbar-expand-lg bg-white sombra justify-content-center mb-4 mx-4">
   <div class="container-fluid mx-auto">
     <a class="navbar-brand" href="/">
       <img src="/images/000Logo.png" alt="" class="img-fluid" width="170">
     </a>
+    
+
     <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
 
       <span class="navbar-toggler-icon"></span>
 
       </button>
-
+      
       
     <center>
        
@@ -48,7 +23,9 @@
         <input class="form-control  rectangulo3 me-2 ms-5" name="item" type="search" placeholder="Dulce o categoria" aria-label="Search"></input> 
         <button class="btn btn-outline-danger  " type="submit">Buscar</button>
       </form>
-
+          <a href="/usuarios/chatbot" class="my-2 mx-4 ">
+            <img src="/images/00chatbot.png" alt="" class="img-fluid" width="120">
+          </a>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Categorias
@@ -91,6 +68,12 @@
         <li class="nav-item pe-lg-3 ms-3">
           <a class="nav-link " href="/productos">Dulces</a>
         </li>
+        <li class="nav-item pe-lg-3 ms-3">
+  <a class="nav-link " href="/estadisticas">Estadísticas</a> 
+</li>
+<li class="nav-item pe-lg-3 ms-3">
+  <a class="nav-link " href="/about">Cuenta</a> 
+</li>
         
         {{#if user}}
       <blockquote></blockquote>

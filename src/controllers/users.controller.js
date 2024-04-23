@@ -42,13 +42,33 @@ usersCtrl.signup =  async (req, res) => {
 
 usersCtrl.renderSigninForm = (req, res) => {
     res.render('usuarios/signin');
+    
 };
 
-usersCtrl.signin = passport.authenticate('local', {
+/*usersCtrl.signin = passport.authenticate('local', {
     failureRedirect: '/usuarios/signin',
     successRedirect: '/',
     failureFlash: true
-});
+});*/
+
+usersCtrl.signin = (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        req.flash('error_msg', 'Usuario o contraseña incorrectos');
+        return res.redirect('/usuarios/signin');
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash('success_msg', '¡Bienvenido!');
+        res.redirect('/');
+      });
+    })(req, res, next);
+  };
 
 usersCtrl.logout = (req, res) => {
     req.logout( (err) => {
@@ -57,6 +77,11 @@ usersCtrl.logout = (req, res) => {
         res.redirect('/');
     });
 };
+
+usersCtrl.chatbot = (req, res) => {
+    res.render('usuarios/chatbot');
+}
+
 
 
 module.exports = usersCtrl;
