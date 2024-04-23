@@ -6,7 +6,7 @@
   {{#if user}}
 
 {{/if}}
-  <div class=" container-sm rectangulo">
+  <div class=" container-sm rectangulo" style="padding-bottom: 40px;">
     <div class="row">
 
       <div class="col" align="center">
@@ -142,29 +142,86 @@
 </div>
   <h1 class="titulo1 mt-4" style="text-align: center;">Educación</h1>
   </div>
-  <div class="container mt-4">
+ <div class="container mt-4">
   <div class="row">
     <div class="col-md-4">
       <div class="card">
-        <img src="images/guiaAlergias.png" class="card-img-top mx-auto d-block img-small sombra" alt="..." style="width: 200px;">
+        <img src="images/guiaAlergias.png" class="card-img-top mx-auto d-block img-small sombra " alt="Guía sobre alergias alimentarias" style="width: 200px;">
         <div class="card-body">
-          <h5 class="card-title">Guía sobre alergias alimentarias. </h5>
+          <h5 class="card-title">Guía sobre alergias alimentarias.</h5>
           <p class="card-text">Food Allergy Research & Education (FARE) es una organización benéfica dedicada a la concienciación, investigación, educación y defensa de las alergias alimentarias.</p>
           <a href="https://www.foodallergy.org/sites/default/files/2020-11/Field-Guide-11162020-ESP.pdf" class="btn btn-primary mx-auto d-block">Ver Guía</a>
         </div>
       </div>
-    </div><div class="col-md-4">
+    </div>
+    <div class="col-md-4">
       <div class="card">
-        <img src="images/guiaEtiquetado.jpg" class="card-img-top mx-auto d-block img-small sombra" alt="..." style="width: 200px;">
+        <img src="images/guiaEtiquetado.jpg" class="card-img-top mx-auto d-block img-small sombra" alt="Etiquetado frontal de alimentos y bebidas" style="width: 225px;">
         <div class="card-body">
-          <h5 class="card-title">Etiquetado frontal de alimentos y bebidas. </h5>
-          <p class="card-text">Promo  Todo lo que debes saber para un consumo consciente y saludable.</p>
-          <a href="https://www.foodallergy.org/sites/default/files/2020-11/Field-Guide-11162020-ESP.pdf" class="btn btn-primary mx-auto d-block">Ver Guía</a>
+          <h5 class="card-title">Etiquetado frontal de alimentos y bebidas.</h5>
+          <p class="card-text">Todo lo que debes saber para un consumo consciente y saludable de alimentos empaquetados, información de manera fácil, rápida y verídica sobre los nutrimentos.</p>
+          <a href="https://www.gob.mx/promosalud/acciones-y-programas/etiquetado-de-alimentos" class="btn btn-primary mx-auto d-block">Ver Guía</a>
         </div>
       </div>
     </div>
-    <!-- Repite las columnas para más tarjetas -->
+    <div class="col-md-4">
+      <div class="card">
+        <img src="images/leyesEtiquetado.png" class="card-img-top mx-auto d-block img-small sombra" alt="Comprender las etiquetas de los alimentos" style="width: 290px;">
+        <div class="card-body">
+          <h5 class="card-title">Comprender las etiquetas de los alimentos.</h5>
+          <p class="card-text">Hay diversos enfoques que pueden funcionar, y determinadas leyes, tales como la Ley de Etiquetado de Alérgenos Alimentarios y Protección al Consumidor (FALCPA, por sus siglas en inglés), ayudan a que sea más fácil entender las etiquetas de los alimentos a fin de que usted pueda manejar con seguridad sus alergias alimentarias o las de su hijo.</p>
+          <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjWycb-pteFAxVD5ckDHfvUAbgQFnoECA8QAQ&url=https%3A%2F%2Fwww.foodallergy.org%2Fresources%2Funderstanding-food-labels-esp&usg=AOvVaw3YVKCFQBpXzm85Oef8-yg-&opi=89978449" class="btn btn-primary mx-auto d-block">Ver Guía</a>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+  <div class="container mt-4">
+    <h2 class="titulo1" style="text-align: center;">Preguntas Frecuentes (FAQ)</h2>
+    <div class="accordion" id="faqAccordion">
+        <!-- Pregunta 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    ¿Qué es una alergia alimentaria?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Una alergia alimentaria es una reacción del sistema inmunológico que ocurre poco después de haber comido un alimento específico. Incluso pequeñas cantidades del alimento alergénico pueden provocar síntomas como problemas digestivos, urticaria o hinchazón de las vías aéreas.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    ¿Cómo puedo saber si tengo una alergia alimentaria?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Los síntomas de una alergia alimentaria pueden variar desde leves a graves y pueden incluir urticaria, vómitos, problemas respiratorios, y en casos severos, anafilaxis. Si sospechas que tienes una alergia alimentaria, es importante consultar a un médico o un alergólogo para pruebas y diagnóstico adecuados.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    ¿Cómo utiliza Doneet los datos de los usuarios?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Doneet toma la privacidad y la seguridad de los datos de los usuarios muy en serio. Utilizamos la información proporcionada por los usuarios exclusivamente para mejorar la experiencia en la aplicación, como personalizar las alertas de alérgenos y ofrecer recomendaciones basadas en las alergias específicas de cada usuario. No compartimos datos personales con terceros sin el consentimiento explícito del usuario.
+                </div>
+            </div>
+        </div>
+        <!-- Más preguntas según sea necesario -->
+    </div>
+</div>
+
 </div>
 
 
