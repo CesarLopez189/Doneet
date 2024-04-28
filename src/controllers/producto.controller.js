@@ -82,6 +82,10 @@ productoCtrl.renderProducto = async (req, res) => {
         const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
         let esCompatibleConUsuario = false;
         const productoSus = []; // Inicializa la lista de productos sugeridos
+        console.log("Query Parameters:", req.query); 
+        let mostrarFeedback = req.body.feedback === "true";
+
+        console.log("mostrarFeedback (POST): ", mostrarFeedback);
 
         // Ver reportes de alergenos y buscar los nombres de usuarios
         const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();
@@ -135,10 +139,37 @@ productoCtrl.renderProducto = async (req, res) => {
         console.log("Producto: ", producto);
 
         // Renderiza la vista con la información recopilada
-        res.render('productos/ver-producto', { producto, productoSus, isAdmin, esCompatibleConUsuario });
+        res.render('productos/ver-producto', { producto, productoSus, isAdmin, esCompatibleConUsuario, mostrarFeedback });
     } catch (error) {
         console.error(error);
         res.status(500).send('Ocurrió un error al procesar la solicitud');
+    }
+};
+
+productoCtrl.renderProductoPost = async (req, res) => {
+    try {
+        const productoId = req.params.id; // Obtén el ID del producto de la URL
+        const producto = await Producto.findById(productoId).lean();
+        const isAdmin = req.user && req.user.admin;
+        let esCompatibleConUsuario = false;
+        const productoSus = [];
+        let mostrarFeedback = req.body.feedback === "true"; // Captura el valor de 'feedback' desde el cuerpo de la solicitud POST
+
+        console.log("mostrarFeedback (POST): ", mostrarFeedback);
+
+        // Aquí va tu lógica para determinar si es compatible con el usuario, etc.
+
+        // Renderiza la página con la información adecuada
+        res.render('productos/ver-producto', {
+            producto,
+            productoSus,
+            isAdmin,
+            esCompatibleConUsuario,
+            mostrarFeedback
+        });
+    } catch (error) {
+        console.error("Error al cargar el producto:", error);
+        res.status(500).send('Error al procesar la solicitud');
     }
 };
 
