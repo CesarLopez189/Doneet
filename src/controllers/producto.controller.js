@@ -23,21 +23,33 @@ productoCtrl.createNewProducto = async (req, res) => {
 };
 
 productoCtrl.renderProductos = async (req, res) => {
-    /*const productos = await Producto.find().lean(); 
-    res.render('productos/all-productos', { productos, user: req.user  });*/
     try {
+        bandera = false;
         const productos = await Producto.find().lean();
-        const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
-        console.log(isAdmin)
-        res.render('productos/all-productos', { productos, isAdmin });
+        const isAdmin = req.user && req.user.admin;
+
+        var chocolates = productos.filter(producto => producto.categoria.includes("chocolate"));
+        var paletas = productos.filter(producto => producto.categoria.includes("paleta"));
+        var gomitas = productos.filter(producto => producto.categoria.includes("gomita"));
+        var caramelos_suaves = productos.filter(producto => producto.categoria.includes("caramelo_suave"));
+        var bombones = productos.filter(producto => producto.categoria.includes("bombon"));
+        var tipicos = productos.filter(producto => producto.categoria.includes("tipico"));
+        var biscochos = productos.filter(producto => producto.categoria.includes("biscocho"));
+        var chicles = productos.filter(producto => producto.categoria.includes("chicle"));
+        var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
+        var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
+
+
+        res.render('productos/all-productos', { productos, isAdmin, chocolates, paletas, gomitas, caramelos_suaves, bombones, tipicos, biscochos, chicles, polvorosos, picosos, bandera });
       } catch (error) {
         console.error(error);   
       }
 };
 
 productoCtrl.renderProdCategory = async (req, res) => {
+    var bandera = true;
     await Producto.find({ categoria: { $all: [req.params.id]} }).lean()
-        .then(productos => res.render('productos/all-productos', { productos }))
+        .then(productos => res.render('productos/all-productos', { productos, bandera }))
         .catch(e => console.log("Ha ocurrido un error: ", e));
 };
 
