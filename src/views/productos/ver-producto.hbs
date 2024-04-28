@@ -184,6 +184,17 @@ function enviarReporteAlergenos() {
                 </div>
                 {{/if}}
 
+                <div class="feedback-section">
+
+    </div>
+{{#if mostrarFeedback}}
+<div class="feedback-section">
+    <h2 class="titulo7">¿Te sirvió este dulce sustituto?</h2>
+    <button class="like-btn" onclick="handleLikeDislike('like', '{{producto._id}}')">👍</button>
+    <button class="dislike-btn" onclick="handleLikeDislike('dislike', '{{producto._id}}')">👎</button>
+    
+</div>
+{{/if}}
                 {{#if user}}
                 {{#if esCompatibleConUsuario}}
                 <h2 class="titulo7" align="center">¡Usted puede consumir este dulce!</h2>
@@ -456,9 +467,10 @@ function enviarReporteAlergenos() {
 
                                             <div class="buttonCard">
 
-                                                <form action="/producto/ver/{{_id}}">
-                                                    <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                                                </form>
+                                                <form action="/producto/ver/{{_id}}" method="POST">
+    <input type="hidden" name="feedback" value="true">
+    <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+</form>
                                             </div>
 
                                         </div>
@@ -517,4 +529,24 @@ function enviarReporteAlergenos() {
             });
         });
     </script>
+    <script>
+function handleLikeDislike(action, productId) {
+    // Logica para enviar la información al servidor
+    console.log(action + ' clicked for product ' + productId);
+
+    // Ejemplo de cómo podrías enviar esta información al servidor usando Fetch API
+    fetch('/api/product/like-dislike', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ productId: productId, action: action })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+}
+</script>
+
+
 </section>

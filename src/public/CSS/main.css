@@ -1407,10 +1407,9 @@ background: linear-gradient(0deg, #AB3597 0%,#F08A5E 100%);
   color: white;
 }
 .carousel img {
-                          max-width: 250px;
-                          /* Establece el tamaño máximo en 100px */
-                          height: 250px;
-                          /* Mantiene la proporción de aspecto original */
+  width: 100%; /* Asegura que el ancho sea siempre el 100% del contenedor */
+  height: auto; /* Ajusta la altura automáticamente para mantener la proporción de aspecto */
+  object-fit: cover; /* Cubre el área disponible sin distorsionar la imagen */
                       }
                       .carousel-control-prev-icon, .carousel-control-next-icon {
       background-color: black; /* Cambia el color de fondo a negro */
@@ -1432,6 +1431,54 @@ background: linear-gradient(0deg, #AB3597 0%,#F08A5E 100%);
     max-width: 100%; /* Asegura que el logo responda bien */
     height: auto;
   }
+
+  .like-btn, .dislike-btn {
+    border: none;
+    color: white;
+    background-color: #4CAF50; /* Verde para like */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.dislike-btn {
+    background-color: #f44336; /* Rojo para dislike */
+}
+
+.like-btn:hover, .dislike-btn:hover {
+    opacity: 0.8;
+}
+.feedback-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-image: url('path/to/star-icon.png');
+  background-size: cover;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  background-image: url('path/to/filled-star-icon.png');
+}
+
 
 
   
