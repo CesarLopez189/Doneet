@@ -449,49 +449,47 @@
                     </div>
                     -->
 
-                {{#if user}}
-                <h2>Sustitutos</h2>
-                {{#if esCompatibleConUsuario}}
-                <h2 class="gy-4 titulo7 p-2" align="center">¡No hay sustitutos a un dulce que si puede consumir :D!</h2>
-                {{else}}
-                {{#if productoSus}}
+               {{#if user}}
+    <h2>Sustitutos</h2>
+    {{#if esCompatibleConUsuario}}
+        <h2 class="gy-4 titulo7 p-2" align="center">¡No hay sustitutos a un dulce que si puede consumir :D!</h2>
+    {{else}}
+        {{#if productoSus}}
+            <div class="row">
                 {{#each productoSus}}
-                <center>
-                    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-                        <div class="containerCard">
-                            <div class="frontCard" style="background-image:url({{imagenPrincipal}})">
-
-                            </div>
-                            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-                                <div class="innerCard">
-
-
-
-                                    <div class="buttonCard">
-
+                    <div class="col-md-4">
+                        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+                            <div class="containerCard">
+                                <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+                                <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+                                    <div class="innerCard">
                                         <form action="/producto/ver/{{_id}}" method="POST">
                                             <input type="hidden" name="feedback" value="true">
                                             <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
                                         </form>
                                     </div>
-
                                 </div>
                             </div>
+                            <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
                         </div>
+                        
                     </div>
-                </center>
+                    
                 {{/each}}
-                {{else}}
-                <h2 class="gy-4 titulo7 p-2" align="center">No hay dulces sustitutos para esta misma categoría</h2>
-                {{/if}}
-                {{/if}}
-                {{else}}
-                <div class="col-11 gy-2" align="CENTER">
-                    <h2 class="titulo7" align="CENTER">¡Inicia sesión para ver si puedes consumir este dulce o ver los
-                        sustitutos!</h2>
-                    <a href="/usuarios/signin"><button class="btn btn-warning titulo4">Ingresar</button></a>
-                </div>
-                {{/if}}
+            </div>
+        {{else}}
+            <h2 class="gy-4 titulo7 p-2" align="center">No hay dulces sustitutos para esta misma categoría</h2>
+        {{/if}}
+    {{/if}}
+{{else}}
+    <div class="col-11 gy-2" align="CENTER">
+        <h2 class="titulo7" align="CENTER">¡Inicia sesión para ver si puedes consumir este dulce o ver los sustitutos!</h2>
+        <a href="/usuarios/signin"><button class="btn btn-warning titulo4">Ingresar</button></a>
+    </div>
+{{/if}}
+
 
 
             </div>
