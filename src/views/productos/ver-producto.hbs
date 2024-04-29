@@ -198,12 +198,15 @@
                 </div>
                 {{/if}}
                 {{#if user}}
-                {{#if esCompatibleConUsuario}}
-                <h2 class="titulo7" align="center">¡Usted puede consumir este dulce!</h2>
+                
+                {{#or esCompatibleConUsuario mostrarFeedback}}
+                
+                <h2 class="titulo7 like-btn2" align="center">¡Usted puede consumir este dulce! 👍</h2>
+                
                 {{else}}
-                <h2 class="titulo7" align="center">¡Usted NO puede consumir este dulce!</h2>
+                <h2 class="titulo7 dislike-btn2" align="center">¡Usted NO puede consumir este dulce! 👎</h2>
 
-                {{/if}}
+                {{/or}}
                 {{else}}
                 <div class="col-full" align="CENTER">
                     <h2 class="titulo7" align="CENTER">¡Inicia sesión para ver si puedes consumir este dulce o ver los

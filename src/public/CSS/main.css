@@ -1454,8 +1454,22 @@ background: linear-gradient(0deg, #AB3597 0%,#F08A5E 100%);
 }
 
 .like-btn:hover, .dislike-btn:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
+
+.like-btn2, .dislike-btn2 {
+  border: none;
+  color: white;
+  background-color: #4CAF50; /* Verde para like */
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.dislike-btn2 {
+  background-color: #f44336; /* Rojo para dislike */
+}
+
 .feedback-section {
   text-align: center;
   margin-top: 20px;

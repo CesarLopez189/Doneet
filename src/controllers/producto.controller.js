@@ -124,7 +124,8 @@ productoCtrl.renderProducto = async (req, res) => {
         let esCompatibleConUsuario = false;
         const productoSus = []; // Inicializa la lista de productos sugeridos
         let mostrarFeedback = req.body.feedback === "true";
-
+    
+        console.log("MOSTRAR FEEDBACK", mostrarFeedback);
 
         // Ver reportes de alergenos y buscar los nombres de usuarios
         const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();

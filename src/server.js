@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const reporteAlergenoController = require('../src/controllers/reporteAlergenoController');
 
+
 // Initializations
 const app = express();
 require('./config/passport');
@@ -20,7 +21,12 @@ app.engine('.hbs', exphbs.engine({
     defaultLayout: 'main',
     layoutDir: path.join(app.get('views'), 'layouts'),
     partialDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: {
+        or: function(a, b, options) {
+            return a || b ? options.fn(this) : options.inverse(this);
+        }
+    }
 }));
 
 app.set('view engine', '.hbs');
