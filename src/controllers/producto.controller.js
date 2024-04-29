@@ -58,7 +58,6 @@ productoCtrl.renderSearchProducto = async (req, res) => {
     const busqueda = req.body.item;
     const array = busqueda.split(" ");
     const regex = new RegExp(array.join('|'));
-    console.log("regex", regex);
 
     try {
         const searchproductoArray = await Producto.find({ nombre: { '$regex': regex, $options: 'i' } }).lean();
@@ -79,13 +78,12 @@ productoCtrl.renderSearchProducto = async (req, res) => {
 productoCtrl.renderProducto = async (req, res) => {    
     try {
         const producto = await Producto.findById(req.params.id).lean();
+        console.log("ESTO ES PRODUCTO",producto);
         const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
         let esCompatibleConUsuario = false;
         const productoSus = []; // Inicializa la lista de productos sugeridos
-        console.log("Query Parameters:", req.query); 
         let mostrarFeedback = req.body.feedback === "true";
 
-        console.log("mostrarFeedback (POST): ", mostrarFeedback);
 
         // Ver reportes de alergenos y buscar los nombres de usuarios
         const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();
@@ -109,36 +107,24 @@ productoCtrl.renderProducto = async (req, res) => {
             esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
         }
 
+
         // Solo busca productos sugeridos si el producto no es compatible con el usuario
         if (!esCompatibleConUsuario) {
-            const elementos = producto.elementos.slice(1); // Copia 'elementos' excluyendo el primer elemento
-            let p = await Producto.find({ elementos: { $not: { $all : elementos[0]}} }).lean();
+            // copia elemento al que es alergico el usuario
+            let elementos = usuario.elements;
+            console.log("ELEMENTOS", elementos);
+            
+            const p = await Producto.find({
+                categoria: { $in: producto.categoria },
+                elementos: { $nin: elementos }
+            }).lean();
 
-            p.forEach((item) => {
-                let flag = true;
-                elementos.forEach((word) => {
-                    if (item.elementos.includes(word)) {
-                        flag = false;
-                    }
-                });
-                if (flag) {
-                    let flag1 = true;
-                    producto.categoria.forEach((category) => {
-                        if (item.categoria.includes(category) && flag1) {
-                            // Verifica si el producto es seguro para el usuario.
-                            if (usuario && !usuario.elements.some(element => item.trazas.includes(element))) {
-                                productoSus.push(item);
-                            }
-                            flag1 = false;
-                        }
-                    });
-                }
-            });
+            for (let i = 0; i < p.length; i++) {
+                productoSus.push(p[i]);
+            }
         }
-
-        console.log("Producto: ", producto);
-
-        // Renderiza la vista con la información recopilada
+        
+        console.log("ESTO ES PRODUCTOSUS",productoSus);
         res.render('productos/ver-producto', { producto, productoSus, isAdmin, esCompatibleConUsuario, mostrarFeedback });
     } catch (error) {
         console.error(error);
@@ -155,7 +141,6 @@ productoCtrl.renderProductoPost = async (req, res) => {
         const productoSus = [];
         let mostrarFeedback = req.body.feedback === "true"; // Captura el valor de 'feedback' desde el cuerpo de la solicitud POST
 
-        console.log("mostrarFeedback (POST): ", mostrarFeedback);
 
         // Aquí va tu lógica para determinar si es compatible con el usuario, etc.
 
