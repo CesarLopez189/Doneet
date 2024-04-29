@@ -54,25 +54,64 @@ productoCtrl.renderProdCategory = async (req, res) => {
 };
 
 productoCtrl.renderSearchProducto = async (req, res) => {
-    const isAdmin = req.user && req.user.admin;
-    const busqueda = req.body.item;
-    const array = busqueda.split(" ");
-    const regex = new RegExp(array.join('|'));
+    const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
+    const busqueda = req.query.item; // Asume que el término de búsqueda se pasa como un parámetro de consulta
+    const regex = new RegExp(busqueda, 'i'); // Crea un regex para buscar de manera insensible a mayúsculas
 
     try {
-        const searchproductoArray = await Producto.find({ nombre: { '$regex': regex, $options: 'i' } }).lean();
+        const searchproductoArray = await Producto.find({ nombre: { '$regex': regex } }).lean();
+        if (searchproductoArray.length === 0) {
+            // Si no se encuentra ningún producto, renderiza la vista sin producto
+            return res.render('productos/search-producto', { producto: null, isAdmin });
+        }
 
-        // Tomar el primer elemento del arreglo (si existe)
-        const producto = searchproductoArray.length > 0 ? searchproductoArray[0] : null;
+        // Tomar el primer producto encontrado
+        const producto = searchproductoArray[0];
 
-        
-        res.render('productos/ver-producto', { producto, isAdmin });
-      
-    } catch (e) {
-        console.log("Ha ocurrido un error: ", e);
-        res.render('productos/search-producto', { searchproducto: null, isAdmin });
+        // Ver reportes de alergenos y buscar los nombres de usuarios
+        const reportes = await ReporteAlergeno.find({ producto: producto._id }).lean();
+        for (let reporte of reportes) {
+            const usuarioReporte = await User.findById(reporte.usuario).lean();
+            reporte.usuarioNombre = usuarioReporte ? usuarioReporte.name : 'Anónimo';
+            if (reporte.createdAt) {
+                const fecha = new Date(reporte.createdAt);
+                reporte.fechaFormateada = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+            }
+        }
+        producto.reportes = reportes;
+
+        let esCompatibleConUsuario = false;
+        const productoSus = [];
+        let usuario;
+        if (req.user) {
+            usuario = await User.findById(req.user._id).lean();
+            esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
+        }
+
+        // Solo busca productos sugeridos si el producto no es compatible con el usuario
+        if (!esCompatibleConUsuario && usuario) {
+            let elementos = usuario.elements;
+            const productosSugeridos = await Producto.find({
+                categoria: { $in: producto.categoria },
+                elementos: { $nin: elementos }
+            }).lean();
+
+            productoSus.push(...productosSugeridos.filter(p => p._id.toString() !== producto._id.toString()));
+        }
+
+        res.render('productos/ver-producto', {
+            producto,
+            productoSus,
+            isAdmin,
+            esCompatibleConUsuario
+        });
+
+    } catch (error) {
+        console.error("Error al buscar el producto:", error);
+        res.status(500).send('Error al procesar la solicitud');
     }
 };
+
 
 
 productoCtrl.renderProducto = async (req, res) => {    

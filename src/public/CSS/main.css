@@ -115,6 +115,13 @@ input[type="submit"] {
   border-radius: 20px;
 }
 
+.hola2{
+  background: linear-gradient(180deg, #DD2476 100%, #DD2476 100%);
+  border-radius: 5px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
 .fondo {
   background: radial-gradient(167.67% 167.67% at -41.91% -23.88%, rgba(255, 78, 80, 0.9) 27.1%, rgba(255, 235, 57, 0.9) 55.96%, rgba(231, 96, 67, 0.9) 89.86%)
     /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
