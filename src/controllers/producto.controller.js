@@ -24,9 +24,8 @@ productoCtrl.createNewProducto = async (req, res) => {
 
 productoCtrl.renderProductos = async (req, res) => {
     try {
-        bandera = false;
         const productos = await Producto.find().lean();
-        const isAdmin = req.user && req.user.admin;
+        const isAdmin = req.user ? req.user.admin : false; // isAdmin será falso si el usuario no ha iniciado sesión
 
         var chocolates = productos.filter(producto => producto.categoria.includes("chocolate"));
         var paletas = productos.filter(producto => producto.categoria.includes("paleta"));
@@ -39,12 +38,15 @@ productoCtrl.renderProductos = async (req, res) => {
         var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
         var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
 
-
-        res.render('productos/all-productos', { productos, isAdmin, chocolates, paletas, gomitas, caramelos_suaves, bombones, tipicos, biscochos, chicles, polvorosos, picosos, bandera });
-      } catch (error) {
+        res.render('productos/all-productos', {
+            productos, isAdmin, chocolates, paletas, gomitas, caramelos_suaves, bombones, tipicos, biscochos, chicles, polvorosos, picosos
+        });
+    } catch (error) {
         console.error(error);   
-      }
+        res.status(500).send('Error al procesar la solicitud');
+    }
 };
+
 
 productoCtrl.renderProdCategory = async (req, res) => {
     var bandera = true;
@@ -118,7 +120,7 @@ productoCtrl.renderProducto = async (req, res) => {
     try {
         const producto = await Producto.findById(req.params.id).lean();
         console.log("ESTO ES PRODUCTO",producto);
-        const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
+        const isAdmin = req.user ? req.user.admin : false; // Verifica si el usuario es un administrador
         let esCompatibleConUsuario = false;
         const productoSus = []; // Inicializa la lista de productos sugeridos
         let mostrarFeedback = req.body.feedback === "true";
@@ -144,6 +146,8 @@ productoCtrl.renderProducto = async (req, res) => {
             usuario = await User.findById(req.user._id).lean();
             // Verifica si el producto no contiene elementos a los que el usuario es sensible
             esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
+        } else {
+            esCompatibleConUsuario = true;
         }
 
 
