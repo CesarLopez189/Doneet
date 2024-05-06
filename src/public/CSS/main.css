@@ -403,7 +403,10 @@ color: #260077;
 .btn-warning {
   width: 302px;
 
+}.btn-enviar{
+  width: 150px;
 }
+
 
 /*Cuando el producto NO contiene el ingrediente*/
 
@@ -1502,4 +1505,48 @@ background: linear-gradient(0deg, #AB3597 0%,#F08A5E 100%);
 
 
 
-  
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Espacio entre las estrellas */
+  margin-bottom: 60px;
+}
+
+.rating:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+  cursor: pointer;
+  font-size: 50px; /* Aumenta el tamaño de las estrellas */
+  transition: color 0.2s; /* Suaviza la transición de color */
+}
+
+.rating:not(:checked) > label:before {
+  content: '★';
+}
+
+.rating > input:checked ~ label {
+  color: #f70; /* Color de las estrellas seleccionadas */
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: gold; /* Color al pasar el mouse */
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #ea0; /* Color de las estrellas al pasar el mouse sobre estrellas seleccionadas */
+}
+
+.form-group {
+  text-align: center; /* Alinea el texto de la pregunta al centro */
+}
+
+

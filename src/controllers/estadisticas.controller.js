@@ -44,13 +44,36 @@ estadisticasCtrl.renderEstadisticas = async (req, res) => {
     const labelsAlergenos = alergenosProductos.map(a => a._id || 'No especificado');
     const dataAlergenos = alergenosProductos.map(a => a.count);
 
-    console.log( labelsProductos, dataProductos, labelsAlergenos, dataAlergenos)
+    // Obtener las valoraciones promedio de los productos
+    const valoracionesProductos = await Producto.aggregate([
+        {
+            $unwind: '$valoraciones' // Descomponer el array de valoraciones
+        },
+        {
+            $group: {
+                _id: '$_id',
+                nombre: { $first: '$nombre' },
+                averageRating: { $avg: '$valoraciones.valoracion' } // Calcular la valoración promedio
+            }
+        },
+        {
+            $sort: { averageRating: -1 } // Ordenar por valoración promedio descendente
+        },
+        {
+            $limit: 5 // Limitar a los 5 productos más valorados
+        }
+    ]);
+
+    // Convertir los datos para Chart.js
+    const labelsValoraciones = valoracionesProductos.map(p => p.nombre);
+    const dataValoraciones = valoracionesProductos.map(p => p.averageRating.toFixed(2)); // Formatear a 2 decimales
 
     // Enviar los datos a la vista como JSON
     res.render('estadisticas', {
         alergiasData: JSON.stringify({ labels: labelsAlergias, data: dataAlergias }),
         productosData: JSON.stringify({ labels: labelsProductos, data: dataProductos }),
-        alergenosData: JSON.stringify({ labels: labelsAlergenos, data: dataAlergenos })  // Nuevo dato agregado
+        alergenosData: JSON.stringify({ labels: labelsAlergenos, data: dataAlergenos }),  // Nuevo dato agregado
+        valoracionesData: JSON.stringify({ labels: labelsValoraciones, data: dataValoraciones })
     });
 };
 
