@@ -71,5 +71,9 @@ router.post('/reportar-alergeno', reporteAlergenoController.reportarAlergeno);
 
 router.post('/producto/ver/:id', productoCtrl.renderProductoPost);
 
+router.post('/producto/rate/:id', productoCtrl.renderProductoPost);
+
+
+
 
 module.exports = router;

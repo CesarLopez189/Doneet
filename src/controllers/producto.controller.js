@@ -120,23 +120,25 @@ productoCtrl.renderSearchProducto = async (req, res) => {
 
 
 
-productoCtrl.renderProducto = async (req, res) => {    
+productoCtrl.renderProducto = async (req, res) => {
     try {
         const producto = await Producto.findById(req.params.id).lean();
+
         const isAdmin = req.user ? req.user.admin : false; // Verifica si el usuario es un administrador
         let esCompatibleConUsuario = false;
         const productoSus = []; // Inicializa la lista de productos sugeridos
         let mostrarFeedback = req.body.feedback === "true";
-    
+
+
+
+
+
 
         // Ver reportes de alergenos y buscar los nombres de usuarios
         const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();
-
-        // Obtener nombres de los usuarios de los reportes
         for (let reporte of reportes) {
             const usuarioReporte = await User.findById(reporte.usuario).lean();
             reporte.usuarioNombre = usuarioReporte ? usuarioReporte.name : 'Anónimo';
-
             if (reporte.createdAt) {
                 const fecha = new Date(reporte.createdAt);
                 reporte.fechaFormateada = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
@@ -147,34 +149,49 @@ productoCtrl.renderProducto = async (req, res) => {
         let usuario;
         if (req.user) {
             usuario = await User.findById(req.user._id).lean();
-            // Verifica si el producto no contiene elementos a los que el usuario es sensible
             esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
         } else {
             esCompatibleConUsuario = true;
         }
 
-
-        // Solo busca productos sugeridos si el producto no es compatible con el usuario
         if (!esCompatibleConUsuario) {
-            // copia elemento al que es alergico el usuario
             let elementos = usuario.elements;
-            
-            const p = await Producto.find({
+            const productosAlternativos = await Producto.find({
                 categoria: { $in: producto.categoria },
                 elementos: { $nin: elementos }
             }).lean();
-
-            for (let i = 0; i < p.length; i++) {
-                productoSus.push(p[i]);
-            }
+            productoSus.push(...productosAlternativos);
         }
+
+        if (req.body.valoracion) {
+            const valoracion = parseInt(req.body.valoracion);
+            const userId = req.user._id;
+            let valoracionExistente = producto.valoraciones.find(v => v.usuario.equals(userId));
+
+            if (valoracionExistente) {
+                // Actualizar la valoración existente
+                valoracionExistente.valoracion = valoracion;
+            } else {
+                // Añadir nueva valoración
+                producto.valoraciones.push({ valoracion, usuario: userId });
+            }
+
+            await producto.save();
+        }
+
         
-        res.render('productos/ver-producto', { producto, productoSus, isAdmin, esCompatibleConUsuario, mostrarFeedback });
+
+        res.render('productos/ver-producto', { 
+            producto, 
+            productoSus, 
+            isAdmin, 
+            esCompatibleConUsuario, 
+            mostrarFeedback 
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Ocurrió un error al procesar la solicitud');
     }
 };
+
 
 productoCtrl.renderProductoPost = async (req, res) => {
     try {
@@ -184,9 +201,28 @@ productoCtrl.renderProductoPost = async (req, res) => {
         let esCompatibleConUsuario = false;
         const productoSus = [];
         let mostrarFeedback = req.body.feedback === "true"; // Captura el valor de 'feedback' desde el cuerpo de la solicitud POST
+        let mostrarValoracion = false;
 
-
-        // Aquí va tu lógica para determinar si es compatible con el usuario, etc.
+        if (req.body.valoracion) {
+            const producto = await Producto.findById(productoId); // Encuentra el producto sin usar .lean() para usar métodos de Mongoose.
+            const userId = req.user._id;
+            const valoracionExistenteIndex = producto.valoraciones.findIndex(v => v.usuario.equals(userId));
+        
+            if (valoracionExistenteIndex !== -1) {
+                // Actualizar la valoración existente
+                producto.valoraciones[valoracionExistenteIndex].valoracion = req.body.valoracion;
+            } else {
+                // Añadir nueva valoración si no existe
+                producto.valoraciones.push({ valoracion: req.body.valoracion, usuario: userId });
+            }
+        
+            await producto.save(); // Guardar los cambios en el documento del producto
+            esCompatibleConUsuario = true;
+            mostrarFeedback = true;
+            mostrarValoracion = true;
+        }
+         
+            
 
         // Renderiza la página con la información adecuada
         res.render('productos/ver-producto', {
@@ -194,7 +230,8 @@ productoCtrl.renderProductoPost = async (req, res) => {
             productoSus,
             isAdmin,
             esCompatibleConUsuario,
-            mostrarFeedback
+            mostrarFeedback,
+            mostrarValoracion
         });
     } catch (error) {
         console.error("Error al cargar el producto:", error);
@@ -220,5 +257,37 @@ productoCtrl.deleteProducto = async (req, res) => {
     req.flash('success_msg', 'Producto Eliminado Correctamente')
     res.redirect('/productos');
 };
+
+// Función para manejar la valoración del producto
+productoCtrl.rateProducto = async (req, res) => {
+    const { valoracion, productoNombre } = req.body;
+    try {
+        const producto = await Producto.findOne({ nombre: productoNombre });
+        if (!producto) {
+            return res.status(404).send('Producto no encontrado');
+        }
+
+        const userId = req.user._id;
+        let valoracionExistente = producto.valoraciones.find(v => v.usuario.equals(userId));
+
+
+        if (valoracionExistente) {
+            // Actualizar la valoración existente
+            valoracionExistente.valoracion = valoracion;
+        } else {
+            // Añadir nueva valoración
+            producto.valoraciones.push({ valoracion, usuario: userId });
+        }
+
+        await producto.save();
+        res.status(200).send('Valoración actualizada correctamente');
+    } catch (error) {
+        console.error('Error al actualizar la valoración del producto:', error);
+        res.status(500).send('Error al procesar la solicitud');
+    }
+};
+
+
+
 
 module.exports = productoCtrl;

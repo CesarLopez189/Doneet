@@ -189,14 +189,36 @@
                 <div class="feedback-section">
 
                 </div>
+                {{#if mostrarValoracion}}
+                <h2 class="titulo7 like-btn2" align="center">Gracias por valorar el sustituto 😊</h2>
+                {{else}}
                 {{#if mostrarFeedback}}
-                <div class="feedback-section">
-                    <h2 class="titulo7">¿Te sirvió este dulce sustituto?</h2>
-                    <button class="like-btn" onclick="handleLikeDislike('like', '{{producto._id}}')">👍</button>
-                    <button class="dislike-btn" onclick="handleLikeDislike('dislike', '{{producto._id}}')">👎</button>
+                <!-- Ejemplo de selector de valoración en HTML -->
+<div class="feedback-section">
+    <form action="/producto/rate/{{producto._id}}" method="POST">
+        <div class="form-group">
+            <legend class="titulo7" style="text-align: center;">¿Te sirvió el dulce sustituto?</legend>
+            <div class="rating">
+                <input type="radio" id="star5" name="valoracion" value="5" /><label class="full" for="star5" title="5 estrellas" ></label>
+                <input type="radio" id="star4" name="valoracion" value="4" /><label class="full" for="star4" title="4 estrellas"></label>
+                <input type="radio" id="star3" name="valoracion" value="3" /><label class="full" for="star3" title="3 estrellas"></label>
+                <input type="radio" id="star2" name="valoracion" value="2" /><label class="full" for="star2" title="2 estrellas"></label>
+                <input type="radio" id="star1" name="valoracion" value="1" /><label class="full" for="star1" title="1 estrella"></label>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-warning" style="width: 150px; margin-bottom: 10px;">Enviar</button>
+        </div>
+    </form>
+</div>
 
-                </div>
+
+
                 {{/if}}
+
+                {{/if}}
+
+                
                 {{#if user}}
                 
                 {{#or esCompatibleConUsuario mostrarFeedback}}
