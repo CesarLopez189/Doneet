@@ -115,6 +115,13 @@ input[type="submit"] {
   border-radius: 20px;
 }
 
+.hola2{
+  background: linear-gradient(180deg, #DD2476 100%, #DD2476 100%);
+  border-radius: 5px;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
 .fondo {
   background: radial-gradient(167.67% 167.67% at -41.91% -23.88%, rgba(255, 78, 80, 0.9) 27.1%, rgba(255, 235, 57, 0.9) 55.96%, rgba(231, 96, 67, 0.9) 89.86%)
     /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
@@ -396,7 +403,10 @@ color: #260077;
 .btn-warning {
   width: 302px;
 
+}.btn-enviar{
+  width: 150px;
 }
+
 
 /*Cuando el producto NO contiene el ingrediente*/
 
@@ -615,9 +625,7 @@ color: #260077;
   justify-content:left;
   margin-right: 3em;
   padding-right: 1em;
-}
-
-.columnaCard {
+}  .columnaCard {
   width: calc(15% - 2rem);
   margin: 1rem;
   cursor: pointer;
@@ -645,9 +653,9 @@ color: #260077;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   text-align: center;
-  min-height: 280px;
+  min-height: 160px;
   height: auto;
-  min-width: 170px; /*Este es para la anchura de la targeta*/
+  min-width: 160px; /*Este es para la anchura de la targeta*/
   width: auto;
   border-radius: 10px;
   color: #fff;  /*Color de la letra*/
@@ -655,6 +663,7 @@ color: #260077;
 }
 
 .backCard {
+  
   background: #cedce7;
   background: -webkit-linear-gradient(45deg, #cedce7 0%, #12a79d 100%);
   background: -o-linear-gradient(45deg, #cedce7 0%, #12a79d 100%);
@@ -663,6 +672,7 @@ color: #260077;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  
 }
 
 .frontCard:after {
@@ -789,29 +799,29 @@ color: #260077;
 
 @media screen and (max-width: 85rem) {
   .columnaCard {
-    width: calc(30% - 2rem);
-    margin: 0 2rem 1.5rem;
+    width: 150px;
+    height: 200px;
   }
 }
 
 @media screen and (max-width: 60rem) {
   .columnaCard {
-    width: calc(33.333% - 3rem);
+    width: calc(17% - 2rem);
     margin: 0 1rem 1.5rem;
   }
 }
 
 @media screen and (max-width: 48rem) {
   .columnaCard {
-    width: calc(50% - 2rem);
+    width: calc(17% - 2rem);
     margin: 0 1rem 1.5rem;
   }
 }
 
 @media screen and (max-width: 32rem) {
   .columnaCard {
-    width: 100%;
-    margin: 0 2.5rem 1.5rem;
+    width: calc(60% - 2rem);
+    margin: 0 1rem 1.5rem;
   }
 
   h1.logo {
@@ -843,7 +853,6 @@ color: #260077;
 .buttonCard{
   color: deeppink;
 }
-
 /* Mostrar ingredientes */
 
 
@@ -1019,7 +1028,7 @@ color: #260077;
 
 /* 8 */
 .btn-8 {
-background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
+background: linear-gradient(0deg, #AB3597 0%,#F08A5E 100%);
   line-height: 42px;
   padding: 0;
   border: none;
@@ -1037,7 +1046,7 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
   content: "";
   right: 0;
   bottom: 0;
-  background: #F08A5E;
+  background: #AB3597;
   box-shadow:
    -7px -7px 20px 0px rgba(255,255,255,.9),
    -4px -4px 5px 0px rgba(255,255,255,.9),
@@ -1408,11 +1417,136 @@ background: linear-gradient(0deg, #F0B65E 0%,#F08A5E 100%);
   color: white;
 }
 .carousel img {
-                          max-width: 250px;
-                          /* Establece el tamaño máximo en 100px */
-                          height: 250px;
-                          /* Mantiene la proporción de aspecto original */
+  width: 100%; /* Asegura que el ancho sea siempre el 100% del contenedor */
+  height: auto; /* Ajusta la altura automáticamente para mantener la proporción de aspecto */
+  object-fit: cover; /* Cubre el área disponible sin distorsionar la imagen */
                       }
                       .carousel-control-prev-icon, .carousel-control-next-icon {
       background-color: black; /* Cambia el color de fondo a negro */
   }
+
+  .navbar-nav .dropdown-menu {
+    background-color: #fff; /* Asegura que el fondo de los menús desplegables sea blanco */
+  }
+  .navbar-nav .nav-link {
+    color: #333; /* Color del texto de los enlaces */
+  }
+  .navbar-nav .nav-link:hover {
+    color: #007bff; /* Color del texto al pasar el mouse */
+  }
+  .navbar .navbar-toggler {
+    border-color: #007bff; /* Color del borde del botón del menú colapsable */
+  }
+  .navbar-brand img {
+    max-width: 100%; /* Asegura que el logo responda bien */
+    height: auto;
+  }
+
+  .like-btn, .dislike-btn {
+    border: none;
+    color: white;
+    background-color: #4CAF50; /* Verde para like */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.dislike-btn {
+    background-color: #f44336; /* Rojo para dislike */
+}
+
+.like-btn:hover, .dislike-btn:hover {
+  opacity: 0.8;
+}
+
+.like-btn2, .dislike-btn2 {
+  border: none;
+  color: white;
+  background-color: #4CAF50; /* Verde para like */
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.dislike-btn2 {
+  background-color: #f44336; /* Rojo para dislike */
+}
+
+.feedback-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-image: url('path/to/star-icon.png');
+  background-size: cover;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  background-image: url('path/to/filled-star-icon.png');
+}
+
+
+
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Espacio entre las estrellas */
+  margin-bottom: 60px;
+}
+
+.rating:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+  cursor: pointer;
+  font-size: 50px; /* Aumenta el tamaño de las estrellas */
+  transition: color 0.2s; /* Suaviza la transición de color */
+}
+
+.rating:not(:checked) > label:before {
+  content: '★';
+}
+
+.rating > input:checked ~ label {
+  color: #f70; /* Color de las estrellas seleccionadas */
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: gold; /* Color al pasar el mouse */
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #ea0; /* Color de las estrellas al pasar el mouse sobre estrellas seleccionadas */
+}
+
+.form-group {
+  text-align: center; /* Alinea el texto de la pregunta al centro */
+}
+
+

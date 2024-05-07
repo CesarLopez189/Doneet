@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const reporteAlergenoController = require('../controllers/reporteAlergenoController');
+const productoCtrl = require('../controllers/producto.controller');
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, '../public/images'),
@@ -67,6 +68,12 @@ router.delete('/producto/delete/:id', deleteProducto);
 
 // Get Producto
 router.post('/reportar-alergeno', reporteAlergenoController.reportarAlergeno);
+
+router.post('/producto/ver/:id', productoCtrl.renderProductoPost);
+
+router.post('/producto/rate/:id', productoCtrl.renderProductoPost);
+
+
 
 
 module.exports = router;

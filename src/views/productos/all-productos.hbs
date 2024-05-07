@@ -1,7 +1,5 @@
 <body>
-
   {{#if isAdmin}}
-
   <div class="">
     <a class="fab" href="/producto/add">
       <svg fill="#fff" viewBox="0 0 24 24" width="55" xmlns="http://www.w3.org/2000/svg">
@@ -10,41 +8,296 @@
       </svg>
     </a>
   </div>
-
   {{/if}}
-
+  {{#if bandera}}
   <section>
-
-    <div class="container-xl rectangulo p-4">
-      <div class="cols">
-
+    <div class="container-xl rectangulo py-4" >
+      <div class="cols" >
+        
         {{#each productos}}
-
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard img-fluid img-thumbnail rounded-circle"
-              style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard " style="background-image: url({{imagenPrincipal}});">
+          <div class="columnaCard"  ontouchstart="this.classList.toggle('hover');" >
+          <div class="containerCard" >
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
               <div class="innerCard">
-                <p class="text-center"
-                  style="font-family: 'Lato', sans-serif; color: white; text-shadow: 0 0 5px purple">{{nombre}}</p>
+
                 <form action="/producto/ver/{{_id}}">
-                <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                  <button class="custom-btn btn-8" type="submit">Ver</button>
                 </form>
+
               </div>
             </div>
           </div>
+            <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
         </div>
 
+        </div>
         {{/each}}
 
       </div>
     </div>
-
   </section>
+  {{else}}
+    <section>
+    <div class="container-xl rectangulo py-4" >
+      <h1 class="titulo2" style="font-size: larger;">Chocolates</h1>
+      <div class="cols">
+        
+        {{#each chocolates}}
+          <div class="columnaCard "  ontouchstart="this.classList.toggle('hover');" >
+          <div class="containerCard" >
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+              <div class="innerCard" >
+
+                <form action="/producto/ver/{{_id}}">
+                  <button class="custom-btn btn-8" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+            
+
+        </div>
+        
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Paletas</h1>
+      <div class="cols">
+        
+        {{#each paletas}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard" >
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Gomitas</h1>
+      <div class="cols">
+        
+        {{#each gomitas}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Caremelos</h1>
+      <div class="cols">
+        
+        {{#each caramelos_suaves}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Bombones</h1>
+      <div class="cols">
+        
+        {{#each bombones}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Tipicos</h1>
+      <div class="cols">
+        
+        {{#each tipicos}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Biscochos</h1>
+      <div class="cols">
+        
+        {{#each biscochos}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Chicles</h1>
+      <div class="cols">
+        
+        {{#each chicles}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Polvorosos</h1>
+      <div class="cols">
+        
+        {{#each polvorosos}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      <h1 class="titulo2" style="font-size: larger;">Picosos</h1>
+      <div class="cols">
+        
+        {{#each picosos}}
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+              <div class="innerCard">
+
+                <form action="/producto/ver/{{_id}}">
+                  
+                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+        </div>
+        {{/each}}
+
+      </div>
+      
+
+    </div>
+  </section>
+  {{/if}}
 
 </body>
-
 <header>
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </header>

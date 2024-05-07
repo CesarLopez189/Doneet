@@ -1,37 +1,71 @@
-<nav class="navbar navbar-expand-lg bg-white sombra justify-content-center mb-4 mx-4">
-  <div class="container-fluid mx-auto">
-    <a class="navbar-brand" href="/">
-      <img src="/images/000Logo.png" alt="" class="img-fluid" width="170">
-    </a>
-    
-
-    <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-
-      <span class="navbar-toggler-icon"></span>
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Estilos adicionales */
+    .navbar-custom .navbar-nav {
+      align-items: center;
+    }
+    .navbar-custom .navbar-collapse {
+      flex-grow: 0;
+    }
+    .search-and-chatbot {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    @media (max-width: 991px) {
+      .search-and-chatbot {
+        flex-direction: column;
+      }
+    }
+    .navbar-nav .dropdown-menu {
+      background-color: #fff;
+    }
+    .navbar-nav .nav-link {
+      color: #333;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #007bff;
+    }
+    .navbar .navbar-toggler {
+      border-color: #007bff;
+    }
+    .navbar-brand img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-white sombra justify-content-center mb-4 mx-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="/images/000Logo.png" alt="Logo" class="img-fluid" width="180">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
-      
-      
-    <center>
-       
-    
-    <div class="collapse navbar-collapse btn-outline-danger" id="navbarScroll">
-      
-      <ul class="navbar-nav me-auto my-5 pe-lg-5 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        
-      <form class="d-flex pe-lg-5 ps-lg-5 me-lg-5 ms-lg-5" role="search" action="/producto/search" method="POST">
-        <input class="form-control  rectangulo3 me-2 ms-5" name="item" type="search" placeholder="Dulce o categoria" aria-label="Search"></input> 
-        <button class="btn btn-outline-danger  " type="submit">Buscar</button>
-      </form>
-          <a href="/usuarios/chatbot" class="my-2 mx-4 ">
-            <img src="/images/00chatbot.png" alt="" class="img-fluid" width="120">
+      <div class="collapse navbar-collapse w-100" id="navbarNavDropdown">
+        <div class="search-and-chatbot">
+          <form class="d-flex" role="search" action="/producto/search" method="POST">
+            <input class="form-control me-2" name="item" type="search" placeholder="Dulce o categoria" aria-label="Search">
+            <button class="btn btn-outline-danger" type="submit">Buscar</button>
+          </form>
+          <a class="nav-link mt-1" href="/usuarios/chatbot">
+            <img src="/images/00chatbot.png" alt="Chatbot" width="140">
           </a>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categorias
-          </a>
-          <ul class="dropdown-menu mac">
-            <li><a class="dropdown-item me-2 text-white" href="/productos-category/polvoroso">
+        </div>
+        <ul class="navbar-nav ms-auto" style="gap: 10px;">
+          <li class="nav-item dropdown" >
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categorias
+            </a>
+            <ul class="dropdown-menu mac" aria-labelledby="navbarDropdownMenuLink">
+               <li><a class="dropdown-item me-2 text-white" href="/productos-category/polvoroso">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 165.34 156.75"><defs><style>.cls-1{fill:#ffffff;}</style></defs><g id="Capa_2" data-name="Capa 2"><g id="Capa_1-2" data-name="Capa 1"><g id="Dust"><path class="cls-1" d="M150.22,81.76a25.85,25.85,0,0,0-22.94-22.93,18.1,18.1,0,0,0-3.93-19.45l-.73-.66c3.3-1.29,5.29-2.38,5.55-4.93s-2.11-4.4-5.72-6.61A27.17,27.17,0,0,1,111.64,14c-1.55-4-2.58-6.61-5.46-6.88s-4.39,2.12-6.61,5.72a27.52,27.52,0,0,1-4.79,5.59A25.83,25.83,0,0,0,52.42,36.47,18,18,0,0,0,30.19,58.73a25.85,25.85,0,0,0-4.92,50.75A27.3,27.3,0,0,1,21,112.2c-3.8,1.91-6.31,3.3-6.31,6.08s2.51,4.2,6.31,6.12a27.21,27.21,0,0,1,12.07,12c1.92,3.84,3.31,6.35,6.09,6.35s4.2-2.51,6.11-6.35c.23-.49.6-1,.9-1.45a17.7,17.7,0,0,0,6.38-1.32,25.86,25.86,0,0,0,51.42,0,17.92,17.92,0,0,0,23.41-23.38l-.1,0A25.87,25.87,0,0,0,150.22,81.76ZM105.09,16.37l.23-.37v.4a34,34,0,0,0,13.73,16.3l.33.23H119a34,34,0,0,0-16.5,13.63,1.78,1.78,0,0,1-.23.33v-.37A34,34,0,0,0,88.79,30.19L88.46,30h.36A34.13,34.13,0,0,0,105.09,16.37Zm-50.86,102a33.91,33.91,0,0,0-15,15l-.29.5v-.37a34,34,0,0,0-15-15l-.37-.2.37-.16a34.73,34.73,0,0,0,15-15v-.37l.2.37A34,34,0,0,0,54.23,118l.37.16Zm72.88-14.62a19.32,19.32,0,0,1-2.74.2,18.48,18.48,0,0,1-2.78-.2,3.29,3.29,0,0,0-2.74,5.56,11.41,11.41,0,0,1-.17,15.74h-.1a11.41,11.41,0,0,1-15.9,0,3.31,3.31,0,0,0-5.46,2.88,20.31,20.31,0,0,1,.2,2.81,19.25,19.25,0,1,1-38.49,0h0a20.31,20.31,0,0,1,.2-2.81,3.32,3.32,0,0,0-1.75-3.31h-.2c3.83-1.92,6.35-3.31,6.35-6.12s-2.52-4.16-6.35-6.08a27.1,27.1,0,0,1-12-12c-1.91-3.8-3.3-6.31-6.11-6.31s-4.17,2.51-6.09,6.31a26.09,26.09,0,0,1-2.15,3.54,19.24,19.24,0,0,1,1.75-38.45,17.47,17.47,0,0,1,2.39.26,3.31,3.31,0,0,0,3.3-5.2A11.34,11.34,0,0,1,54.1,44.77a3.39,3.39,0,0,0,5.19-3.31A19.21,19.21,0,0,1,89.05,22.52a27.7,27.7,0,0,1-2.64,1.25c-4,1.56-6.61,2.58-6.88,5.49s2.12,4.4,5.72,6.62A27.09,27.09,0,0,1,96.06,49.1c1.56,4,2.58,6.62,5.49,6.88H102c2.62,0,4.07-2.31,6.22-5.75a28,28,0,0,1,7.8-7.94,11.25,11.25,0,0,1,2.72,1.92,11.41,11.41,0,0,1,0,15.9,3.31,3.31,0,0,0,2.87,5.56,19.24,19.24,0,1,1,5.52,38.09Z"/><path class="cls-1" d="M35.58,22.68a15.84,15.84,0,1,0-15.74,16,15.83,15.83,0,0,0,15.74-16Zm-25,0a9.26,9.26,0,1,1,0,.2v-.2Z"/><path class="cls-1" d="M157.47,13.23a13.23,13.23,0,1,0-13.23,13.22,13.23,13.23,0,0,0,13.23-13.22Zm-19.84,0a4.69,4.69,0,1,1-.07.06v-.06Z"/><path class="cls-1" d="M165.34,137.36a13.23,13.23,0,1,0-13.23,13.23A13.22,13.22,0,0,0,165.34,137.36Zm-19.84,0a6.61,6.61,0,1,1,6.61,6.62A6.61,6.61,0,0,1,145.5,137.36Z"/><path class="cls-1" d="M11.47,155.45a11.44,11.44,0,1,0-.06,0Zm0-16.3A4.86,4.86,0,1,1,6.61,144v0A4.86,4.86,0,0,1,11.47,139.15Z"/></g></g></g></svg>
               Polvorosos </a></li>
             <li><a class="dropdown-item me-2 text-white" href="/productos-category/caramelo_suave">
@@ -61,39 +95,32 @@
               <li><a class="dropdown-item me-2 text-white " href="/productos-category/chocolate">
               <svg xmlns="http://www.w3.org/2000/svg" width="20"   viewBox="0 0 122.27 122.89"><defs><style>.cls-1{fill:#ffffff;}</style></defs><g id="Capa_2" data-name="Capa 2"><g id="Capa_1-2" data-name="Capa 1"><path class="cls-1" d="M60,12.81a1.14,1.14,0,0,0-.17-.15l.32.32A1.14,1.14,0,0,0,60,12.81Zm2.06,33-6.54,6.55,6.55-6.54Zm0,0-6.54,6.55,6.55-6.54Z"/><path class="cls-1" d="M121.25,74.32,92.81,45.88,95.28,45a2.24,2.24,0,0,0,1-3.75L83.06,28a2.25,2.25,0,0,0-3.18,0l-2.33,2.34L47.85.66a2.25,2.25,0,0,0-3.18,0l-44,44a2.25,2.25,0,0,0,0,3.18L12.82,60,30.35,77.55,28,79.88a2.25,2.25,0,0,0,0,3.18L41,96a2.3,2.3,0,0,0,.82.52,2.24,2.24,0,0,0,2.87-1.34l.63-1.73L73.7,121.87a3.47,3.47,0,0,0,4.72.18l.2-.18,42.63-42.63a3.48,3.48,0,0,0,0-4.92ZM74.37,33.52l-9.11,9.11L60.4,37.77l9.1-9.11ZM39.6,36.42l6.54-6.55,7.9,7.9-6.55,6.54Zm4.71,11.07L37.77,54l-7.89-7.89,6.54-6.54ZM57.22,41l4.87,4.87-6.55,6.54-4.87-4.87Zm9.1-15.47-9.1,9.11-7.9-7.9,9.1-9.1Zm-20.06-20,9,9-9.1,9.1-9-9ZM34,17.71l9,9-6.54,6.55-9-9Zm-9.72,9.73,9,9L26.7,43l-9-9ZM5.43,46.26l9.11-9.1,9,9-9.11,9.1ZM26.7,49.32l7.89,7.89-9.1,9.11-7.9-7.9Zm6.83,25L28.67,69.5l9.1-9.11,4.87,4.87ZM41,57.21l6.54-6.54,4.87,4.87-6.54,6.54ZM76.16,118,47,88.83l4.19-11.51,19.07-5.69a2.24,2.24,0,0,0,1.52-1.54L77,51.66l11.16-4.08,29.2,29.2Z"/></g></g></svg>
               Chocolates</a></li>
-
-          </ul>
-          </form>
-        </li>
-        <li class="nav-item pe-lg-3 ms-3">
-          <a class="nav-link " href="/productos">Dulces</a>
-        </li>
-        <li class="nav-item pe-lg-3 ms-3">
-  <a class="nav-link " href="/estadisticas">Estadísticas</a> 
-</li>
-<li class="nav-item pe-lg-3 ms-3">
-  <a class="nav-link " href="/about">Cuenta</a> 
-</li>
-        
-        {{#if user}}
-      <blockquote></blockquote>
-      <li class="nav-item dropdown pt-2 ">
-        <a href="/usuarios/logout">Cerrar sesión</a>
-      </li>
-      {{else}}
-      <li class="nav-item ">
-          <a class="nav-link " aria-current="page" href="/usuarios/signin">Ingresar</a>
-        </li>
-        <li class="nav-item ms-3 me-0 ">
-          <a class="nav-link hola text-white fw-bold" href="/usuarios/signup">Registrate</a>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/productos">Dulces</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/estadisticas">Estadísticas</a>
+          </li>
+          {{#if user}}
+          <li class="nav-item">
+            <a class="nav-link" href="/about">Cuenta</a>
+          </li>
+          <li class="nav-item ms-3 me-0 ">
+            <a class="nav-link hola text-white fw-bold" href="/usuarios/logout">Cerrar sesión</a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/usuarios/signin">Ingresar</a>
+          </li>
+          <li class="nav-item ms-3 me-0 ">
+            <a class="nav-link hola text-white fw-bold" href="/usuarios/signup">Registrate</a>
+          </li>
           {{/if}}
-        </li>
-      
-      </ul>
-      
-      </center>
-      
+        </ul>
+      </div>
     </div>
-    
-  </div>
-</nav>
+  </nav>
+</body>
+</html>

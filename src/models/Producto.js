@@ -10,6 +10,10 @@ const ProductoSchema = new Schema({
     imagenSecundaria: {type: String, required: true},
     descripcion: {type: String, required: false},
     trazas: {type: [], required: false},
+    valoraciones: [{
+        usuario: Object,
+        valoracion: Number
+    }]
 }, {
     timestamps: true
 })

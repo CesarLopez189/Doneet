@@ -23,62 +23,60 @@ productoCtrl.createNewProducto = async (req, res) => {
 };
 
 productoCtrl.renderProductos = async (req, res) => {
-    /*const productos = await Producto.find().lean(); 
-    res.render('productos/all-productos', { productos, user: req.user  });*/
     try {
         const productos = await Producto.find().lean();
-        const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
-        console.log(isAdmin)
-        res.render('productos/all-productos', { productos, isAdmin });
-      } catch (error) {
+        const isAdmin = req.user ? req.user.admin : false; // isAdmin será falso si el usuario no ha iniciado sesión
+
+        var chocolates = productos.filter(producto => producto.categoria.includes("chocolate"));
+        var paletas = productos.filter(producto => producto.categoria.includes("paleta"));
+        var gomitas = productos.filter(producto => producto.categoria.includes("gomita"));
+        var caramelos_suaves = productos.filter(producto => producto.categoria.includes("caramelo_suave"));
+        var bombones = productos.filter(producto => producto.categoria.includes("bombon"));
+        var tipicos = productos.filter(producto => producto.categoria.includes("tipico"));
+        var biscochos = productos.filter(producto => producto.categoria.includes("biscocho"));
+        var chicles = productos.filter(producto => producto.categoria.includes("chicle"));
+        var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
+        var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
+
+        res.render('productos/all-productos', {
+            productos, isAdmin, chocolates, paletas, gomitas, caramelos_suaves, bombones, tipicos, biscochos, chicles, polvorosos, picosos
+        });
+    } catch (error) {
         console.error(error);   
-      }
-};
-
-productoCtrl.renderProdCategory = async (req, res) => {
-    await Producto.find({ categoria: { $all: [req.params.id]} }).lean()
-        .then(productos => res.render('productos/all-productos', { productos }))
-        .catch(e => console.log("Ha ocurrido un error: ", e));
-};
-
-productoCtrl.renderSearchProducto = async (req, res) => {
-    const isAdmin = req.user && req.user.admin;
-    const busqueda = req.body.item;
-    const array = busqueda.split(" ");
-    const regex = new RegExp(array.join('|'));
-    console.log("regex", regex);
-
-    try {
-        const searchproductoArray = await Producto.find({ nombre: { '$regex': regex, $options: 'i' } }).lean();
-
-        // Tomar el primer elemento del arreglo (si existe)
-        const producto = searchproductoArray.length > 0 ? searchproductoArray[0] : null;
-
-        
-        res.render('productos/ver-producto', { producto, isAdmin });
-      
-    } catch (e) {
-        console.log("Ha ocurrido un error: ", e);
-        res.render('productos/search-producto', { searchproducto: null, isAdmin });
+        res.status(500).send('Error al procesar la solicitud');
     }
 };
 
 
-productoCtrl.renderProducto = async (req, res) => {    
+productoCtrl.renderProdCategory = async (req, res) => {
+    var bandera = true;
+    await Producto.find({ categoria: { $all: [req.params.id]} }).lean()
+        .then(productos => res.render('productos/all-productos', { productos, bandera }))
+        .catch(e => console.log("Ha ocurrido un error: ", e));
+};
+
+productoCtrl.renderSearchProducto = async (req, res) => {
     try {
-        const producto = await Producto.findById(req.params.id).lean();
         const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
+        const dulce = req.body.item; // Asume que el término de búsqueda se pasa como un parámetro de consulta
+        const dulces_encontrados = await Producto.find({ nombre: { $regex: dulce, $options: 'i' } }).lean();
+
+        if (dulces_encontrados.length === 0) {
+            req.flash('error_msg', 'No se encontraron productos con ese nombre');
+            return res.redirect('/productos');
+        }
+
+        // Selecciona el primer producto encontrado para simplificar
+        const producto = dulces_encontrados[0];
         let esCompatibleConUsuario = false;
         const productoSus = []; // Inicializa la lista de productos sugeridos
+        let mostrarFeedback = req.body.feedback === "true";
 
-        // Ver reportes de alergenos y buscar los nombres de usuarios
-        const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();
+        const reportes = await ReporteAlergeno.find({ producto: producto._id }).lean();
 
-        // Obtener nombres de los usuarios de los reportes
         for (let reporte of reportes) {
             const usuarioReporte = await User.findById(reporte.usuario).lean();
             reporte.usuarioNombre = usuarioReporte ? usuarioReporte.name : 'Anónimo';
-
             if (reporte.createdAt) {
                 const fecha = new Date(reporte.createdAt);
                 reporte.fechaFormateada = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
@@ -89,44 +87,155 @@ productoCtrl.renderProducto = async (req, res) => {
         let usuario;
         if (req.user) {
             usuario = await User.findById(req.user._id).lean();
-            // Verifica si el producto no contiene elementos a los que el usuario es sensible
             esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
+        } else {
+            esCompatibleConUsuario = true;
         }
 
-        // Solo busca productos sugeridos si el producto no es compatible con el usuario
         if (!esCompatibleConUsuario) {
-            const elementos = producto.elementos.slice(1); // Copia 'elementos' excluyendo el primer elemento
-            let p = await Producto.find({ elementos: { $not: { $all : elementos[0]}} }).lean();
+            let elementos = usuario.elements;
+            const productosAlternativos = await Producto.find({
+                categoria: { $in: producto.categoria },
+                elementos: { $nin: elementos }
+            }).lean();
 
-            p.forEach((item) => {
-                let flag = true;
-                elementos.forEach((word) => {
-                    if (item.elementos.includes(word)) {
-                        flag = false;
-                    }
-                });
-                if (flag) {
-                    let flag1 = true;
-                    producto.categoria.forEach((category) => {
-                        if (item.categoria.includes(category) && flag1) {
-                            // Verifica si el producto es seguro para el usuario.
-                            if (usuario && !usuario.elements.some(element => item.trazas.includes(element))) {
-                                productoSus.push(item);
-                            }
-                            flag1 = false;
-                        }
-                    });
-                }
-            });
+            productoSus.push(...productosAlternativos);
         }
 
-        console.log("Producto: ", producto);
-
-        // Renderiza la vista con la información recopilada
-        res.render('productos/ver-producto', { producto, productoSus, isAdmin, esCompatibleConUsuario });
+        // Renderiza la misma vista de detalle de producto que se usa en renderProducto
+        res.render('productos/ver-producto', {
+            producto,
+            productoSus,
+            isAdmin,
+            esCompatibleConUsuario,
+            mostrarFeedback
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Ocurrió un error al procesar la solicitud');
+        res.status(500).send('Error al procesar la solicitud');
+    }
+};
+
+
+
+
+
+productoCtrl.renderProducto = async (req, res) => {
+    try {
+        const producto = await Producto.findById(req.params.id).lean();
+
+        const isAdmin = req.user ? req.user.admin : false; // Verifica si el usuario es un administrador
+        let esCompatibleConUsuario = false;
+        const productoSus = []; // Inicializa la lista de productos sugeridos
+        let mostrarFeedback = req.body.feedback === "true";
+
+
+
+
+
+
+        // Ver reportes de alergenos y buscar los nombres de usuarios
+        const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();
+        for (let reporte of reportes) {
+            const usuarioReporte = await User.findById(reporte.usuario).lean();
+            reporte.usuarioNombre = usuarioReporte ? usuarioReporte.name : 'Anónimo';
+            if (reporte.createdAt) {
+                const fecha = new Date(reporte.createdAt);
+                reporte.fechaFormateada = `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`;
+            }
+        }
+        producto.reportes = reportes;
+
+        let usuario;
+        if (req.user) {
+            usuario = await User.findById(req.user._id).lean();
+            esCompatibleConUsuario = !usuario.elements.some(element => producto.elementos.includes(element));
+        } else {
+            esCompatibleConUsuario = true;
+        }
+
+        if (!esCompatibleConUsuario) {
+            let elementos = usuario.elements;
+            const productosAlternativos = await Producto.find({
+                categoria: { $in: producto.categoria },
+                elementos: { $nin: elementos }
+            }).lean();
+            productoSus.push(...productosAlternativos);
+        }
+
+        if (req.body.valoracion) {
+            const valoracion = parseInt(req.body.valoracion);
+            const userId = req.user._id;
+            let valoracionExistente = producto.valoraciones.find(v => v.usuario.equals(userId));
+
+            if (valoracionExistente) {
+                // Actualizar la valoración existente
+                valoracionExistente.valoracion = valoracion;
+            } else {
+                // Añadir nueva valoración
+                producto.valoraciones.push({ valoracion, usuario: userId });
+            }
+
+            await producto.save();
+        }
+
+        
+
+        res.render('productos/ver-producto', { 
+            producto, 
+            productoSus, 
+            isAdmin, 
+            esCompatibleConUsuario, 
+            mostrarFeedback 
+        });
+    } catch (error) {
+    }
+};
+
+
+productoCtrl.renderProductoPost = async (req, res) => {
+    try {
+        const productoId = req.params.id; // Obtén el ID del producto de la URL
+        const producto = await Producto.findById(productoId).lean();
+        const isAdmin = req.user && req.user.admin;
+        let esCompatibleConUsuario = false;
+        const productoSus = [];
+        let mostrarFeedback = req.body.feedback === "true"; // Captura el valor de 'feedback' desde el cuerpo de la solicitud POST
+        let mostrarValoracion = false;
+
+        if (req.body.valoracion) {
+            const producto = await Producto.findById(productoId); // Encuentra el producto sin usar .lean() para usar métodos de Mongoose.
+            const userId = req.user._id;
+            const valoracionExistenteIndex = producto.valoraciones.findIndex(v => v.usuario.equals(userId));
+        
+            if (valoracionExistenteIndex !== -1) {
+                // Actualizar la valoración existente
+                producto.valoraciones[valoracionExistenteIndex].valoracion = req.body.valoracion;
+            } else {
+                // Añadir nueva valoración si no existe
+                producto.valoraciones.push({ valoracion: req.body.valoracion, usuario: userId });
+            }
+        
+            await producto.save(); // Guardar los cambios en el documento del producto
+            esCompatibleConUsuario = true;
+            mostrarFeedback = true;
+            mostrarValoracion = true;
+        }
+         
+            
+
+        // Renderiza la página con la información adecuada
+        res.render('productos/ver-producto', {
+            producto,
+            productoSus,
+            isAdmin,
+            esCompatibleConUsuario,
+            mostrarFeedback,
+            mostrarValoracion
+        });
+    } catch (error) {
+        console.error("Error al cargar el producto:", error);
+        res.status(500).send('Error al procesar la solicitud');
     }
 };
 
@@ -148,5 +257,37 @@ productoCtrl.deleteProducto = async (req, res) => {
     req.flash('success_msg', 'Producto Eliminado Correctamente')
     res.redirect('/productos');
 };
+
+// Función para manejar la valoración del producto
+productoCtrl.rateProducto = async (req, res) => {
+    const { valoracion, productoNombre } = req.body;
+    try {
+        const producto = await Producto.findOne({ nombre: productoNombre });
+        if (!producto) {
+            return res.status(404).send('Producto no encontrado');
+        }
+
+        const userId = req.user._id;
+        let valoracionExistente = producto.valoraciones.find(v => v.usuario.equals(userId));
+
+
+        if (valoracionExistente) {
+            // Actualizar la valoración existente
+            valoracionExistente.valoracion = valoracion;
+        } else {
+            // Añadir nueva valoración
+            producto.valoraciones.push({ valoracion, usuario: userId });
+        }
+
+        await producto.save();
+        res.status(200).send('Valoración actualizada correctamente');
+    } catch (error) {
+        console.error('Error al actualizar la valoración del producto:', error);
+        res.status(500).send('Error al procesar la solicitud');
+    }
+};
+
+
+
 
 module.exports = productoCtrl;

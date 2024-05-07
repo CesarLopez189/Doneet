@@ -39,108 +39,110 @@
                             <span class="carousel-control-next-icon" ariahidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
-    
+
 
                     </div>
                     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var botonReportar = document.getElementById('reportarAlergenoBtn');
-    var formularioContainer = document.getElementById('reportarAlergenoFormContainer');
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var botonReportar = document.getElementById('reportarAlergenoBtn');
+                            var formularioContainer = document.getElementById('reportarAlergenoFormContainer');
 
-    botonReportar.addEventListener('click', function() {
-        formularioContainer.style.display = formularioContainer.style.display === 'block' ? 'none' : 'block';
-    });
-});
-</script>
+                            botonReportar.addEventListener('click', function () {
+                                formularioContainer.style.display = formularioContainer.style.display === 'block' ? 'none' : 'block';
+                            });
+                        });
+                    </script>
 
 
 
 
 
                     <div class="d-flex justify-content-center mt-3">
-        <button id="reportarAlergenoBtn" class="btn btn-warning">Reportar Alérgeno</button>
-    </div>
-    <!-- Modal para reportar alérgenos -->
-<!-- Contenedor para el formulario de reporte de alérgenos -->
-<div id="reportarAlergenoFormContainer" style="display:none;" class="mt-3">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Reportar Alérgeno</h5>
-      <!-- Formulario para reportar alérgeno -->
-      <form id="reportarAlergenoForm" action="/reportar-alergeno" method="POST">
-        <!-- Casillas de verificación para los alérgenos -->
-         <div class="row">
-                    <div class="col-md-6">
-                        <!-- Columna izquierda -->
-                        <input type="checkbox" id="gluten" name="alergenos" value="gluten">
-                        <label for="gluten">Gluten</label><br>
-                        <input type="checkbox" id="nuez" name="alergenos" value="nuez">
-                        <label for="nueces">Nuez</label><br>
-                        <input type="checkbox" id="lacteo" name="alergenos" value="lacteo">
-                        <label for="lactosa">Lactosa</label><br>
-                        <input type="checkbox" id="huevo" name="alergenos" value="huevo">
-                        <label for="huevo">Huevo</label><br>
-                        <input type="checkbox" id="fresa" name="alergenos" value="fresa">
-                        <label for="fresa">Fresa</label><br>
+                        <button id="reportarAlergenoBtn" class="btn btn-warning">Reportar Alérgeno</button>
                     </div>
-                    <div class="col-md-6">
-                        <!-- Columna derecha -->
-                        <input type="checkbox" id="almendra" name="alergenos" value="almendra">
-                        <label for="almendra">Almendra</label><br>
-                        <input type="checkbox" id="cacahuate" name="alergenos" value="cacahuate">
-                        <label for="cacahuate">Cacahuate</label><br>
-                        <input type="checkbox" id="chocolate" name="alergenos" value="chocolate">
-                        <label for="chocolate">Chocolate</label><br>
-                        <input type="checkbox" id="tamarindo" name="alergenos" value="tamarindo">
-                        <label for="tamarindo">Tamarindo</label><br>
-                        <input type="checkbox" id="soya" name="alergenos" value="soya">
-                        <label for="soya">Soya</label><br>
+                    <!-- Modal para reportar alérgenos -->
+                    <!-- Contenedor para el formulario de reporte de alérgenos -->
+                    <div id="reportarAlergenoFormContainer" style="display:none;" class="mt-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Reportar Alérgeno</h5>
+                                <!-- Formulario para reportar alérgeno -->
+                                <form id="reportarAlergenoForm" action="/reportar-alergeno" method="POST">
+                                    <!-- Casillas de verificación para los alérgenos -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <!-- Columna izquierda -->
+                                            <input type="checkbox" id="gluten" name="alergenos" value="gluten">
+                                            <label for="gluten">Gluten</label><br>
+                                            <input type="checkbox" id="nuez" name="alergenos" value="nuez">
+                                            <label for="nueces">Nuez</label><br>
+                                            <input type="checkbox" id="lacteo" name="alergenos" value="lacteo">
+                                            <label for="lactosa">Lactosa</label><br>
+                                            <input type="checkbox" id="huevo" name="alergenos" value="huevo">
+                                            <label for="huevo">Huevo</label><br>
+                                            <input type="checkbox" id="fresa" name="alergenos" value="fresa">
+                                            <label for="fresa">Fresa</label><br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- Columna derecha -->
+                                            <input type="checkbox" id="almendra" name="alergenos" value="almendra">
+                                            <label for="almendra">Almendra</label><br>
+                                            <input type="checkbox" id="cacahuate" name="alergenos" value="cacahuate">
+                                            <label for="cacahuate">Cacahuate</label><br>
+                                            <input type="checkbox" id="chocolate" name="alergenos" value="chocolate">
+                                            <label for="chocolate">Chocolate</label><br>
+                                            <input type="checkbox" id="tamarindo" name="alergenos" value="tamarindo">
+                                            <label for="tamarindo">Tamarindo</label><br>
+                                            <input type="checkbox" id="soya" name="alergenos" value="soya">
+                                            <label for="soya">Soya</label><br>
+                                        </div>
+                                    </div>
+                                    <!-- Campo para la descripción del reporte por el usuario -->
+                                    <div class="mb-3">
+                                        <label for="descripcionAlergeno" class="form-label">Descripción
+                                            (opcional):</label>
+                                        <textarea class="form-control" id="descripcionAlergeno" name="descripcion"
+                                            rows="3"></textarea>
+                                    </div>
+                                    {{#if user}}
+                                    <input type="hidden" name="usuarioId" value="{{user._id}}">
+                                    {{/if}}
+                                    <input type="hidden" name="productoId" value="{{producto._id}}">
+                                    <button type="submit" class="btn btn-danger">Reportar</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
-        <!-- Campo para la descripción del reporte por el usuario -->
-        <div class="mb-3">
-          <label for="descripcionAlergeno" class="form-label">Descripción (opcional):</label>
-          <textarea class="form-control" id="descripcionAlergeno" name="descripcion" rows="3"></textarea>
-        </div>
-        {{#if user}}
-<input type="hidden" name="usuarioId" value="{{user._id}}">
-{{/if}}
-<input type="hidden" name="productoId" value="{{producto._id}}">
-        <button type="submit" class="btn btn-danger">Reportar</button>
-      </form>
-    </div>
-  </div>
-</div>
-<script>
-function enviarReporteAlergenos() {
-    var checkboxes = document.querySelectorAll('input[name="alergenos"]:checked');
-    var alergenos = Array.from(checkboxes).map(checkbox => checkbox.value);
-    var descripcion = document.getElementById('descripcionAlergeno').value;
+                    <script>
+                        function enviarReporteAlergenos() {
+                            var checkboxes = document.querySelectorAll('input[name="alergenos"]:checked');
+                            var alergenos = Array.from(checkboxes).map(checkbox => checkbox.value);
+                            var descripcion = document.getElementById('descripcionAlergeno').value;
 
 
-    
-    console.log('Alergenos seleccionados:', alergenos);
-    console.log('Descripción:', descripcion);
-    
-    // Aquí implementarías el código para enviar los datos al servidor.
-    // Esto podría ser una solicitud AJAX, Fetch API, o similar.
-}
-</script>
 
-<h4 class="titulo7">Reportes de alérgenos</h4>
-<div class="list">
-    {{#each producto.reportes}}
-    <div class="card mb-2">
-        <div class="card-body">
-            <h5 class="card-title">{{this.usuarioNombre}} - {{this.fechaFormateada}}</h5>
-            <p class="card-text">Alergenos: {{this.alergenos}}</p>
-            <p class="card-text">{{this.descripcion}}</p>
-            
+                            console.log('Alergenos seleccionados:', alergenos);
+                            console.log('Descripción:', descripcion);
 
-</div>
-</div>
-{{/each}}
-</div>
+                            // Aquí implementarías el código para enviar los datos al servidor.
+                            // Esto podría ser una solicitud AJAX, Fetch API, o similar.
+                        }
+                    </script>
+
+                    <h4 class="titulo7">Reportes de alérgenos</h4>
+                    <div class="list">
+                        {{#each producto.reportes}}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.usuarioNombre}} - {{this.fechaFormateada}}</h5>
+                                <p class="card-text">Alergenos: {{this.alergenos}}</p>
+                                <p class="card-text">{{this.descripcion}}</p>
+
+
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
 
 
                     <div id="lightbox" class="lightbox">
@@ -167,7 +169,7 @@ function enviarReporteAlergenos() {
 
 
             </div>
-            
+
 
 
             <div class="col-7 rectangulo4 p-5">
@@ -184,18 +186,55 @@ function enviarReporteAlergenos() {
                 </div>
                 {{/if}}
 
-                {{#if user}}
-                {{#if esCompatibleConUsuario}}
-                <h2 class="titulo7" align="center">¡Usted puede consumir este dulce!</h2>
+                <div class="feedback-section">
+
+                </div>
+                {{#if mostrarValoracion}}
+                <h2 class="titulo7 like-btn2" align="center">Gracias por valorar el sustituto 😊</h2>
                 {{else}}
-                <h2 class="titulo7" align="center">¡Usted NO puede consumir este dulce!</h2>
+                {{#if mostrarFeedback}}
+                <!-- Ejemplo de selector de valoración en HTML -->
+<div class="feedback-section">
+    <form action="/producto/rate/{{producto._id}}" method="POST">
+        <div class="form-group">
+            <legend class="titulo7" style="text-align: center;">¿Te sirvió el dulce sustituto?</legend>
+            <div class="rating">
+                <input type="radio" id="star5" name="valoracion" value="5" /><label class="full" for="star5" title="5 estrellas" ></label>
+                <input type="radio" id="star4" name="valoracion" value="4" /><label class="full" for="star4" title="4 estrellas"></label>
+                <input type="radio" id="star3" name="valoracion" value="3" /><label class="full" for="star3" title="3 estrellas"></label>
+                <input type="radio" id="star2" name="valoracion" value="2" /><label class="full" for="star2" title="2 estrellas"></label>
+                <input type="radio" id="star1" name="valoracion" value="1" /><label class="full" for="star1" title="1 estrella"></label>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" class="btn btn-warning" style="width: 150px; margin-bottom: 10px;">Enviar</button>
+        </div>
+    </form>
+</div>
+
+
 
                 {{/if}}
+
+                {{/if}}
+
+                
+                {{#if user}}
+                
+                {{#or esCompatibleConUsuario mostrarFeedback}}
+                
+                <h2 class="titulo7 like-btn2" align="center">¡Usted puede consumir este dulce! 👍</h2>
+                
+                {{else}}
+                <h2 class="titulo7 dislike-btn2" align="center">¡Usted NO puede consumir este dulce! 👎</h2>
+
+                {{/or}}
                 {{else}}
                 <div class="col-full" align="CENTER">
-        <h2 class="titulo7" align="CENTER">¡Inicia sesión para ver si puedes consumir este dulce o ver los sustitutos!</h2>
-        <a href="/usuarios/signin"><button class="btn btn-warning titulo4">Ingresar</button></a>
-    </div>
+                    <h2 class="titulo7" align="CENTER">¡Inicia sesión para ver si puedes consumir este dulce o ver los
+                        sustitutos!</h2>
+                    <a href="/usuarios/signin"><button class="btn btn-warning titulo4">Ingresar</button></a>
+                </div>
                 {{/if}}
 
 
@@ -367,7 +406,7 @@ function enviarReporteAlergenos() {
                 </div>
                 <br>
 
-<!--
+                <!--
                 {{#if user}}
                 {{else}}
 
@@ -434,39 +473,37 @@ function enviarReporteAlergenos() {
                         
                     </div>
                     -->
-                    
-                    {{#if user}}
-                    <h2>Sustitutos</h2>
+
+               {{#if user}}
+    <h2>Sustitutos</h2>
     {{#if esCompatibleConUsuario}}
         <h2 class="gy-4 titulo7 p-2" align="center">¡No hay sustitutos a un dulce que si puede consumir :D!</h2>
     {{else}}
-    
         {{#if productoSus}}
-                        {{#each productoSus}}
-                        <center>
-                            <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-                                <div class="containerCard">
-                                    <div class="frontCard" style="background-image:url({{imagenPrincipal}})">
-
-                                    </div>
-                                    <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-                                        <div class="innerCard">
-
-
-
-                                            <div class="buttonCard">
-
-                                                <form action="/producto/ver/{{_id}}">
-                                                    <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                                                </form>
-                                            </div>
-
-                                        </div>
+            <div class="row">
+                {{#each productoSus}}
+                    <div class="col-md-4">
+                        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+                            <div class="containerCard">
+                                <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+                                <div class="backCard" style="background-image: url({{imagenPrincipal}});">
+                                    <div class="innerCard">
+                                        <form action="/producto/ver/{{_id}}" method="POST">
+                                            <input type="hidden" name="feedback" value="true">
+                                            <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </center>
-                        {{/each}}
+                            <div style="justify-content: center;">
+          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
+        </div>
+                        </div>
+                        
+                    </div>
+                    
+                {{/each}}
+            </div>
         {{else}}
             <h2 class="gy-4 titulo7 p-2" align="center">No hay dulces sustitutos para esta misma categoría</h2>
         {{/if}}
@@ -478,7 +515,8 @@ function enviarReporteAlergenos() {
     </div>
 {{/if}}
 
-                    
+
+
             </div>
         </div>
 
@@ -517,4 +555,24 @@ function enviarReporteAlergenos() {
             });
         });
     </script>
+    <script>
+        function handleLikeDislike(action, productId) {
+            // Logica para enviar la información al servidor
+            console.log(action + ' clicked for product ' + productId);
+
+            // Ejemplo de cómo podrías enviar esta información al servidor usando Fetch API
+            fetch('/api/product/like-dislike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ productId: productId, action: action })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+
 </section>
