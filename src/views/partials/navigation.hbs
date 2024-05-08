@@ -52,7 +52,7 @@
       <div class="collapse navbar-collapse w-100" id="navbarNavDropdown">
         <div class="search-and-chatbot">
           <form class="d-flex" role="search" action="/producto/search" method="POST">
-            <input class="form-control me-2" name="item" type="search" placeholder="Dulce o categoria" aria-label="Search">
+            <input class="form-control me-2" name="item" type="search" placeholder="Dulce o categoria" aria-label="Search" id="navbarSearch">
             <button class="btn btn-outline-danger" type="submit">Buscar</button>
           </form>
           <a class="nav-link mt-1" href="/usuarios/chatbot">
@@ -61,7 +61,7 @@
         </div>
         <ul class="navbar-nav ms-auto" style="gap: 10px;">
           <li class="nav-item dropdown" >
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="categorias">
               Categorias
             </a>
             <ul class="dropdown-menu mac" aria-labelledby="navbarDropdownMenuLink">
