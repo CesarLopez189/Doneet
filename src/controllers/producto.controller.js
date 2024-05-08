@@ -25,6 +25,7 @@ productoCtrl.createNewProducto = async (req, res) => {
 productoCtrl.renderProductos = async (req, res) => {
     try {
         const productos = await Producto.find().lean();
+        console.log(typeof(productos))
         const isAdmin = req.user ? req.user.admin : false; // isAdmin será falso si el usuario no ha iniciado sesión
 
         var chocolates = productos.filter(producto => producto.categoria.includes("chocolate"));
