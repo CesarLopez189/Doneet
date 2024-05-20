@@ -8,7 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const reporteAlergenoController = require('../src/controllers/reporteAlergenoController');
-
+const fetch = require('node-fetch');
 
 // Initializations
 const app = express();
@@ -77,6 +77,21 @@ app.use(require('./routes/users.routes'));
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/proxy-image', async (req, res) => {
+    const imageId = req.query.id; // Asume que el ID de la imagen se pasa como un parámetro de consulta
+    const url = `https://drive.google.com/uc?export=view&id=${imageId}`;
+
+    try {
+        const response = await fetch(url);
+        const buffer = await response.buffer();
+        res.set('Content-Type', 'image/jpeg'); // Asegúrate de ajustar el tipo MIME según sea necesario
+        res.send(buffer);
+    } catch (error) {
+        console.error('Failed to fetch image:', error);
+        res.status(500).send('Error fetching image');
+    }
+});
 
 
 module.exports = app;
