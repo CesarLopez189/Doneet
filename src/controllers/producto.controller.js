@@ -83,6 +83,8 @@ productoCtrl.createNewProducto = async (req, res) => {
     const arrayFN = [];
     const auth = await authorize();
 
+    console.log("esto es req.files en new-producto", req.files);
+
     if (filearray.length > 0) {
         // Asume que el primer archivo es la imagen principal y el segundo la secundaria, si existen
         newProducto.imagenPrincipal = await uploadFile(auth, filearray[0].buffer, filearray[0].originalname, filearray[0].mimetype);
@@ -127,7 +129,6 @@ productoCtrl.renderProductos = async (req, res) => {
         var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
         var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
 
-        console.log("estos son los productos picosos", picosos)
 
         res.render('productos/all-productos', {
             productos, isAdmin, chocolates, paletas, gomitas, caramelos_suaves, bombones, tipicos, biscochos, chicles, polvorosos, picosos
@@ -314,11 +315,45 @@ productoCtrl.renderEditForm = async (req, res) => {
 };
 
 productoCtrl.updateProducto = async (req, res) => {
-    const { nombre, marca, categoria, elementos, imagenes } = req.body;
-    await Producto.findByIdAndUpdate(req.params.id, { nombre, marca, categoria, elementos, imagenes });
-    req.flash('success_msg', 'Producto Actualizado Correctamente');
-    res.redirect('/productos');
+    const { nombre, marca, categoria, elementos, descripcion, trazas } = req.body;
+    const auth = await authorize();
+
+    console.log("esto es req.files en edit-producto", req.files)
+
+    let updatedProducto = {
+        nombre,
+        marca,
+        categoria,
+        elementos,
+        descripcion,
+        trazas,
+    };
+
+    try {
+        const filearray = req.files;
+        if (filearray.length > 0) {
+            // Asume que el primer archivo es la imagen principal y el segundo la secundaria, si existen
+            if (filearray[0]) {
+                const newPrincipalLink = await uploadFile(auth, filearray[0].buffer, filearray[0].originalname, filearray[0].mimetype);
+                updatedProducto.imagenPrincipal = newPrincipalLink;
+            }
+            if (filearray[1]) {
+                const newSecundariaLink = await uploadFile(auth, filearray[1].buffer, filearray[1].originalname, filearray[1].mimetype);
+                updatedProducto.imagenSecundaria = newSecundariaLink;
+            }
+        }
+
+        // Actualizar el producto en la base de datos
+        await Producto.findByIdAndUpdate(req.params.id, updatedProducto);
+
+        req.flash('success_msg', 'Producto Actualizado Correctamente');
+        res.redirect('/productos');
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.status(500).send('Error al procesar la solicitud');
+    }
 };
+
 
 productoCtrl.deleteProducto = async (req, res) => {
     await Producto.findByIdAndDelete(req.params.id);
