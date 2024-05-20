@@ -6,7 +6,7 @@ const ReporteAlergeno = require('../models/ReporteAlergeno');
 const fs = require('fs');
 const path = require('path');
 const { google } = require('googleapis');
-const apikeys = require('../config/APIS/smart-altar-420303-ce847d43b1d4.json');
+const apikeys = require('../config/smart-altar-420303-ce847d43b1d4.json');
 
 async function authorize() {
     const jwtClient = new google.auth.JWT(
@@ -48,7 +48,7 @@ async function uploadFile(auth, buffer, fileName, mimeType) {
                         type: 'anyone',
                     },
                 });
-                const webViewLink = `http://localhost:4000/proxy-image?id=${fileId}`;
+                const webViewLink = `https://donnet-cesar.vercel.app/proxy-image?id=${fileId}`;
                 resolve(webViewLink);
             }
         });
