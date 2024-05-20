@@ -48,7 +48,7 @@ async function uploadFile(auth, buffer, fileName, mimeType) {
                         type: 'anyone',
                     },
                 });
-                const webViewLink = `http://localhost:4000/proxy-image?id=${fileId}`;
+                const webViewLink = `https://donnet-cesar.vercel.app/proxy-image?id=${fileId}`;
                 resolve(webViewLink);
             }
         });
