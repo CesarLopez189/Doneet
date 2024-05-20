@@ -6,7 +6,7 @@ const ReporteAlergeno = require('../models/ReporteAlergeno');
 const fs = require('fs');
 const path = require('path');
 const { google } = require('googleapis');
-const apikeys = require('../config/APIS/smart-altar-420303-ce847d43b1d4.json');
+const apikeys = require('../config/smart-altar-420303-ce847d43b1d4.json');
 
 async function authorize() {
     const jwtClient = new google.auth.JWT(
