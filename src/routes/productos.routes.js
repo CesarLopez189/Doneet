@@ -30,18 +30,17 @@ const {
 router.get('/producto/add', renderProductoForm);
 
 const upload = multer({
-    storage,
-    dest: path.join(__dirname, 'public/images'),
+    storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
         const filetypes = /jpeg|jpg|png/;
         const mimetype = filetypes.test(file.mimetype);
-        const extname = filetypes.test(path.extname(file.originalname));
-        if (mimetype && extname){
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        if (mimetype && extname) {
             return cb(null, true);
         }
-        cb("Error: Archivo debe ser una imagen valida");
+        cb("Error: Archivo debe ser una imagen válida");
     }
-}).array("image")
+}).array("image", 2); // Ajusta el número '2' según el número máximo de imágenes que permitirás cargar.
 
 router.post('/producto/new-producto', upload, createNewProducto);
 

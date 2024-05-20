@@ -3,30 +3,118 @@ const productoCtrl = {};
 const Producto = require('../models/Producto');
 const User = require('../models/Usuario');
 const ReporteAlergeno = require('../models/ReporteAlergeno');
+const fs = require('fs');
+const path = require('path');
+const { google } = require('googleapis');
+const apikeys = require('../config/APIS/smart-altar-420303-ce847d43b1d4.json');
+
+async function authorize() {
+    const jwtClient = new google.auth.JWT(
+        apikeys.client_email,
+        null,
+        apikeys.private_key,
+        ['https://www.googleapis.com/auth/drive']
+    );
+    await jwtClient.authorize();
+    return jwtClient;
+}
+
+async function uploadFile(auth, buffer, fileName, mimeType) {
+    const drive = google.drive({ version: 'v3', auth });
+    const fileMetadata = {
+        name: fileName,
+        parents: ["1GPwccwLy0tGfBGkXH4O5cjgWM2gMuuhV"]
+    };
+    const media = {
+        mimeType: mimeType,
+        body: bufferStream(buffer),
+    };
+
+    return new Promise((resolve, reject) => {
+        drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: 'id'
+        }, async (err, file) => {
+            if (err) {
+                reject(err);
+            } else {
+                const fileId = file.data.id;
+                // Hacer el archivo público
+                await drive.permissions.create({
+                    fileId: fileId,
+                    requestBody: {
+                        role: 'reader',
+                        type: 'anyone',
+                    },
+                });
+                const webViewLink = `http://localhost:4000/proxy-image?id=${fileId}`;
+                resolve(webViewLink);
+            }
+        });
+    });
+}
+
+function bufferStream(buffer) {
+    const stream = require('stream');
+    const bufferStream = new stream.PassThrough();
+    bufferStream.end(Buffer.from(buffer));
+    return bufferStream;
+}
+
 
 productoCtrl.renderProductoForm = (req, res) => {
     res.render('productos/new-producto');
 };
 
 productoCtrl.createNewProducto = async (req, res) => {
-    const {nombre, marca, categoria, elementos, imagenes, imagenPrincipal, imagenSecundaria, descripcion, trazas} = req.body;
-    const newProducto = new Producto({nombre, marca, categoria, elementos, imagenes, imagenPrincipal, descripcion, trazas});
-    const filearray=req.files;
-    const arrayFN=[];
-    filearray.forEach(elem=>arrayFN.push(`/images/${elem.filename}`));
-    newProducto.imagenPrincipal = arrayFN[0];
-    newProducto.imagenSecundaria = arrayFN[1];
-    newProducto.imagenes = arrayFN;
-    await newProducto.save();
-    req.flash('success_msg', 'Producto Agregado Correctamente');
-    res.redirect('/productos');
+    const { nombre, marca, categoria, elementos, descripcion, trazas } = req.body;
+    const newProducto = new Producto({
+        nombre,
+        marca,
+        categoria,
+        elementos,
+        descripcion,
+        trazas,
+        imagenPrincipal: null, // Inicializa como null o una URL temporal
+        imagenSecundaria: null
+    });
+    const filearray = req.files;
+    const arrayFN = [];
+    const auth = await authorize();
+
+    if (filearray.length > 0) {
+        // Asume que el primer archivo es la imagen principal y el segundo la secundaria, si existen
+        newProducto.imagenPrincipal = await uploadFile(auth, filearray[0].buffer, filearray[0].originalname, filearray[0].mimetype);
+        
+        if (filearray.length > 1) {
+            newProducto.imagenSecundaria = await uploadFile(auth, filearray[1].buffer, filearray[1].originalname, filearray[1].mimetype);
+        }
+
+        // Subir cualquier otra imagen y guardar los enlaces
+        for (const file of filearray) {
+            const fileLink = await uploadFile(auth, file.buffer, file.originalname, file.mimetype);
+            arrayFN.push(fileLink);
+        }
+    }
+
+    newProducto.imagenes = arrayFN; // Asigna las imágenes adicionales si las hay
+    try {
+        await newProducto.save();
+        req.flash('success_msg', 'Producto Agregado Correctamente');
+        res.redirect('/productos');
+    } catch (error) {
+        console.error('Error al guardar el producto:', error);
+        res.status(500).send('Error al procesar la solicitud');
+    }
 };
+
+
 
 productoCtrl.renderProductos = async (req, res) => {
     try {
         const productos = await Producto.find().lean();
-        console.log(typeof(productos))
-        const isAdmin = req.user ? req.user.admin : false; // isAdmin será falso si el usuario no ha iniciado sesión
+        const isAdmin = req.user ? req.user.admin : false;
 
         var chocolates = productos.filter(producto => producto.categoria.includes("chocolate"));
         var paletas = productos.filter(producto => producto.categoria.includes("paleta"));
@@ -39,15 +127,16 @@ productoCtrl.renderProductos = async (req, res) => {
         var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
         var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
 
+        console.log("estos son los productos picosos", picosos)
+
         res.render('productos/all-productos', {
             productos, isAdmin, chocolates, paletas, gomitas, caramelos_suaves, bombones, tipicos, biscochos, chicles, polvorosos, picosos
         });
     } catch (error) {
-        console.error(error);   
+        console.error(error);
         res.status(500).send('Error al procesar la solicitud');
     }
 };
-
 
 productoCtrl.renderProdCategory = async (req, res) => {
     var bandera = true;
@@ -58,8 +147,8 @@ productoCtrl.renderProdCategory = async (req, res) => {
 
 productoCtrl.renderSearchProducto = async (req, res) => {
     try {
-        const isAdmin = req.user && req.user.admin; // Verifica si el usuario es un administrador
-        const dulce = req.body.item; // Asume que el término de búsqueda se pasa como un parámetro de consulta
+        const isAdmin = req.user && req.user.admin;
+        const dulce = req.body.item;
         const dulces_encontrados = await Producto.find({ nombre: { $regex: dulce, $options: 'i' } }).lean();
 
         if (dulces_encontrados.length === 0) {
@@ -67,10 +156,9 @@ productoCtrl.renderSearchProducto = async (req, res) => {
             return res.redirect('/productos');
         }
 
-        // Selecciona el primer producto encontrado para simplificar
         const producto = dulces_encontrados[0];
         let esCompatibleConUsuario = false;
-        const productoSus = []; // Inicializa la lista de productos sugeridos
+        const productoSus = [];
         let mostrarFeedback = req.body.feedback === "true";
 
         const reportes = await ReporteAlergeno.find({ producto: producto._id }).lean();
@@ -103,7 +191,6 @@ productoCtrl.renderSearchProducto = async (req, res) => {
             productoSus.push(...productosAlternativos);
         }
 
-        // Renderiza la misma vista de detalle de producto que se usa en renderProducto
         res.render('productos/ver-producto', {
             producto,
             productoSus,
@@ -117,25 +204,14 @@ productoCtrl.renderSearchProducto = async (req, res) => {
     }
 };
 
-
-
-
-
 productoCtrl.renderProducto = async (req, res) => {
     try {
         const producto = await Producto.findById(req.params.id).lean();
-
-        const isAdmin = req.user ? req.user.admin : false; // Verifica si el usuario es un administrador
+        const isAdmin = req.user ? req.user.admin : false;
         let esCompatibleConUsuario = false;
-        const productoSus = []; // Inicializa la lista de productos sugeridos
+        const productoSus = [];
         let mostrarFeedback = req.body.feedback === "true";
 
-
-
-
-
-
-        // Ver reportes de alergenos y buscar los nombres de usuarios
         const reportes = await ReporteAlergeno.find({ producto: req.params.id }).lean();
         for (let reporte of reportes) {
             const usuarioReporte = await User.findById(reporte.usuario).lean();
@@ -170,62 +246,54 @@ productoCtrl.renderProducto = async (req, res) => {
             let valoracionExistente = producto.valoraciones.find(v => v.usuario.equals(userId));
 
             if (valoracionExistente) {
-                // Actualizar la valoración existente
                 valoracionExistente.valoracion = valoracion;
             } else {
-                // Añadir nueva valoración
                 producto.valoraciones.push({ valoracion, usuario: userId });
             }
 
             await producto.save();
         }
 
-        
-
-        res.render('productos/ver-producto', { 
-            producto, 
-            productoSus, 
-            isAdmin, 
-            esCompatibleConUsuario, 
-            mostrarFeedback 
+        res.render('productos/ver-producto', {
+            producto,
+            productoSus,
+            isAdmin,
+            esCompatibleConUsuario,
+            mostrarFeedback
         });
     } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al procesar la solicitud');
     }
 };
 
-
 productoCtrl.renderProductoPost = async (req, res) => {
     try {
-        const productoId = req.params.id; // Obtén el ID del producto de la URL
+        const productoId = req.params.id;
         const producto = await Producto.findById(productoId).lean();
         const isAdmin = req.user && req.user.admin;
         let esCompatibleConUsuario = false;
         const productoSus = [];
-        let mostrarFeedback = req.body.feedback === "true"; // Captura el valor de 'feedback' desde el cuerpo de la solicitud POST
+        let mostrarFeedback = req.body.feedback === "true";
         let mostrarValoracion = false;
 
         if (req.body.valoracion) {
-            const producto = await Producto.findById(productoId); // Encuentra el producto sin usar .lean() para usar métodos de Mongoose.
+            const producto = await Producto.findById(productoId);
             const userId = req.user._id;
             const valoracionExistenteIndex = producto.valoraciones.findIndex(v => v.usuario.equals(userId));
         
             if (valoracionExistenteIndex !== -1) {
-                // Actualizar la valoración existente
                 producto.valoraciones[valoracionExistenteIndex].valoracion = req.body.valoracion;
             } else {
-                // Añadir nueva valoración si no existe
                 producto.valoraciones.push({ valoracion: req.body.valoracion, usuario: userId });
             }
         
-            await producto.save(); // Guardar los cambios en el documento del producto
+            await producto.save();
             esCompatibleConUsuario = true;
             mostrarFeedback = true;
             mostrarValoracion = true;
         }
-         
-            
 
-        // Renderiza la página con la información adecuada
         res.render('productos/ver-producto', {
             producto,
             productoSus,
@@ -240,26 +308,24 @@ productoCtrl.renderProductoPost = async (req, res) => {
     }
 };
 
-
 productoCtrl.renderEditForm = async (req, res) => {
     const producto = await Producto.findById(req.params.id).lean();
     res.render('productos/edit-producto', { producto });
 };
 
 productoCtrl.updateProducto = async (req, res) => {
-    const { nombre, marca, categoria, elementos, imagenes} = req.body;
-    await Producto.findByIdAndUpdate(req.params.id, {nombre, marca, categoria, elementos, imagenes});
-    req.flash('success_msg', 'Producto Actualizado Correctamente')
+    const { nombre, marca, categoria, elementos, imagenes } = req.body;
+    await Producto.findByIdAndUpdate(req.params.id, { nombre, marca, categoria, elementos, imagenes });
+    req.flash('success_msg', 'Producto Actualizado Correctamente');
     res.redirect('/productos');
 };
 
 productoCtrl.deleteProducto = async (req, res) => {
     await Producto.findByIdAndDelete(req.params.id);
-    req.flash('success_msg', 'Producto Eliminado Correctamente')
+    req.flash('success_msg', 'Producto Eliminado Correctamente');
     res.redirect('/productos');
 };
 
-// Función para manejar la valoración del producto
 productoCtrl.rateProducto = async (req, res) => {
     const { valoracion, productoNombre } = req.body;
     try {
@@ -271,12 +337,9 @@ productoCtrl.rateProducto = async (req, res) => {
         const userId = req.user._id;
         let valoracionExistente = producto.valoraciones.find(v => v.usuario.equals(userId));
 
-
         if (valoracionExistente) {
-            // Actualizar la valoración existente
             valoracionExistente.valoracion = valoracion;
         } else {
-            // Añadir nueva valoración
             producto.valoraciones.push({ valoracion, usuario: userId });
         }
 
@@ -287,8 +350,5 @@ productoCtrl.rateProducto = async (req, res) => {
         res.status(500).send('Error al procesar la solicitud');
     }
 };
-
-
-
 
 module.exports = productoCtrl;
