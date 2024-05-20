@@ -84,7 +84,7 @@
 -->
 <section> 
   <div class="container-sm rectangulo p-4 "> 
-    <form action="/producto/edit/{{producto._id}}?_method=PUT" method="POST">   
+    <form action="/producto/edit/{{producto._id}}?_method=PUT" method="POST" enctype="multipart/form-data">   
         <div class="col">
             <h2 class="titulo2 px-5 m-2" align="center">Editar dulce</h2>
             <input type="hidden" name="_method" value="PUT">
@@ -585,4 +585,3 @@
     </form>
   </div>  
 </section>
--->

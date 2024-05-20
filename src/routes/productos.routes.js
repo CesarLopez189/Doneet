@@ -60,7 +60,7 @@ router.post('/producto/search', renderSearchProducto);
 // Edit Productos
 router.get('/producto/edit/:id', renderEditForm);
 
-router.put('/producto/edit/:id', updateProducto);
+router.put('/producto/edit/:id', upload, updateProducto);
 
 // Delete Producto
 router.delete('/producto/delete/:id', deleteProducto);
