@@ -7,8 +7,9 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
-const reporteAlergenoController = require('../src/controllers/reporteAlergenoController');
-const fetch = require('node-fetch');
+const { engine } = require('express-handlebars');
+const Handlebars = require('handlebars');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
 // Initializations
 const app = express();
@@ -17,23 +18,38 @@ require('./config/passport');
 // Settings
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs.engine({
+
+const hbs = exphbs.create({
     defaultLayout: 'main',
-    layoutDir: path.join(app.get('views'), 'layouts'),
-    partialDir: path.join(app.get('views'), 'partials'),
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
     helpers: {
         or: function(a, b, options) {
             return a || b ? options.fn(this) : options.inverse(this);
+        },
+        ifContains: function(array, value, options) {
+            if (Array.isArray(array)) {
+                if (array.includes(value)) {
+                    return options.fn(this);
+                }
+            } else if (typeof array === 'string') {
+                if (array.split(',').includes(value)) {
+                    return options.fn(this);
+                }
+            }
+            return options.inverse(this);
         }
     }
-}));
+});
 
+app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 
 // Middlewares
 app.use(morgan('dev'));
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 
 // Session Middleware Configuration
@@ -74,7 +90,6 @@ app.use(require('./routes/index.routes'));
 app.use(require('./routes/productos.routes'));
 app.use(require('./routes/users.routes'));
 
-
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -92,6 +107,5 @@ app.get('/proxy-image', async (req, res) => {
         res.status(500).send('Error fetching image');
     }
 });
-
 
 module.exports = app;

@@ -128,6 +128,17 @@ usersCtrl.chatbot = (req, res) => {
     res.render('usuarios/chatbot');
 }
 
+usersCtrl.updateUser = async (req, res) => {
+    const { id, name, last_names, email, elements } = req.body;
+    try {
+        await User.findByIdAndUpdate(id, { name, last_names, email, elements: Array.isArray(elements) ? elements.join(',') : elements }, { new: true });
+        req.flash('success_msg', 'Datos actualizados correctamente');
+    } catch (err) {
+        req.flash('error_msg', 'Error al actualizar los datos');
+    }
+    res.redirect('/about');
+};
+
 
 
 module.exports = usersCtrl;
