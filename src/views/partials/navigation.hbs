@@ -52,7 +52,7 @@
       <div class="collapse navbar-collapse w-100" id="navbarNavDropdown">
         <div class="search-and-chatbot">
           <form class="d-flex" role="search" action="/producto/search" method="POST">
-            <input class="form-control me-2" name="item" type="search" placeholder="Dulce o categoria" aria-label="Search">
+            <input class="form-control me-2" name="item" type="search" placeholder="Nombre del dulce" aria-label="Search" id="navbarSearch">
             <button class="btn btn-outline-danger" type="submit">Buscar</button>
           </form>
           <a class="nav-link mt-1" href="/usuarios/chatbot">
@@ -61,10 +61,11 @@
         </div>
         <ul class="navbar-nav ms-auto" style="gap: 10px;">
           <li class="nav-item dropdown" >
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="categorias" type="button">
               Categorias
             </a>
-            <ul class="dropdown-menu mac" aria-labelledby="navbarDropdownMenuLink">
+            
+            <ul class="dropdown-menu mac" aria-labelledby="dropdownMenuButton">
                <li><a class="dropdown-item me-2 text-white" href="/productos-category/polvoroso">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 165.34 156.75"><defs><style>.cls-1{fill:#ffffff;}</style></defs><g id="Capa_2" data-name="Capa 2"><g id="Capa_1-2" data-name="Capa 1"><g id="Dust"><path class="cls-1" d="M150.22,81.76a25.85,25.85,0,0,0-22.94-22.93,18.1,18.1,0,0,0-3.93-19.45l-.73-.66c3.3-1.29,5.29-2.38,5.55-4.93s-2.11-4.4-5.72-6.61A27.17,27.17,0,0,1,111.64,14c-1.55-4-2.58-6.61-5.46-6.88s-4.39,2.12-6.61,5.72a27.52,27.52,0,0,1-4.79,5.59A25.83,25.83,0,0,0,52.42,36.47,18,18,0,0,0,30.19,58.73a25.85,25.85,0,0,0-4.92,50.75A27.3,27.3,0,0,1,21,112.2c-3.8,1.91-6.31,3.3-6.31,6.08s2.51,4.2,6.31,6.12a27.21,27.21,0,0,1,12.07,12c1.92,3.84,3.31,6.35,6.09,6.35s4.2-2.51,6.11-6.35c.23-.49.6-1,.9-1.45a17.7,17.7,0,0,0,6.38-1.32,25.86,25.86,0,0,0,51.42,0,17.92,17.92,0,0,0,23.41-23.38l-.1,0A25.87,25.87,0,0,0,150.22,81.76ZM105.09,16.37l.23-.37v.4a34,34,0,0,0,13.73,16.3l.33.23H119a34,34,0,0,0-16.5,13.63,1.78,1.78,0,0,1-.23.33v-.37A34,34,0,0,0,88.79,30.19L88.46,30h.36A34.13,34.13,0,0,0,105.09,16.37Zm-50.86,102a33.91,33.91,0,0,0-15,15l-.29.5v-.37a34,34,0,0,0-15-15l-.37-.2.37-.16a34.73,34.73,0,0,0,15-15v-.37l.2.37A34,34,0,0,0,54.23,118l.37.16Zm72.88-14.62a19.32,19.32,0,0,1-2.74.2,18.48,18.48,0,0,1-2.78-.2,3.29,3.29,0,0,0-2.74,5.56,11.41,11.41,0,0,1-.17,15.74h-.1a11.41,11.41,0,0,1-15.9,0,3.31,3.31,0,0,0-5.46,2.88,20.31,20.31,0,0,1,.2,2.81,19.25,19.25,0,1,1-38.49,0h0a20.31,20.31,0,0,1,.2-2.81,3.32,3.32,0,0,0-1.75-3.31h-.2c3.83-1.92,6.35-3.31,6.35-6.12s-2.52-4.16-6.35-6.08a27.1,27.1,0,0,1-12-12c-1.91-3.8-3.3-6.31-6.11-6.31s-4.17,2.51-6.09,6.31a26.09,26.09,0,0,1-2.15,3.54,19.24,19.24,0,0,1,1.75-38.45,17.47,17.47,0,0,1,2.39.26,3.31,3.31,0,0,0,3.3-5.2A11.34,11.34,0,0,1,54.1,44.77a3.39,3.39,0,0,0,5.19-3.31A19.21,19.21,0,0,1,89.05,22.52a27.7,27.7,0,0,1-2.64,1.25c-4,1.56-6.61,2.58-6.88,5.49s2.12,4.4,5.72,6.62A27.09,27.09,0,0,1,96.06,49.1c1.56,4,2.58,6.62,5.49,6.88H102c2.62,0,4.07-2.31,6.22-5.75a28,28,0,0,1,7.8-7.94,11.25,11.25,0,0,1,2.72,1.92,11.41,11.41,0,0,1,0,15.9,3.31,3.31,0,0,0,2.87,5.56,19.24,19.24,0,1,1,5.52,38.09Z"/><path class="cls-1" d="M35.58,22.68a15.84,15.84,0,1,0-15.74,16,15.83,15.83,0,0,0,15.74-16Zm-25,0a9.26,9.26,0,1,1,0,.2v-.2Z"/><path class="cls-1" d="M157.47,13.23a13.23,13.23,0,1,0-13.23,13.22,13.23,13.23,0,0,0,13.23-13.22Zm-19.84,0a4.69,4.69,0,1,1-.07.06v-.06Z"/><path class="cls-1" d="M165.34,137.36a13.23,13.23,0,1,0-13.23,13.23A13.22,13.22,0,0,0,165.34,137.36Zm-19.84,0a6.61,6.61,0,1,1,6.61,6.62A6.61,6.61,0,0,1,145.5,137.36Z"/><path class="cls-1" d="M11.47,155.45a11.44,11.44,0,1,0-.06,0Zm0-16.3A4.86,4.86,0,1,1,6.61,144v0A4.86,4.86,0,0,1,11.47,139.15Z"/></g></g></g></svg>
               Polvorosos </a></li>
@@ -122,5 +123,6 @@
       </div>
     </div>
   </nav>
+  
 </body>
 </html>
