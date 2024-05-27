@@ -6,6 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
+    <style>
+    .typing {
+        border-right: .15em solid white; /* Cursor simulando la escritura */
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+    }
+</style>
+
 </head>
 
 <body>
@@ -35,94 +44,214 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('message-form');
-            const input = document.getElementById('message-input');
-            const chatMessages = document.getElementById('chat-messages');
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                const message = input.value;
-                if (message) {
-                    const newMessage = document.createElement('div');
-                    newMessage.className = 'message user-message';
-                    newMessage.textContent = message;
-                    chatMessages.appendChild(newMessage);
-                    input.value = '';
-                    // Realizar la solicitud a la API de Wit.ai
-                    const witUrl = `https://api.wit.ai/message?v=20230611&q=${encodeURIComponent(message)}&model_id=226988573429850`;
-                    const witHeaders = {
-                        'Authorization': 'Bearer VL5FJ2MWSGQH62VON22OEEWTO2BUJVCI'
-                    };
-                    fetch(witUrl, {
-                        headers: witHeaders
-                    })
-                        .then(response => response.json())
-                        .then(responseJson => {
-                            // Procesar la respuesta de Wit.ai
-                            const sustitutos = obtenerSustituto(responseJson);
-                            mostrarRespuesta(sustitutos);
-                        })
-                        .catch(error => {
-                            console.error('Error al hacer la solicitud a Wit.ai:', error);
-                        });
-                }
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('message-form');
+    const input = document.getElementById('message-input');
+    const chatMessages = document.getElementById('chat-messages');
+    
+    const dulces = [
+        {"nombre": "carlos v", "categoria": ["chocolates"], "alergenos": ["chocolate", "lacteo", "soya"]},
+        {"nombre": "bocadin", "categoria": ["chocolates", "biscochos"], "alergenos": ["cacahuate", "gluten", "lacteo", "soya", "chocolate"]},
+        {"nombre": "gansito", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo", "chocolate"]},
+        {"nombre": "mamut", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo", "chocolate"]},
+        {"nombre": "kisses", "categoria": ["chocolates"], "alergenos": ["soya", "lacteo", "chocolate"]},
+        {"nombre": "paleta payaso", "categoria": ["paletas", "bombones", "chocolates"], "alergenos": ["soya", "lacteo"]},
+        {"nombre": "freskas", "categoria": ["chocolates"], "alergenos": ["soya", "gluten", "lacteo"]},
+        {"nombre": "mancha t", "categoria": ["gomitas"], "alergenos": ["gluten"]},
+        {"nombre": "panditas", "categoria": ["gomitas"], "alergenos": []},
+        {"nombre": "picafresa", "categoria": ["gomitas", "picoso", "caramelo suave"], "alergenos": []},
+        {"nombre": "nerds", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "aciduladito", "categoria": ["caramelo suave", "tipicos"], "alergenos": ["soya"]},
+        {"nombre": "crunch", "categoria": ["chocolates"], "alergenos": ["soya", "gluten", "lacteo", "chocolate"]},
+        {"nombre": "reeses", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "cacahuate", "lacteo", "chocolate"]},
+        {"nombre": "magnum", "categoria": ["chocolates", "paletas"], "alergenos": ["almendra", "chocolate"]}
+
+        
+    ];
+
+    const saludos = [
+        "¡Hola! Soy Doneet ¿En qué puedo ayudarte hoy?",
+        "Buen día, soy doneet ¿cómo puedo asistirte?",
+        "¡Saludos! Soy Doneet, estoy aquí para ayudarte, ¿qué necesitas?",
+        "Hola, bienvenido a Doneet, ¿cómo puedo servirte hoy?"
+
+    ];
+
+    const nointencion = [
+        "No puedo entender tu solicitud ya que no tiene nada que ver con la pagina.",
+        "Parece que tu pregunta no se relaciona con el tema que estamos tratando en la pagina.",
+        "Tu pregunta parece fuera de contexto con respecto a la pagina.",
+        "No logro ver la conexión entre tu pregunta y Doneet",
+        "Tu solicitud parece no tener relación con lo que estamos tratando en esta página."
+    ];
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const message = input.value;
+        if (message) {
+            displayUserMessage(message);
+            input.value = '';
+            consultarWitAi(message).then(responseJson => {
+                manejarIntenciones(responseJson).then(respuesta => {
+                    mostrarRespuesta([respuesta]);
+                });
+            }).catch(error => {
+                console.error('Error al hacer la solicitud:', error);
+                mostrarRespuesta(['Hubo un error al procesar tu solicitud.']);
             });
+        }
+    });
 
-            function obtenerSustituto(response) {
-                const entities = response.entities;
-                if ('_alimento_:_alimento_' in entities) {
-                    const entidadAlimento = entities['_alimento_:_alimento_'][0];
-                    const sustituto = entidadAlimento.value;
-                    const sustitutosEncontrados = buscarSustitutos(sustituto);
-                    if (sustitutosEncontrados) {
-                        return sustitutosEncontrados;
-                    } else {
-                        return `No se encontró un sustituto para el alimento '${sustituto}'.`;
-                    }
+    function displayUserMessage(message) {
+        const newMessage = document.createElement('div');
+        newMessage.className = 'message user-message';
+        newMessage.textContent = message;
+        chatMessages.appendChild(newMessage);
+    }
+
+    function consultarWitAi(textoUsuario) {
+        const witUrl = `https://api.wit.ai/message?v=20240506&q=${encodeURIComponent(textoUsuario)}`;
+        const witHeaders = {
+            'Authorization': 'Bearer ALBCDCYN4JTUU4QX2UMIJZUQTB77GGJH',
+            'Content-Type': 'application/json',
+        };
+        return fetch(witUrl, {
+            headers: witHeaders
+        }).then(response => response.json());
+    }
+
+    async function manejarIntenciones(respuestaWit) {
+        if (!respuestaWit.intents || respuestaWit.intents.length === 0) {
+            const respuestaNointencion = nointencion[Math.floor(Math.random() * nointencion.length)];
+            return respuestaNointencion;
+        }
+        const intencion = respuestaWit.intents[0].name;
+        const alergenosEvitar = respuestaWit.entities['alergeno:alergeno'] ? respuestaWit.entities['alergeno:alergeno'].map(a => a.value) : [];
+        const nombreDulce = respuestaWit.entities['nombre_dulce:nombre_dulce'] ? respuestaWit.entities['nombre_dulce:nombre_dulce'][0].value : null;
+        const categoria = respuestaWit.entities['categoria_dulce:categoria_dulce'] ? respuestaWit.entities['categoria_dulce:categoria_dulce'][0].value : null;
+
+        if (intencion === "buscar_dulce") {
+            if (nombreDulce && alergenosEvitar.length) {
+                return buscarPorDulceYAlergeno(nombreDulce, alergenosEvitar);
+            } else if (nombreDulce && !alergenosEvitar.length && !categoria) {
+                return buscarAlternativasPorDulce(nombreDulce);
+            } else if (alergenosEvitar.length && !nombreDulce && !categoria) {
+                return buscarPorAlergeno(alergenosEvitar);
+            } else if (categoria && alergenosEvitar.length) {
+                return buscarPorCategoriaYAlergeno(categoria, alergenosEvitar);
+            } else {
+                return "Pregunta incompleta. Asegúrate de proporcionar la información necesaria para la búsqueda.";
+            }
+        } else if (intencion === "consultar_alergeno") {
+            if (nombreDulce){
+                return listarAlergenos(nombreDulce);
+            } else{
+                return "Pregunta incompleta. Asegúrate de proporcionar la información necesaria para la búsqueda.";
+            }
+            
+        
+        } else if (intencion === "saludo") {
+            const respuestaSaludo = saludos[Math.floor(Math.random() * saludos.length)];
+            return respuestaSaludo;
+        } else {
+            return "No pude encontrar una acción para tu solicitud.";
+        }
+    }
+
+    function buscarPorDulceYAlergeno(nombreDulce, alergenosEvitar) {
+    const dulceObj = dulces.find(d => d.nombre === nombreDulce);
+    if (!dulceObj) return "Dulce no encontrado.";
+
+    // Asegura que las categorías se manejen como listas
+    const categoriasDulce = Array.isArray(dulceObj.categoria) ? dulceObj.categoria : [dulceObj.categoria];
+
+    // Filtra los dulces que coincidan en categoría y no contengan los alérgenos especificados
+    let resultados = dulces.filter(dulce => {
+        const categoriasCandidato = Array.isArray(dulce.categoria) ? dulce.categoria : [dulce.categoria];
+        const coincideCategoria = categoriasDulce.some(cat => categoriasCandidato.includes(cat));
+        const contieneAlergeno = alergenosEvitar.some(alergeno => dulce.alergenos.includes(alergeno));
+        return coincideCategoria && !contieneAlergeno;
+    }).map(d => d.nombre);
+
+    return resultados.length ? `Los dulces sustitutos al dulce ${nombreDulce} son: ${resultados.join(', ')}` : "No se encontraron sustitutos.";
+}
+
+    function buscarPorAlergeno(alergenosEvitar) {
+        return buscarDulces(null, alergenosEvitar);
+    }
+
+    function buscarPorCategoriaYAlergeno(categoria, alergenosEvitar) {
+        return buscarDulces(categoria, alergenosEvitar);
+    }
+    
+    function buscarAlternativasPorDulce(nombreDulce) {
+        const dulceObj = dulces.find(d => d.nombre === nombreDulce);
+        if (!dulceObj) return "Dulce no encontrado.";
+
+        const alergenosDulce = dulceObj.alergenos;
+        const categoriaDulce = dulceObj.categoria;
+
+        let resultados = dulces.filter(dulce => {
+            return dulce.categoria.some(cat => categoriaDulce.includes(cat)) && 
+                   !alergenosDulce.some(alergeno => dulce.alergenos.includes(alergeno));
+        }).map(d => d.nombre);
+
+        let mensajeAlergenos = alergenosDulce.length > 0 ? `Los alérgenos que contiene el dulce son: ${alergenosDulce.join(', ')}.` : "Este dulce no tiene alérgenos conocidos.";
+        let mensajeResultados = resultados.length ? `Otros dulces recomendados: ${resultados.join(', ')}` : "No se encontraron alternativas sin esos alérgenos.";
+
+        return `${mensajeAlergenos} ${mensajeResultados}`;
+    }
+
+    function buscarDulces(categoria, alergenosEvitar) {
+        let resultados = dulces.filter(dulce => {
+            const cumpleCategoria = categoria ? dulce.categoria.includes(categoria) : true;
+            const cumpleAlergenos = !alergenosEvitar.some(alergeno => dulce.alergenos.includes(alergeno));
+            return cumpleCategoria && cumpleAlergenos;
+        }).map(d => d.nombre);
+        return resultados.length ? `Los dulces sustitutos son: ${resultados.join(', ')}` : "No se encontraron sustitutos.";
+    }
+
+    function listarAlergenos(nombreDulce) {
+        const dulce = dulces.find(d => d.nombre === nombreDulce);
+        if (dulce) {
+            return dulce.alergenos.length ? `Los alérgenos que contiene el dulce ${nombreDulce} son: ${dulce.alergenos.join(', ')}.` : "Este dulce no tiene alérgenos conocidos.";
+        }
+        return "Dulce no encontrado en la base de datos.";
+    }
+
+    function mostrarRespuesta(mensajes) {
+    mensajes.forEach((mensaje, index) => {
+        setTimeout(() => { // Retraso para no superponer mensajes
+            const respuestaMessage = document.createElement('div');
+            respuestaMessage.className = 'message bot-message typing';
+            respuestaMessage.style.minHeight = '40px';
+            chatMessages.appendChild(respuestaMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            let i = 0;
+            const speed = 30; // Velocidad de escritura en milisegundos
+
+            function typeWriter() {
+                if (i < mensaje.length) {
+                    respuestaMessage.innerHTML += mensaje.charAt(i);
+                    i++;
+                    respuestaMessage.style.height = 'auto';  // Permite que el contenedor crezca con el contenido
+                    respuestaMessage.style.height = respuestaMessage.scrollHeight + 'px';
+                    setTimeout(typeWriter, speed);
                 } else {
-                    return 'No se encontró un sustituto para ese alimento.';
+                    respuestaMessage.classList.remove('typing'); // Quita el efecto una vez completado
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
                 }
             }
+            typeWriter();
+        }, 1000 * index);
+    });
 
-            function buscarSustitutos(ingrediente) {
-                const sustitutos = {
-                    'nuez': ['avellana', 'almendra'],
-                    'harina de trigo': ['harina de avena'],
-                    'Snickers': ['MilkyWay'],
-                    'avellana': ['nuez', 'almendra'],
-                    'almendra': ['nuez', 'avellana'],
-                    'Bubulubu': ['bocadín', 'Kínder Delice'],
-                    'hola': ['¿Hola, en qué puedo ayudarte?'],
-                    'Hola': ['¿Hola, en qué puedo ayudarte?']
-                };
-                if (ingrediente in sustitutos) {
-                    return sustitutos[ingrediente];
-                } else {
-                    return null;
-                }
-            }
+    // Asegúrate de que el contenedor de mensajes se desplace hacia abajo para mostrar el último mensaje
+    
+}
 
-            function mostrarRespuesta(sustitutos) {
-                const chatMessages = document.getElementById('chat-messages');
-                if (sustitutos) {
-                    const respuestaMessage = document.createElement('div');
-                    respuestaMessage.className = 'message bot-message';
-                    chatMessages.appendChild(respuestaMessage);
-                    for (const sustituto of sustitutos) {
-                        const sustitutoMessage = document.createElement('div');
-                        sustitutoMessage.className = 'message bot-message';
-                        sustitutoMessage.innerText = `- ${sustituto}`;
-                        chatMessages.appendChild(sustitutoMessage);
-                    }
-                } else {
-                    const noSustitutosMessage = document.createElement('div');
-                    noSustitutosMessage.className = 'message bot-message';
-                    noSustitutosMessage.innerText = 'No se encontraron sustitutos para ese alimento.';
-                    chatMessages.appendChild(noSustitutosMessage);
-                }
-            }
-        });
-    </script>
+});
+</script>
 
 </body>
 
