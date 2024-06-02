@@ -20,6 +20,7 @@
     @media (max-width: 991px) {
       .search-and-chatbot {
         flex-direction: column;
+        gap: 10px
       }
     }
     .navbar-nav .dropdown-menu {
@@ -109,7 +110,9 @@
             <a class="nav-link" href="/about">Cuenta</a>
           </li>
           <li class="nav-item ms-3 me-0 ">
+            <center>
             <a class="nav-link hola text-white fw-bold" href="/usuarios/logout">Cerrar sesión</a>
+            </center>
           </li>
           {{else}}
           <li class="nav-item">
