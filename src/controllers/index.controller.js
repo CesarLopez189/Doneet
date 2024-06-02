@@ -8,6 +8,10 @@ indexCtrl.renderAbout = (req, res) => {
     res.render('about')
 }
 
+indexCtrl.renderNosotros = (req, res) => {
+    res.render('nosotros')
+}
+
 indexCtrl.renderEstadisticas = (req, res) => {
     res.render('about')
 }
