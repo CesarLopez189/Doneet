@@ -129,7 +129,7 @@
                         }
                     </script>
 
-                    <h4 class="titulo7">Reportes de alérgenos</h4>
+                    <h4 class="titulo7 ps-4 pt-4">Reportes de alérgenos</h4>
                     <div class="list">
                         {{#each producto.reportes}}
                         <div class="card mb-2">
@@ -172,7 +172,7 @@
 
 
 
-            <div class="col-7 rectangulo4 p-5">
+            <div class="col-md-7 rectangulo4 p-5">
 
                 {{#if isAdmin}}
                 <div class="d-flex justify-content-center">
@@ -321,6 +321,7 @@
                                 <path d="M7.5 4H9V2.5C9 1.67 8.33 1 7.5 1C6.67 1 6 1.67 6 2.5C6 3.33 6.67 4 7.5 4Z"
                                     stroke="#260077" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>Categorias: </h2>
+                        
                         <div class="list justify-center ms-lg-5">
                             {{#each producto.categoria}}
 
@@ -329,7 +330,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <h2 class="gy-4 titulo7 p-2"> <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -365,7 +365,6 @@
                         <img src=/images/{{this}}-rojo.png>
                         {{/each}}
                     </div>
-
                     <h2 class="gy-4 titulo7 p-2"> <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path

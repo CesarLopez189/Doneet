@@ -249,6 +249,7 @@ color: #260077;
   font-weight: 400;
   font-size: 20px;
   color: #000000;
+  text-align: center;
 
 }
 
@@ -404,6 +405,7 @@ color: #260077;
 .list {
   display: flex;
   flex-wrap: wrap;
+  
 }
 
 .btn-warning {
@@ -802,6 +804,8 @@ color: #260077;
   font-weight: 300;
   font-size: 1rem
 }
+
+
 
 @media screen and (max-width: 85rem) {
   .columnaCard {
@@ -1560,3 +1564,30 @@ background: linear-gradient(0deg, #AB3597 0%,#F08A5E 100%);
 }
 
 
+@media (min-width: 768px) {
+  .custom-col-md-0 {
+    display: none;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .custom-row-to-col {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.student-profile {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.student-profile img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  border-radius: 50%;
+}
+.student-profile h5 {
+  margin-top: 15px;
+}
