@@ -8,24 +8,25 @@
     <title>Chatbot</title>
     <style>
     .typing {
-        border-right: .15em solid white; /* Cursor simulando la escritura */
-        white-space: nowrap;
-        overflow: hidden;
-        display: inline-block;
-    }
+    border-right: .15em solid #F31260; /* Cursor simulando la escritura */
+    white-space: normal; /* Permite que el texto se ajuste a múltiples líneas */
+    overflow: hidden;
+    display: inline-block;
+}
+
 </style>
 
 </head>
 
 <body>
-    <div class=" container-sm rectangulo">
+    <div class="container-sm rectangulo">
         <div class="row">
             <div class="chat-header">
                 <img src="/images/01chatbot.png" alt="" class="img-fluid" width="160">
             </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="message bot-message">
-                    Hola, bienvenido a Doneet ¿en qué puedo ayudarte hoy?
+                    Hola, bienvenido soy el Chatbot de Doneet, puedo ayudarte a encontrar dulces, consultar alergenos de dulces, etc.
                 </div>
                 <!-- Los mensajes serán insertados aquí -->
             </div>
@@ -48,6 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('message-form');
     const input = document.getElementById('message-input');
     const chatMessages = document.getElementById('chat-messages');
+    const alergiasData = JSON.parse('{{alergiasData}}'.replace(/&quot;/g, '"'));
+    console.log(JSON.stringify(alergiasData));
+    const productosData = JSON.parse('{{productosData}}'.replace(/&quot;/g, '"'));
+    console.log(JSON.stringify(productosData));
+    const valoracionesData = JSON.parse('{{valoracionesData}}'.replace(/&quot;/g, '"'));
+    console.log(JSON.stringify(valoracionesData));
+
+
     
     const dulces = [
         {"nombre": "carlos v", "categoria": ["chocolates"], "alergenos": ["chocolate", "lacteo", "soya"]},
@@ -64,9 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {"nombre": "aciduladito", "categoria": ["caramelo suave", "tipicos"], "alergenos": ["soya"]},
         {"nombre": "crunch", "categoria": ["chocolates"], "alergenos": ["soya", "gluten", "lacteo", "chocolate"]},
         {"nombre": "reeses", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "cacahuate", "lacteo", "chocolate"]},
-        {"nombre": "magnum", "categoria": ["chocolates", "paletas"], "alergenos": ["almendra", "chocolate"]}
-
-        
+        {"nombre": "magnum", "categoria": ["chocolates", "paletas"], "alergenos": ["almendra", "chocolate"]}        
     ];
 
     const saludos = [
@@ -85,6 +92,29 @@ document.addEventListener('DOMContentLoaded', function () {
         "Tu solicitud parece no tener relación con lo que estamos tratando en esta página."
     ];
 
+    const cantidadDulces = [
+    {"categoria": "chocolates", "cantidad": 22},
+    {"categoria": "biscochos", "cantidad": 5},
+    {"categoria": "gomitas", "cantidad": 10},
+    {"categoria": "paletas", "cantidad": 6},
+    {"categoria": "caramelo suave", "cantidad": 24},
+    {"categoria": "picoso", "cantidad": 9},
+    {"categoria": "tipicos", "cantidad": 13},
+    {"categoria": "bombones", "cantidad": 15},
+    {"categoria": "polvorosos", "cantidad": 6},
+    {"categoria": "chicles", "cantidad": 6}
+];
+
+const funcionamiento = [
+    "En Doneet, tú indicas a qué eres alérgico y se te recomienda un dulce que puedes consumir similar al dulce que buscabas, además de brindarte información sobre alergias.",
+    "En la plataforma Doneet, especificas tus alergias alimentarias y te sugieren opciones de dulces que puedes disfrutar sin problemas, además de proporcionarte información valiosa sobre alergias.",
+    "La aplicación Doneet te permite indicar tus alergias o intolerancias, y en base a eso, te recomienda alternativas de postres que puedes consumir sin riesgos, complementando con datos informativos sobre las alergias.",
+    "Cuando utilizas Doneet, debes ingresar los alimentos a los que eres alérgico, y el sistema te brindará recomendaciones de golosinas similares que sí puedes comer, junto con información educativa sobre las alergias.",
+    "En el sitio web Doneet, introduces tus alergias alimentarias, y te ofrecen sugerencias de dulces seguros para ti, además de proveerte con información relevante acerca de las alergias."
+];
+
+
+
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         const message = input.value;
@@ -92,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
             displayUserMessage(message);
             input.value = '';
             consultarWitAi(message).then(responseJson => {
+                console.log(JSON.stringify(responseJson));
                 manejarIntenciones(responseJson).then(respuesta => {
                     mostrarRespuesta([respuesta]);
                 });
@@ -127,8 +158,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         const intencion = respuestaWit.intents[0].name;
         const alergenosEvitar = respuestaWit.entities['alergeno:alergeno'] ? respuestaWit.entities['alergeno:alergeno'].map(a => a.value) : [];
+        console.log(alergenosEvitar);
         const nombreDulce = respuestaWit.entities['nombre_dulce:nombre_dulce'] ? respuestaWit.entities['nombre_dulce:nombre_dulce'][0].value : null;
+        console.log(nombreDulce);
         const categoria = respuestaWit.entities['categoria_dulce:categoria_dulce'] ? respuestaWit.entities['categoria_dulce:categoria_dulce'][0].value : null;
+        console.log(categoria);
+        const gradoAlergia = respuestaWit.entities['grado_alergia:grado_alergia'] ? respuestaWit.entities['grado_alergia:grado_alergia'][0].value : null;
+        console.log(gradoAlergia);
+        const alergenoEspecifico = respuestaWit.entities['alergeno:alergeno'] ? respuestaWit.entities['alergeno:alergeno'][0].value : null;
+        const accion = respuestaWit.entities['accion:accion'] ? respuestaWit.entities['accion:accion'][0].value : null;
 
         if (intencion === "buscar_dulce") {
             if (nombreDulce && alergenosEvitar.length) {
@@ -140,22 +178,70 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (categoria && alergenosEvitar.length) {
                 return buscarPorCategoriaYAlergeno(categoria, alergenosEvitar);
             } else {
-                return "Pregunta incompleta. Asegúrate de proporcionar la información necesaria para la búsqueda.";
+                return "Pregunta incompleta. Asegúrate de proporcionar el dulce del que quieres obtener información.";
             }
-        } else if (intencion === "consultar_alergeno") {
+            
+            } else if (intencion === "consultar_alergeno") {
             if (nombreDulce){
                 return listarAlergenos(nombreDulce);
             } else{
-                return "Pregunta incompleta. Asegúrate de proporcionar la información necesaria para la búsqueda.";
+                return "Pregunta incompleta. Asegúrate de proporcionar el dulce del que quieres obtener información.";
             }
             
-        
-        } else if (intencion === "saludo") {
+            } else if (intencion === "saludo") {
             const respuestaSaludo = saludos[Math.floor(Math.random() * saludos.length)];
             return respuestaSaludo;
-        } else {
-            return "No pude encontrar una acción para tu solicitud.";
-        }
+            
+            } else if (intencion === "estadistica_alergia") {
+            if (gradoAlergia){
+                return estadisticaAlergia(gradoAlergia, alergiasData); 
+            }else if (alergenoEspecifico){
+                return estadisticaAlergiaAlergeno(alergenoEspecifico, alergiasData);
+            }else if (categoria){
+                return estadisticaAlergiaAlergeno("chocolate", alergiasData);
+            }else{
+                return "Pregunta incompleta. Asegúrate de ser mas especifico en los datos que quieres obtener.";
+            }
+            
+            } else if (intencion == "estadistica_dulce"){
+            if (gradoAlergia){
+                return estadisticaDulce(gradoAlergia, productosData);
+            } else if (nombreDulce){
+                return estadisticaDulceEspecifico(nombreDulce, productosData);
+            }else{
+                return "Pregunta incompleta. Asegúrate de ser mas especifico en los datos que quieres obtener.";
+            }
+            } else if (intencion == "estadistica_valoracion"){
+                if (gradoAlergia){
+                    return estadisticaValoracion(gradoAlergia, valoracionesData);
+                }
+                else if (nombreDulce){
+                    return estadisticaValoracionEspecifico(nombreDulce, valoracionesData);
+                }
+                else{
+                    return "Pregunta incompleta. Asegúrate de ser mas especifico en los datos que quieres obtener.";
+                }
+            } else if (intencion == "cantidad_dulces"){
+                if (categoria){
+                    return cantidadDulcesCategoria(categoria);
+                }else{
+                    return cantidadDulcesTotal();
+                }
+            } else if (intencion == "funcionamiento"){
+                const respuestaFuncionamiento = funcionamiento[Math.floor(Math.random() * funcionamiento.length)];
+                return respuestaFuncionamiento;
+            } else if (intencion == "instruccion"){
+                if (accion == "registro"){
+                    return "Para registrarte en Doneet, busca el botón de registro en la barra superior. Llena el formulario con tus datos personales e indica los ingredientes a los cual eres alergico.";
+                } else if (accion == "inicio sesion"){
+                    return "Para iniciar sesión en Doneet, busca el botón de inicio de sesión en la barra superior. Ingresa tu correo electrónico y contraseña para acceder a tu cuenta.";
+                } else {
+                    return "No pude entender tu solicitud.";
+                }
+            }
+            else {
+            return "No pude entender tu solicitud.";
+            }
     }
 
     function buscarPorDulceYAlergeno(nombreDulce, alergenosEvitar) {
@@ -202,6 +288,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return `${mensajeAlergenos} ${mensajeResultados}`;
     }
 
+    //Modificar funcion buscarAlternativasPorDulce para ademas de dar alternativas por categoria
+
     function buscarDulces(categoria, alergenosEvitar) {
         let resultados = dulces.filter(dulce => {
             const cumpleCategoria = categoria ? dulce.categoria.includes(categoria) : true;
@@ -219,14 +307,169 @@ document.addEventListener('DOMContentLoaded', function () {
         return "Dulce no encontrado en la base de datos.";
     }
 
+    function estadisticaAlergia(gradoAlergia, alergiasData) {
+    const alergenos = alergiasData.alergeno;
+    const cantidades = alergiasData.cantidad;
+
+    if (alergenos.length !== cantidades.length) {
+        return "Los datos de alérgenos y cantidades no coinciden, por lo que no puedo darte una respuesta.";
+    }
+
+    let indicesResultado = [];
+
+    if (gradoAlergia === "mas") {
+        const maxCantidad = Math.max(...cantidades);
+        cantidades.forEach((cantidad, index) => {
+            if (cantidad === maxCantidad) {
+                indicesResultado.push(index);
+            }
+        });
+    } else if (gradoAlergia === "menos") {
+        const minCantidad = Math.min(...cantidades);
+        cantidades.forEach((cantidad, index) => {
+            if (cantidad === minCantidad) {
+                indicesResultado.push(index);
+            }
+        });
+    } else {
+        return "No se especificó correctamente la pregunta, por lo que no puedo darte una respuesta.";
+    }
+
+    if (indicesResultado.length === 0) {
+        return "No se encontraron datos con los criterios especificados.";
+    }
+
+    // Construir mensaje con singular o plural adecuado
+    const esPlural = indicesResultado.length > 1;
+    const articulo = esPlural ? "Las" : "La";
+    const alergenoTexto = esPlural ? "alergias" : "alergia";
+    const casoTexto = esPlural ? "son" : "es";
+    const casoTextoTres = esPlural ? "comunes" : "comun";
+
+    const mensajeAlergenos = indicesResultado.map(index => `${alergenos[index]} con ${cantidades[index]} ${cantidades[index] == 1 ? "incidencia": "incidencias"}`).join(", ");
+    const mensajeFinal = `${articulo} ${alergenoTexto} ${gradoAlergia === "mas" ? "más" : "menos"} ${casoTextoTres} en Doneet ${casoTexto}: ${mensajeAlergenos}.`;
+
+    return mensajeFinal;
+}
+
+    function estadisticaAlergiaAlergeno(alergeno, alergiasData) {
+    const index = alergiasData.alergeno.findIndex(a => a.toLowerCase() === alergeno.toLowerCase());
+    if (index === -1) {
+        return `No hay datos disponibles para el alérgeno buscado: ${alergeno}.`;
+    }
+    return `El alérgeno ${alergeno} tiene ${alergiasData.cantidad[index]} ${alergiasData.cantidad[index] == 1 ? "incidencia":"incidencias"} ${alergiasData.cantidad[index] == 1 ? "reportada":"reportadas"} en Doneet.`;
+}
+
+    function estadisticaDulce(grado, dulcesData) {
+    const dulces = dulcesData.dulces;
+    const numeros = dulcesData.numero;
+
+    if (dulces.length !== numeros.length) {
+        return "Los datos de alérgenos y cantidades no coinciden, por lo que no puedo darte una respuesta.";
+    }
+
+    let indicesResultado = [];
+    let mensajeFinal;
+
+    if (grado === "mas") {
+        const maxNumero = Math.max(...numeros);
+        numeros.forEach((numero, index) => {
+            if (numero === maxNumero) {
+                indicesResultado.push(index);
+            }
+        });
+    } else if (grado === "menos") {
+        const minNumero = Math.min(...numeros);
+        numeros.forEach((numero, index) => {
+            if (numero === minNumero) {
+                indicesResultado.push(index);
+            }
+        });
+    } else {
+        return "No hay datos disponibles de los dulces en Doneet.";
+    }
+
+    if (indicesResultado.length === 0) {
+        return "No se encontraron dulces con los criterios especificados.";
+    }
+
+    // Construir mensaje con singular o plural adecuado
+    const esPlural = indicesResultado.length > 1;
+    const dulceTexto = esPlural ? "dulces" : "dulce";
+    const verb = esPlural ? "presentan" : "presenta";
+    const articulo = esPlural ? "Los" : "El";
+
+    const nombresDulces = indicesResultado.map(index => `${dulces[index]}`).join(", ");
+    const numeroReportes = numeros[indicesResultado[0]]; // Todos tendrán el mismo número de reportes
+
+    mensajeFinal = `${articulo} ${dulceTexto}: ${nombresDulces} ${verb} ${numeroReportes} reportes en Doneet.`;
+
+    return mensajeFinal;
+}
+
+function estadisticaDulceEspecifico(nombreDulce, dulcesData) {
+    const index = dulcesData.dulces.findIndex(dulce => dulce.toLowerCase() === nombreDulce.toLowerCase());
+    if (index === -1) {
+        return `No hay datos disponibles para el dulce buscado: "${nombreDulce}".`;
+    }
+    return `El dulce ${nombreDulce} tiene ${dulcesData.numero[index]} reportes en Doneet.`;
+}
+
+function estadisticaValoracion(gradoAlergia, valoracionesData) {
+    const dulces = valoracionesData.dulces;
+    const valoraciones = valoracionesData.valoracion.map(Number); // Convertir a números para comparaciones
+
+    if (dulces.length !== valoraciones.length) {
+        return "Los datos de dulces y valoraciones no coinciden.";
+    }
+
+    let indiceResultado;
+    if (gradoAlergia === "mas" || gradoAlergia === "mejor") {
+        indiceResultado = valoraciones.indexOf(Math.max(...valoraciones));
+    } else if (gradoAlergia === "menos" || gradoAlergia === "peor") {
+        indiceResultado = valoraciones.indexOf(Math.min(...valoraciones));
+    } else {
+        return "No se especificó correctamente el grado de valoración.";
+    }
+
+    return `El dulce ${dulces[indiceResultado]} tiene una valoración de ${valoraciones[indiceResultado]} de 5, por lo tanto es ${gradoAlergia === "mas" || gradoAlergia === "mejor" ? "más" : "menos"} recomendado por los usuarios.`;
+}
+
+function estadisticaValoracionEspecifico(nombreDulce, valoracionesData) {
+    const index = valoracionesData.dulces.findIndex(dulce => dulce.toLowerCase() === nombreDulce.toLowerCase());
+    if (index === -1) {
+        return `No hay datos disponibles para el dulce buscado: "${nombreDulce}".`;
+    }
+    return `El dulce "${nombreDulce}" tiene una valoración de ${valoracionesData.valoracion[index]} de 5 por los usuarios.`;
+}
+
+function cantidadDulcesCategoria(categoria) {
+    const item = cantidadDulces.find(item => item.categoria.toLowerCase() === categoria.toLowerCase());
+    if (!item) {
+        return `No hay datos disponibles para la categoría buscada: "${categoria}".`;
+    }
+    return `Hay ${item.cantidad} ${categoria} en Doneet.`;
+}
+
+function cantidadDulcesTotal() {
+    const total = cantidadDulces.reduce((sum, item) => sum + item.cantidad, 0);
+    const detalleCategorias = cantidadDulces.map(item => `${item.categoria}: ${item.cantidad}`).join(", ");
+    return `Total de dulces en Doneet: ${total}. Detalle por categoría: ${detalleCategorias}.`;
+}
+
+
+
+
+
+
+
     function mostrarRespuesta(mensajes) {
     mensajes.forEach((mensaje, index) => {
-        setTimeout(() => { // Retraso para no superponer mensajes
+        setTimeout(() => {
             const respuestaMessage = document.createElement('div');
             respuestaMessage.className = 'message bot-message typing';
-            respuestaMessage.style.minHeight = '40px';
+            //respuestaMessage.style.minHeight = 'auto';
             chatMessages.appendChild(respuestaMessage);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
             let i = 0;
             const speed = 30; // Velocidad de escritura en milisegundos
 
@@ -234,20 +477,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (i < mensaje.length) {
                     respuestaMessage.innerHTML += mensaje.charAt(i);
                     i++;
-                    respuestaMessage.style.height = 'auto';  // Permite que el contenedor crezca con el contenido
-                    respuestaMessage.style.height = respuestaMessage.scrollHeight + 'px';
+                    // Establecer minHeight a 50px al inicio o mantenerlo si ya es mayor
+                    respuestaMessage.style.minHeight = Math.max(respuestaMessage.scrollHeight, 50) + 'px';
                     setTimeout(typeWriter, speed);
                 } else {
-                    respuestaMessage.classList.remove('typing'); // Quita el efecto una vez completado
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    respuestaMessage.classList.remove('typing');
+                    respuestaMessage.style.minHeight = 'auto';
                 }
+                  // Ajusta el tamaño del contenedor a medida que el texto crece
+                chatMessages.scrollTop = chatMessages.scrollHeight;  // Mantiene el scroll en la parte más baja
             }
             typeWriter();
         }, 1000 * index);
     });
-
-    // Asegúrate de que el contenedor de mensajes se desplace hacia abajo para mostrar el último mensaje
-    
 }
 
 });
