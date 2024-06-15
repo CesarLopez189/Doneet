@@ -10,6 +10,7 @@ const passport = require('passport');
 const { engine } = require('express-handlebars');
 const Handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+const axios = require('axios');
 
 // Initializations
 const app = express();
@@ -94,17 +95,17 @@ app.use(require('./routes/users.routes'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/proxy-image', async (req, res) => {
-    const imageId = req.query.id; // Asume que el ID de la imagen se pasa como un parámetro de consulta
+    const imageId = req.query.id;
     const url = `https://drive.google.com/uc?export=view&id=${imageId}`;
 
     try {
-        const response = await fetch(url);
-        const buffer = await response.buffer();
-        res.set('Content-Type', 'image/jpeg'); // Asegúrate de ajustar el tipo MIME según sea necesario
-        res.send(buffer);
+        console.log(`Fetching image from URL: ${url}`);
+        const response = await axios.get(url, { responseType: 'arraybuffer' });
+        res.set('Content-Type', response.headers['content-type']); // Ajusta el tipo MIME dinámicamente
+        res.send(response.data);
     } catch (error) {
         console.error('Failed to fetch image:', error);
-        res.status(500).send('Error fetching image');
+        res.status(500).send('Error fetching imageADS');
     }
 });
 
