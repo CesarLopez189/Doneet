@@ -129,6 +129,8 @@ productoCtrl.renderProductos = async (req, res) => {
         var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
         var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
 
+        console.log("cho", chocolates)
+
 
         res.render('productos/all-productos', {
             productos, isAdmin, chocolates, paletas, gomitas, caramelos_suaves, bombones, tipicos, biscochos, chicles, polvorosos, picosos
