@@ -129,7 +129,11 @@ productoCtrl.renderProductos = async (req, res) => {
         var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
         var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
 
-        console.log("cho", chocolates)
+        //imprimir cuantos chocolates hay
+        console.log("chocolates: ", chocolates.length);
+        //imprimir chocolates
+        console.log("chocolates: ", chocolates);
+
 
 
         res.render('productos/all-productos', {

@@ -44,43 +44,42 @@
 
 
 
-    <div class="container-xl rectangulo py-4" >
-      <h1 class="titulo2" style="font-size: larger;">Chocolates</h1>
-      <div class="cols">
-        
-{{#each chocolates}}
-  {{#ifCond @index '<' 6}}
-    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-      <div class="containerCard">
-        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-          <div class="innerCard">
-            <form action="/producto/ver/{{_id}}">
-              <button class="custom-btn btn-8" type="submit">Ver</button>
-            </form>
+<div class="container-xl rectangulo py-4">
+  <h1 class="titulo2" style="font-size: larger;">Chocolates</h1>
+  <div class="cols">
+    {{#each chocolates}}
+      {{#ifCond @index '<' 6}}
+        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+          <div class="containerCard">
+            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+              <div class="innerCard">
+                <form action="/producto/ver/{{_id}}">
+                  <button class="custom-btn btn-8" type="submit">Ver</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div style="justify-content: center;">
+            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
           </div>
         </div>
-      </div>
-      <div style="justify-content: center;">
-        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
-      </div>
+      {{/ifCond}}
+    {{/each}}
+
+    <div id="more-chocolates-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
+      <!-- Contenedor para cargar más chocolates -->
     </div>
-  {{/ifCond}}
-{{/each}}
+  </div>
+  <div>
+    <center>
+      <button id="load-more" class="custom-btn btn-7">Cargar más</button>
+    </center>
+</div>
 
-
-<div id="more-chocolates-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)"  >
-  <!-- Contenedor para cargar más chocolates -->
-</div>
-</div>
-<div>
-  <center>
-<button id="load-more" class="custom-btn btn-7">Cargar más</button>
-</center>
-</div>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    let currentIndex = 10;
+    let currentIndex = 6; // Inicialmente, ya se muestran 6 chocolates
     const chocolates = {{{json chocolates}}}; // Aquí se usa el ayudante json
 
     document.getElementById('load-more').addEventListener('click', function() {
@@ -108,13 +107,14 @@
         container.insertAdjacentHTML('beforeend', chocolateElement);
       });
 
-      currentIndex += 10;
+      currentIndex += 6; // Incrementa en 6 ya que se cargan 6 chocolates más cada vez
       if (currentIndex >= chocolates.length) {
         document.getElementById('load-more').style.display = 'none';
       }
     });
   });
 </script>
+
 
 
 
