@@ -44,43 +44,43 @@
 
 
 
-    <div class="container-xl rectangulo py-4">
-  <h1 class="titulo2" style="font-size: larger;">Chocolates</h1>
-  <div class="cols">
-    {{#each chocolates}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+    <div class="container-xl rectangulo py-4" >
+      <h1 class="titulo2" style="font-size: larger;">Chocolates</h1>
+      <div class="cols">
+        
+{{#each chocolates}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    
-    <div id="more-chocolates-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más chocolates -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
-  </div>
-  <div>
-    <center>
-      <button id="load-more" class="custom-btn btn-7">Cargar más</button>
-    </center>
-  </div>
+  {{/ifCond}}
+{{/each}}
 
 
+<div id="more-chocolates-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)"  >
+  <!-- Contenedor para cargar más chocolates -->
+</div>
+</div>
+<div>
+  <center>
+<button id="load-more" class="custom-btn btn-7">Cargar más</button>
+</center>
+</div>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    let currentIndex = 6;  // Inicialmente, ya se muestran 6 chocolates
+    let currentIndex = 10;
     const chocolates = {{{json chocolates}}}; // Aquí se usa el ayudante json
 
     document.getElementById('load-more').addEventListener('click', function() {
@@ -108,14 +108,13 @@
         container.insertAdjacentHTML('beforeend', chocolateElement);
       });
 
-      currentIndex += 6; // Incrementa en 6 ya que se cargan 6 chocolates más cada vez
+      currentIndex += 10;
       if (currentIndex >= chocolates.length) {
         document.getElementById('load-more').style.display = 'none';
       }
     });
   });
 </script>
-
 
 
 
@@ -193,68 +192,66 @@
       </div>
       <h1 class="titulo2" style="font-size: larger;">Gomitas</h1>
 <div class="cols">
-  {{#each paletas}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#each gomitas}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-paletas-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más paletas -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-gomitas-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más gomitas -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-paletas" class="custom-btn btn-7">Cargar más</button>
-    </center>
-  </div>
-
+</div>
+<div>
+  <center>
+    <button id="load-more-gomitas" class="custom-btn btn-7">Cargar más</button>
+  </center>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
-    let currentIndexPaletas = 6; // Iniciamos en 6 porque ya mostramos 6 paletas inicialmente
-    const paletas = {{{json paletas}}}; // Aquí se usa el ayudante json
+    let currentIndexGomitas = 6; // Iniciamos en 6 porque ya mostramos 6 gomitas inicialmente
+    const gomitas = {{{json gomitas}}}; // Aquí se usa el ayudante json
 
-    document.getElementById('load-more-paletas').addEventListener('click', function() {
-      const morePaletas = paletas.slice(currentIndexPaletas, currentIndexPaletas + 6);
-      const containerPaletas = document.getElementById('more-paletas-container');
+    document.getElementById('load-more-gomitas').addEventListener('click', function() {
+      const moreGomitas = gomitas.slice(currentIndexGomitas, currentIndexGomitas + 6);
+      const containerGomitas = document.getElementById('more-gomitas-container');
 
-      morePaletas.forEach(paleta => {
-        const paletaElement = `
+      moreGomitas.forEach(gomita => {
+        const gomitaElement = `
           <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
             <div class="containerCard">
-              <div class="frontCard" style="background-image:url(${paleta.imagenPrincipal})"></div>
-              <div class="backCard" style="background-image:url(${paleta.imagenPrincipal});">
+              <div class="frontCard" style="background-image:url(${gomita.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${gomita.imagenPrincipal});">
                 <div class="innerCard">
-                  <form action="/producto/ver/${paleta._id}">
+                  <form action="/producto/ver/${gomita._id}">
                     <button class="custom-btn btn-8" type="submit">Ver</button>
                   </form>
                 </div>
               </div>
             </div>
             <div style="justify-content: center;">
-              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${paleta.nombre}</p>
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${gomita.nombre}</p>
             </div>
           </div>
         `;
-        containerPaletas.insertAdjacentHTML('beforeend', paletaElement);
+        containerGomitas.insertAdjacentHTML('beforeend', gomitaElement);
       });
 
-      currentIndexPaletas += 6;
-      if (currentIndexPaletas >= paletas.length) {
-        document.getElementById('load-more-paletas').style.display = 'none';
+      currentIndexGomitas += 6;
+      if (currentIndexGomitas >= gomitas.length) {
+        document.getElementById('load-more-gomitas').style.display = 'none';
       }
     });
   });
@@ -264,34 +261,32 @@
       <h1 class="titulo2" style="font-size: larger;">Caramelos Suaves</h1>
 <div class="cols">
   {{#each caramelos_suaves}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-caramelos-suaves-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más caramelos suaves -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-caramelos-suaves-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más caramelos suaves -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-caramelos-suaves" class="custom-btn btn-7">Cargar más</button>
-    </center>
-  </div>
-
+</div>
+<div>
+  <center>
+    <button id="load-more-caramelos-suaves" class="custom-btn btn-7">Cargar más</button>
+  </center>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let currentIndexCaramelosSuaves = 6; // Iniciamos en 6 porque ya mostramos 6 caramelos suaves inicialmente
@@ -334,34 +329,32 @@
       <h1 class="titulo2" style="font-size: larger;">Bombones</h1>
 <div class="cols">
   {{#each bombones}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-bombones-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más bombones -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-bombones-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más bombones -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-bombones" class="custom-btn btn-7">Cargar más</button>
-    </center>
 </div>
-
+<div>
+  <center>
+    <button id="load-more-bombones" class="custom-btn btn-7" >Cargar más</button>
+  </center>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let currentIndexBombones = 6; // Iniciamos en 6 porque ya mostramos 6 bombones inicialmente
@@ -404,35 +397,33 @@
       <h1 class="titulo2" style="font-size: larger;">Típicos</h1>
 <div class="cols">
   {{#each tipicos}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-tipicos-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más típicos -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-tipicos-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más típicos -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-tipicos" class="custom-btn btn-7" style="margin-top: 20px;">Cargar más</button>
-    </center>
-  </div>
-
-<script>
+</div>
+<div>
+  <center>
+    <button id="load-more-tipicos" class="custom-btn btn-7" style="margin-top: 20px;">Cargar más</button>
+  </center>
+  <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let currentIndexTipicos = 6; // Iniciamos en 6 porque ya mostramos 6 típicos inicialmente
     const tipicos = {{{json tipicos}}}; // Aquí se usa el ayudante json
@@ -474,34 +465,32 @@
       <h1 class="titulo2" style="font-size: larger;">Biscochos</h1>
 <div class="cols">
   {{#each biscochos}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-biscochos-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más biscochos -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-biscochos-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más biscochos -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-biscochos" class="custom-btn btn-7">Cargar más</button>
-    </center>
 </div>
-
+<div>
+  <center>
+    <button id="load-more-biscochos" class="custom-btn btn-7">Cargar más</button>
+  </center>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let currentIndexBiscochos = 6; // Iniciamos en 6 porque ya mostramos 6 biscochos inicialmente
@@ -543,34 +532,32 @@
 <h1 class="titulo2" style="font-size: larger;">Chicles</h1>
 <div class="cols">
   {{#each chicles}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-chicles-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más chicles -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-chicles-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más chicles -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-chicles" class="custom-btn btn-7">Cargar más</button>
-    </center>
 </div>
-
+<div>
+  <center>
+    <button id="load-more-chicles" class="custom-btn btn-7">Cargar más</button>
+  </center>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let currentIndexChicles = 6; // Iniciamos en 6 porque ya mostramos 6 chicles inicialmente
@@ -613,34 +600,32 @@
       <h1 class="titulo2" style="font-size: larger;">Polvorosos</h1>
 <div class="cols">
   {{#each polvorosos}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-polvorosos-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más polvorosos -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-polvorosos-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más polvorosos -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-polvorosos" class="custom-btn btn-7">Cargar más</button>
-    </center>
 </div>
-
+<div>
+  <center>
+    <button id="load-more-polvorosos" class="custom-btn btn-7">Cargar más</button>
+  </center>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let currentIndexPolvorosos = 6; // Iniciamos en 6 porque ya mostramos 6 polvorosos inicialmente
@@ -683,34 +668,32 @@
       <h1 class="titulo2" style="font-size: larger;">Picosos</h1>
 <div class="cols">
   {{#each picosos}}
-      {{#ifCond @index '<' 6}}
-        <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard">
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div style="justify-content: center;">
-            <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
           </div>
         </div>
-      {{/ifCond}}
-    {{/each}}
-    <div id="more-picosos-container" style="display: flex; flex-wrap: wrap; width: calc(100% - 0px)">
-      <!-- Contenedor para cargar más picosos -->
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
     </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-picosos-container" style="display: flex; flex-wrap: wrap;  width: calc(100% - 0px)">
+    <!-- Contenedor para cargar más picosos -->
   </div>
-  <div>
-    <center>
-      <button id="load-more-picosos" class="custom-btn btn-7">Cargar más</button>
-    </center>
 </div>
-
+<div>
+  <center>
+    <button id="load-more-picosos" class="custom-btn btn-7">Cargar más</button>
+  </center>
 <script>
   document.addEventListener('DOMContentLoaded', (event) => {
     let currentIndexPicosos = 6; // Iniciamos en 6 porque ya mostramos 6 picosos inicialmente
