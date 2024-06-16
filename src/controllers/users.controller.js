@@ -55,12 +55,12 @@ usersCtrl.signup =  async (req, res) => {
             let mailOptions = {
                 from: 'Doneet <tuemail@gmail.com>',
                 to: newUser.email,
-                subject: 'Bienvenido a Doneet',
+                subject: '¡Bienvenido a Doneet!',
                 html: `<h1>Hola ${newUser.name},</h1>
-                       <p>¡Bienvenido a Doneet, donde cada aporte cuenta hacia un futuro más brillante!</p>
-                       <p>Estamos emocionados de tenerte a bordo y ansiosos por verte participar en nuestra comunidad. Aquí, cada contribución es una semilla que crece y se expande, ayudando a proyectos y personas que hacen la diferencia.</p>
-                       <p><b>Tu cuenta ha sido creada con éxito.</b> Ahora puedes iniciar sesión y explorar todos los proyectos emocionantes que esperan tu apoyo. Si tienes alguna pregunta o necesitas asistencia, nuestro equipo de soporte está aquí para ayudarte.</p>
-                       <p>Gracias por unirte a nuestra misión de hacer del mundo un lugar mejor, un doneet a la vez.</p>
+                       <p>¡Bienvenido a Doneet, tu aliado en la prevención de reacciones alérgicas!</p>
+                       <p>Estamos encantados de tenerte en nuestra comunidad. En Doneet, trabajamos para ofrecerte información precisa y segura sobre los ingredientes de los dulces empaquetados, ayudándote a tomar decisiones informadas para tu salud y bienestar.</p>
+                       <p><b>Tu cuenta ha sido creada con éxito.</b> Ahora puedes iniciar sesión y explorar nuestra base de datos de dulces, donde podrás ver los ingredientes y encontrar alternativas seguras que se adapten a tus necesidades. Si tienes alguna pregunta o necesitas ayuda, nuestro equipo de soporte está siempre disponible para asistirte.</p>
+                       <p>Gracias por unirte a nuestra misión de hacer del mundo un lugar más seguro y saludable, un dulce a la vez.</p>
                        <p>Con aprecio,</p>
                        <p>El Equipo de Doneet</p>
                        <img src="cid:doneetwelcome">`, // Ensure the src matches the cid below
