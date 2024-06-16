@@ -1,23 +1,35 @@
 <div class="container-sm rectangulo">
     <div class="container mt-5">
         <h1 class="titulo2 text-center mb-4 pt-4">Sobre Nosotros</h1>
-        <p class=" titulo8">Somos un equipo de tres estudiantes del Instituto Politécnico Nacional (IPN), dedicados a desarrollar soluciones tecnológicas que mejoren la calidad de vida de las personas. Nuestro proyecto, Doneet, tiene como objetivo principal prevenir reacciones alérgicas causadas por dulces empaquetados mediante una plataforma web inteligente que proporciona información precisa y actualizada sobre alérgenos.</p>
+        <p class="titulo8">Somos un equipo de tres estudiantes del Instituto Politécnico Nacional (IPN), dedicados a desarrollar soluciones tecnológicas que mejoren la calidad de vida de las personas. Nuestro proyecto, Doneet, tiene como objetivo principal prevenir reacciones alérgicas causadas por dulces empaquetados mediante una plataforma web inteligente que proporciona información precisa y actualizada sobre alérgenos.</p>
         
         <div class="row text-center mt-5">
             <div class="col-md-4">
-                <img src="/images/cesar.jpeg" alt="Foto de César López" class="img-fluid rounded-circle mb-3" width="180">
-                <h3>Cesar Alfonso<br>López de la Concha</h3>
-                <p>Especialista en Backend, encargado de la programación y lógica del servidor de la aplicación web.</p>
+                <div class="card border-dark mb-3 p-3 fondo-naranja-titulo shadow">
+                    <center>
+                        <img src="/images/cesar.jpeg" alt="Foto de César López" class="img-fluid rounded-circle mb-3" width="180">
+                    </center>
+                    <h3><strong>Cesar Alfonso<br>López de la Concha</strong></h3>
+                    <p><strong>Especialista en Backend, encargado de la programación y lógica del servidor de la aplicación web</strong></p>
+                </div>
             </div>
             <div class="col-md-4">
-                <img src="/images/ulises.jpeg" alt="Foto de Ulises Vázquez" class="img-fluid rounded-circle mb-3" width="160">
-                <h3>Ulises<br>Rodríguez Vázquez</h3>
-                <p>Encargado del desarrollo del agente conversacional, implementando la lógica y procesamiento de lenguaje natural.</p>
+                <div class="card border-dark mb-3 p-3 fondo-morado-titulo shadow">
+                    <center>
+                        <img src="/images/ulises.jpeg" alt="Foto de Ulises Vázquez" class="img-fluid rounded-circle mb-3" width="160">
+                    </center>
+                    <h3><strong>Ulises<br>Rodríguez Vázquez</strong></h3>
+                    <p><strong>Encargado del desarrollo del chatbot, implementando la lógica y procesamiento de lenguaje natural</strong></p>
+                </div>
             </div>
             <div class="col-md-4">
-                <img src="/images/naomi.jpeg" alt="Foto de Naomi Youshimatz" class="img-fluid rounded-circle mb-3" width="150">
-                <h3>Naomi<br>Youshimatz Navarro</h3>
-                <p>Especialista en Frontend, responsable del diseño y estilos de la aplicación web, asegurando una experiencia de usuario óptima.</p>
+                <div class="card border-dark mb-3 p-3 fondo-rojo-titulo shadow">
+                    <center>
+                        <img src="/images/naomi.jpeg" alt="Foto de Naomi Youshimatz" class="img-fluid rounded-circle mb-3" width="150">
+                    </center>
+                    <h3><strong>Naomi<br>Youshimatz Navarro</strong></h3>
+                    <p><strong>Especialista en Frontend, responsable del diseño de la aplicación web, asegurando una experiencia de usuario óptima</strong></p>
+                </div>
             </div>
         </div>
         
@@ -27,3 +39,30 @@
         </div>
     </div>
 </div>
+
+<style>
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra inicial gris clara */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Sombra gris más oscura al hacer hover */
+}
+
+.card img {
+    border: 2px solid #000;
+}
+
+.card h3 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #555;
+}
+</style>
