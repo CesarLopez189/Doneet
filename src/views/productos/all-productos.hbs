@@ -48,260 +48,698 @@
       <h1 class="titulo2" style="font-size: larger;">Chocolates</h1>
       <div class="cols">
         
-        {{#each chocolates}}
-          <div class="columnaCard "  ontouchstart="this.classList.toggle('hover');" >
-          <div class="containerCard" >
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image:url({{imagenPrincipal}});">
-              <div class="innerCard" >
+{{#each chocolates}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+{{/each}}
 
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8" type="submit">Ver</button>
-                </form>
 
+<div id="more-chocolates-container" style="display: flex; flex-wrap: wrap;">
+  <!-- Contenedor para cargar más chocolates -->
+</div>
+</div>
+<div>
+  <center>
+<button id="load-more" class="custom-btn btn-7">Cargar más</button>
+</center>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndex = 10;
+    const chocolates = {{{json chocolates}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more').addEventListener('click', function() {
+      const moreChocolates = chocolates.slice(currentIndex, currentIndex + 6);
+      const container = document.getElementById('more-chocolates-container');
+
+      moreChocolates.forEach(chocolate => {
+        const chocolateElement = `
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${chocolate.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${chocolate.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${chocolate._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
               </div>
             </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${chocolate.nombre}</p>
+            </div>
           </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-            
+        `;
+        container.insertAdjacentHTML('beforeend', chocolateElement);
+      });
 
-        </div>
-        
-        {{/each}}
+      currentIndex += 10;
+      if (currentIndex >= chocolates.length) {
+        document.getElementById('load-more').style.display = 'none';
+      }
+    });
+  });
+</script>
 
-      </div>
+
+
+      
       <h1 class="titulo2" style="font-size: larger;">Paletas</h1>
       <div class="cols">
         
-        {{#each paletas}}
+         {{#each paletas}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-paletas-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más paletas -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-paletas" class="custom-btn btn-7">Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexPaletas = 6; // Iniciamos en 6 porque ya mostramos 6 paletas inicialmente
+    const paletas = {{{json paletas}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-paletas').addEventListener('click', function() {
+      const morePaletas = paletas.slice(currentIndexPaletas, currentIndexPaletas + 6);
+      const containerPaletas = document.getElementById('more-paletas-container');
+
+      morePaletas.forEach(paleta => {
+        const paletaElement = `
           <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard" >
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${paleta.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${paleta.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${paleta._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
               </div>
             </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${paleta.nombre}</p>
+            </div>
           </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
+        `;
+        containerPaletas.insertAdjacentHTML('beforeend', paletaElement);
+      });
+
+      currentIndexPaletas += 6;
+      if (currentIndexPaletas >= paletas.length) {
+        document.getElementById('load-more-paletas').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
 
       </div>
       <h1 class="titulo2" style="font-size: larger;">Gomitas</h1>
-      <div class="cols">
-        
-        {{#each gomitas}}
+<div class="cols">
+  {{#each gomitas}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-gomitas-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más gomitas -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-gomitas" class="custom-btn btn-7">Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexGomitas = 6; // Iniciamos en 6 porque ya mostramos 6 gomitas inicialmente
+    const gomitas = {{{json gomitas}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-gomitas').addEventListener('click', function() {
+      const moreGomitas = gomitas.slice(currentIndexGomitas, currentIndexGomitas + 6);
+      const containerGomitas = document.getElementById('more-gomitas-container');
+
+      moreGomitas.forEach(gomita => {
+        const gomitaElement = `
           <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${gomita.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${gomita.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${gomita._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
-
-      </div>
-      <h1 class="titulo2" style="font-size: larger;">Caremelos</h1>
-      <div class="cols">
-        
-        {{#each caramelos_suaves}}
-          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
-              </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${gomita.nombre}</p>
             </div>
           </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
+        `;
+        containerGomitas.insertAdjacentHTML('beforeend', gomitaElement);
+      });
 
+      currentIndexGomitas += 6;
+      if (currentIndexGomitas >= gomitas.length) {
+        document.getElementById('load-more-gomitas').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
+      <h1 class="titulo2" style="font-size: larger;">Caramelos Suaves</h1>
+<div class="cols">
+  {{#each caramelos_suaves}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
       </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-caramelos-suaves-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más caramelos suaves -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-caramelos-suaves" class="custom-btn btn-7">Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexCaramelosSuaves = 6; // Iniciamos en 6 porque ya mostramos 6 caramelos suaves inicialmente
+    const caramelosSuaves = {{{json caramelos_suaves}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-caramelos-suaves').addEventListener('click', function() {
+      const moreCaramelosSuaves = caramelosSuaves.slice(currentIndexCaramelosSuaves, currentIndexCaramelosSuaves + 6);
+      const containerCaramelosSuaves = document.getElementById('more-caramelos-suaves-container');
+
+      moreCaramelosSuaves.forEach(carameloSuave => {
+        const carameloSuaveElement = `
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${carameloSuave.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${carameloSuave.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${carameloSuave._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${carameloSuave.nombre}</p>
+            </div>
+          </div>
+        `;
+        containerCaramelosSuaves.insertAdjacentHTML('beforeend', carameloSuaveElement);
+      });
+
+      currentIndexCaramelosSuaves += 6;
+      if (currentIndexCaramelosSuaves >= caramelosSuaves.length) {
+        document.getElementById('load-more-caramelos-suaves').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
       <h1 class="titulo2" style="font-size: larger;">Bombones</h1>
-      <div class="cols">
-        
-        {{#each bombones}}
+<div class="cols">
+  {{#each bombones}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-bombones-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más bombones -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-bombones" class="custom-btn btn-7" >Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexBombones = 6; // Iniciamos en 6 porque ya mostramos 6 bombones inicialmente
+    const bombones = {{{json bombones}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-bombones').addEventListener('click', function() {
+      const moreBombones = bombones.slice(currentIndexBombones, currentIndexBombones + 6);
+      const containerBombones = document.getElementById('more-bombones-container');
+
+      moreBombones.forEach(bombon => {
+        const bombonElement = `
           <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${bombon.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${bombon.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${bombon._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
-
-      </div>
-      <h1 class="titulo2" style="font-size: larger;">Tipicos</h1>
-      <div class="cols">
-        
-        {{#each tipicos}}
-          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
-              </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${bombon.nombre}</p>
             </div>
           </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
+        `;
+        containerBombones.insertAdjacentHTML('beforeend', bombonElement);
+      });
 
+      currentIndexBombones += 6;
+      if (currentIndexBombones >= bombones.length) {
+        document.getElementById('load-more-bombones').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
+      <h1 class="titulo2" style="font-size: larger;">Típicos</h1>
+<div class="cols">
+  {{#each tipicos}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
       </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-tipicos-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más típicos -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-tipicos" class="custom-btn btn-7" style="margin-top: 20px;">Cargar más</button>
+  </center>
+  <script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexTipicos = 6; // Iniciamos en 6 porque ya mostramos 6 típicos inicialmente
+    const tipicos = {{{json tipicos}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-tipicos').addEventListener('click', function() {
+      const moreTipicos = tipicos.slice(currentIndexTipicos, currentIndexTipicos + 6);
+      const containerTipicos = document.getElementById('more-tipicos-container');
+
+      moreTipicos.forEach(tipico => {
+        const tipicoElement = `
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${tipico.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${tipico.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${tipico._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${tipico.nombre}</p>
+            </div>
+          </div>
+        `;
+        containerTipicos.insertAdjacentHTML('beforeend', tipicoElement);
+      });
+
+      currentIndexTipicos += 6;
+      if (currentIndexTipicos >= tipicos.length) {
+        document.getElementById('load-more-tipicos').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
       <h1 class="titulo2" style="font-size: larger;">Biscochos</h1>
-      <div class="cols">
-        
-        {{#each biscochos}}
+<div class="cols">
+  {{#each biscochos}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-biscochos-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más biscochos -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-biscochos" class="custom-btn btn-7">Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexBiscochos = 6; // Iniciamos en 6 porque ya mostramos 6 biscochos inicialmente
+    const biscochos = {{{json biscochos}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-biscochos').addEventListener('click', function() {
+      const moreBiscochos = biscochos.slice(currentIndexBiscochos, currentIndexBiscochos + 6);
+      const containerBiscochos = document.getElementById('more-biscochos-container');
+
+      moreBiscochos.forEach(biscocho => {
+        const biscochoElement = `
           <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${biscocho.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${biscocho.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${biscocho._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
-
-      </div>
-      <h1 class="titulo2" style="font-size: larger;">Chicles</h1>
-      <div class="cols">
-        
-        {{#each chicles}}
-          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
-              </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${biscocho.nombre}</p>
             </div>
           </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
+        `;
+        containerBiscochos.insertAdjacentHTML('beforeend', biscochoElement);
+      });
 
+      currentIndexBiscochos += 6;
+      if (currentIndexBiscochos >= biscochos.length) {
+        document.getElementById('load-more-biscochos').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+<h1 class="titulo2" style="font-size: larger;">Chicles</h1>
+<div class="cols">
+  {{#each chicles}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
       </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-chicles-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más chicles -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-chicles" class="custom-btn btn-7">Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexChicles = 6; // Iniciamos en 6 porque ya mostramos 6 chicles inicialmente
+    const chicles = {{{json chicles}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-chicles').addEventListener('click', function() {
+      const moreChicles = chicles.slice(currentIndexChicles, currentIndexChicles + 6);
+      const containerChicles = document.getElementById('more-chicles-container');
+
+      moreChicles.forEach(chicle => {
+        const chicleElement = `
+          <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${chicle.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${chicle.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${chicle._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${chicle.nombre}</p>
+            </div>
+          </div>
+        `;
+        containerChicles.insertAdjacentHTML('beforeend', chicleElement);
+      });
+
+      currentIndexChicles += 6;
+      if (currentIndexChicles >= chicles.length) {
+        document.getElementById('load-more-chicles').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
       <h1 class="titulo2" style="font-size: larger;">Polvorosos</h1>
-      <div class="cols">
-        
-        {{#each polvorosos}}
+<div class="cols">
+  {{#each polvorosos}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-polvorosos-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más polvorosos -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-polvorosos" class="custom-btn btn-7">Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexPolvorosos = 6; // Iniciamos en 6 porque ya mostramos 6 polvorosos inicialmente
+    const polvorosos = {{{json polvorosos}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-polvorosos').addEventListener('click', function() {
+      const morePolvorosos = polvorosos.slice(currentIndexPolvorosos, currentIndexPolvorosos + 6);
+      const containerPolvorosos = document.getElementById('more-polvorosos-container');
+
+      morePolvorosos.forEach(polvoroso => {
+        const polvorosoElement = `
           <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${polvoroso.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${polvoroso.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${polvoroso._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
               </div>
             </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${polvoroso.nombre}</p>
+            </div>
           </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
+        `;
+        containerPolvorosos.insertAdjacentHTML('beforeend', polvorosoElement);
+      });
 
-      </div>
+      currentIndexPolvorosos += 6;
+      if (currentIndexPolvorosos >= polvorosos.length) {
+        document.getElementById('load-more-polvorosos').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
       <h1 class="titulo2" style="font-size: larger;">Picosos</h1>
-      <div class="cols">
-        
-        {{#each picosos}}
+<div class="cols">
+  {{#each picosos}}
+  {{#ifCond @index '<' 6}}
+    <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
+      <div class="containerCard">
+        <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
+        <div class="backCard" style="background-image:url({{imagenPrincipal}});">
+          <div class="innerCard">
+            <form action="/producto/ver/{{_id}}">
+              <button class="custom-btn btn-8" type="submit">Ver</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style="justify-content: center;">
+        <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">{{nombre}}</p>
+      </div>
+    </div>
+  {{/ifCond}}
+  {{/each}}
+  <div id="more-picosos-container" style="display: flex; flex-wrap: wrap;">
+    <!-- Contenedor para cargar más picosos -->
+  </div>
+</div>
+<div>
+  <center>
+    <button id="load-more-picosos" class="custom-btn btn-7">Cargar más</button>
+  </center>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    let currentIndexPicosos = 6; // Iniciamos en 6 porque ya mostramos 6 picosos inicialmente
+    const picosos = {{{json picosos}}}; // Aquí se usa el ayudante json
+
+    document.getElementById('load-more-picosos').addEventListener('click', function() {
+      const morePicosos = picosos.slice(currentIndexPicosos, currentIndexPicosos + 6);
+      const containerPicosos = document.getElementById('more-picosos-container');
+
+      morePicosos.forEach(picoso => {
+        const picosoElement = `
           <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-          <div class="containerCard">
-            <div class="frontCard" style="background-image:url({{imagenPrincipal}})"></div>
-            <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-              <div class="innerCard">
-
-                <form action="/producto/ver/{{_id}}">
-                  
-                  <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                </form>
-
+            <div class="containerCard">
+              <div class="frontCard" style="background-image:url(${picoso.imagenPrincipal})"></div>
+              <div class="backCard" style="background-image:url(${picoso.imagenPrincipal});">
+                <div class="innerCard">
+                  <form action="/producto/ver/${picoso._id}">
+                    <button class="custom-btn btn-8" type="submit">Ver</button>
+                  </form>
+                </div>
               </div>
             </div>
+            <div style="justify-content: center;">
+              <p class="titulouno hola2 text-white fw-bold border border-dark" align="center">${picoso.nombre}</p>
+            </div>
           </div>
-          <div style="justify-content: center;">
-          <p class="titulouno hola2 text-white fw-bold border border-dark" align="center" >{{nombre}}</p>
-        </div>
-        </div>
-        {{/each}}
+        `;
+        containerPicosos.insertAdjacentHTML('beforeend', picosoElement);
+      });
 
-      </div>
+      currentIndexPicosos += 6;
+      if (currentIndexPicosos >= picosos.length) {
+        document.getElementById('load-more-picosos').style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
       
 
     </div>
   </section>
   {{/if}}
-
 </body>
 <header>
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </header>
+
