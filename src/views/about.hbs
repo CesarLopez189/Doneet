@@ -13,9 +13,12 @@
             margin-top: 20px;
         }
         .profile-header-img {
+             width: 200px;
+            height: 200px;
             background: #fff;
             border-radius: 50%;
             box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
         }
         .edit-form {
             display: none;
@@ -29,25 +32,31 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     {{#if user}}
+                    <div class="text-center mt-4">
+                        <h2 class="titulo2 px-5 m-2" style="width: 100%;">Detalles de la cuenta</h2>
+                    </div>
                     <div class="d-flex flex-column flex-md-row text-center text-md-start align-items-center mt-4">
                         <div class="profile-header-container" style="width: 50%;">
                             <center>
-                            <img src="/images/usuario.png" class="profile-header-img mb-3 mb-md-0" alt="User Profile Image" width="250px" style="margin-left: 25px;">
+                            <img src="/images/usuario.png" class="profile-header-img mb-3 mb-md-0" alt="User Profile Image" width="50%" style="margin-left: 25px;">
                             </center>
                             <div class="ms-md-4">
                                 <center>
-                            <h1 class="h2">{{user.name}} {{user.last_names}}</h1>
-                            <p>{{user.email}}</p>
+                            <h4 style="margin-top: 10px;">{{user.name}} {{user.last_names}}</h1>
+                            <p style="margin-bottom: 30px;">{{user.email}}</p>
                             </center>
                         </div>
                         </div>
-                        <div class="card-body" style="width: 50%;">
+                        <div class="card-body" style="width: 50%; height: 100%">
                             <center>
-                            <h4 class="card-title" style="margin-bottom: 10px;">Detalles de la Cuenta</h4>
-                            <p class="card-text"><strong>Edad:</strong> {{user.age}}</p>
-                            <p class="card-text"><strong>Administrador:</strong> {{#if user.admin}}Sí{{else}}No{{/if}}</p>
-                            <p class="card-text"><strong>Elementos Alergénicos:</strong> {{user.elements}}</p>
-                            <button onclick="toggleEditForm()" class="btn hola text-white fw-bold">Modificar Datos</button>
+                            <div style="width: 50%;">
+                            <p class="card-text" style="text-align: left;"><strong>Edad:</strong> {{user.age}}</p>
+                            <p class="card-text" style="text-align: left;"><strong>Administrador:</strong> {{#if user.admin}}Sí{{else}}No{{/if}}</p>
+                            <p class="card-text" style="text-align: left;"><strong>Elementos Alergénicos:</strong> {{user.elements}}</p>
+                            
+                            <button onclick="toggleEditForm()" class="btn hola text-white fw-bold " style="margin-top:20px; margin-bottom: 10px;">Modificar Datos</button>
+                            
+                            </center>
                             <div id="editForm" class="edit-form mt-2">
                                 <form action="/usuarios/update" method="POST">
                                     <input type="hidden" name="id" value="{{user._id}}">
@@ -71,7 +80,7 @@
                                     </div>
                                     <div class="mb-3 row align-items-center">
                                         <label for="email" class="col-form-label col-md-3"><strong>Email:</strong></label>
-                                        <div class="col-md-9">
+                                        <div class="col-md-9" >
                                             <input type="email" class="form-control form-control-sm rectangulo1" id="email" name="email" value="{{user.email}}">
                                         </div>
                                     </div>
@@ -130,8 +139,9 @@
                                     </div>
                                     <button type="submit" class="btn hola text-white fw-bold" style="margin-bottom: 20px;">Guardar Cambios</button>
                                 </form>
+                                </div>
                             </div>
-                            </center>
+                           
                         </div>
                     </div>
                     {{else}}
