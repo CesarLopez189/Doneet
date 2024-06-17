@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-12">
                 <!-- Título centrado -->
-                <h2 class="text-center mt-3">Alergias más comunes en los usuarios</h2>
+                <h2 class="text-center mt-3">Estadísticas de Alergias</h2>
             </div>
         </div>
         <!-- Contenedor de la gráfica centrado horizontalmente con un ancho del 75% -->
@@ -94,20 +94,8 @@
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Usuarios'
-                            
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Alergias'
-                            }
+                            beginAtZero: true
                         }
-                        
                     }
                 }
             });
@@ -129,17 +117,7 @@
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Reportes'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Dulces'
-                            }
+                            beginAtZero: true
                         }
                     }
                 }
@@ -162,18 +140,8 @@
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Valoración Promedio'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Sustitutos'
-                            }
-                        }   
+                            beginAtZero: true
+                        }
                     }
                 }
             });
@@ -189,16 +157,10 @@
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true,
-                            text: 'Usuarios'
-
+                            beginAtZero: true
                         },
                         x: {
-                            stacked: true,
-                            title: {
-                                display: true,
-                                text: 'Edades'
-                            }
+                            stacked: true
                         },
                         y: {
                             stacked: true
