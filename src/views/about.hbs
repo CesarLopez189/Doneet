@@ -13,7 +13,6 @@
             margin-top: 20px;
         }
         .profile-header-img {
-            padding: 5px;
             background: #fff;
             border-radius: 50%;
             box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
@@ -22,94 +21,133 @@
             display: none;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
     <div class="container-sm rectangulo mb-4">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                {{#if user}}
-                <div class="profile-header-container text-center mt-4">
-                    <img src="/images/usuario.png" class="profile-header-img mb-3" alt="User Profile Image" width="180">
-                    <h1 class="h2">{{user.name}} {{user.last_names}}</h1>
-                    <p>{{user.email}}</p>
-                </div>
-                <div class="card shadow-lg mb-4">
-                    <div class="card-body" style="background-color: lightgray;">
-                        <h4 class="card-title">Detalles de la Cuenta</h4>
-                        <p class="card-text"><strong>Edad:</strong> {{user.age}}</p>
-                        <p class="card-text"><strong>Administrador:</strong> {{#if user.admin}}Sí{{else}}No{{/if}}</p>
-                        <p class="card-text"><strong>Elementos Alergénicos:</strong> {{user.elements}}</p>
-                        <button onclick="toggleEditForm()" class="btn hola text-white fw-bold">Modificar Datos</button>
-                        <div id="editForm" class="edit-form mt-2">
-                            <form action="/usuarios/update" method="POST">
-                                <input type="hidden" name="id" value="{{user._id}}">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label"><strong>Nombre:</strong></label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{user.name}}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="last_names" class="form-label"><strong>Apellidos:</strong></label>
-                                    <input type="text" class="form-control" id="last_names" name="last_names" value="{{user.last_names}}">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label"><strong>Email:</strong></label>
-                                    <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label"><strong>Alérgias</strong></label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="huevo" id="huevo" {{#ifContains user.elements 'huevo'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="huevo">Huevo</label>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    {{#if user}}
+                    <div class="d-flex flex-column flex-md-row text-center text-md-start align-items-center mt-4">
+                        <div class="profile-header-container" style="width: 50%;">
+                            <center>
+                            <img src="/images/usuario.png" class="profile-header-img mb-3 mb-md-0" alt="User Profile Image" width="250px" style="margin-left: 25px;">
+                            </center>
+                            <div class="ms-md-4">
+                                <center>
+                            <h1 class="h2">{{user.name}} {{user.last_names}}</h1>
+                            <p>{{user.email}}</p>
+                            </center>
+                        </div>
+                        </div>
+                        <div class="card-body" style="width: 50%;">
+                            <center>
+                            <h4 class="card-title" style="margin-bottom: 10px;">Detalles de la Cuenta</h4>
+                            <p class="card-text"><strong>Edad:</strong> {{user.age}}</p>
+                            <p class="card-text"><strong>Administrador:</strong> {{#if user.admin}}Sí{{else}}No{{/if}}</p>
+                            <p class="card-text"><strong>Elementos Alergénicos:</strong> {{user.elements}}</p>
+                            <button onclick="toggleEditForm()" class="btn hola text-white fw-bold">Modificar Datos</button>
+                            <div id="editForm" class="edit-form mt-2">
+                                <form action="/usuarios/update" method="POST">
+                                    <input type="hidden" name="id" value="{{user._id}}">
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="name" class="col-form-label col-md-3"><strong>Nombre:</strong></label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control form-control-sm rectangulo1" id="name" name="name" value="{{user.name}}">
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="fresa" id="fresa" {{#ifContains user.elements 'fresa'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="fresa">Fresa</label>
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="last_names" class="col-form-label col-md-3"><strong>Apellidos:</strong></label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control form-control-sm rectangulo1" id="last_names" name="last_names" value="{{user.last_names}}">
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="lacteo" id="lacteo" {{#ifContains user.elements 'lacteo'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="lacteo">Lácteo</label>
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="age" class="col-form-label col-md-3"><strong>Edad:</strong></label>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control form-control-sm rectangulo1" id="age" name="age" value="{{user.age}}">
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="almendra" id="almendra" {{#ifContains user.elements 'almendra'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="almendra">Almendra</label>
+                                    <div class="mb-3 row align-items-center">
+                                        <label for="email" class="col-form-label col-md-3"><strong>Email:</strong></label>
+                                        <div class="col-md-9">
+                                            <input type="email" class="form-control form-control-sm rectangulo1" id="email" name="email" value="{{user.email}}">
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="cacahuate" id="cacahuate" {{#ifContains user.elements 'cacahuate'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="cacahuate">Cacahuate</label>
+                                    <div class="mb-3">
+                                        <label class="form-label"><strong>Alérgias</strong></label>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="huevo" id="huevo" {{#ifContains user.elements 'huevo'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="huevo">Huevo</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="fresa" id="fresa" {{#ifContains user.elements 'fresa'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="fresa">Fresa</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="lacteo" id="lacteo" {{#ifContains user.elements 'lacteo'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="lacteo">Lácteo</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="almendra" id="almendra" {{#ifContains user.elements 'almendra'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="almendra">Almendra</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="cacahuate" id="cacahuate" {{#ifContains user.elements 'cacahuate'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="cacahuate">Cacahuate</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="chocolate" id="chocolate" {{#ifContains user.elements 'chocolate'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="chocolate">Chocolate</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="nuez" id="nuez" {{#ifContains user.elements 'nuez'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="nuez">Nuez</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="gluten" id="gluten" {{#ifContains user.elements 'gluten'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="gluten">Gluten</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="chocolate" id="chocolate" {{#ifContains user.elements 'chocolate'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="chocolate">Chocolate</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="nuez" id="nuez" {{#ifContains user.elements 'nuez'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="nuez">Nuez</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="elements" value="gluten" id="gluten" {{#ifContains user.elements 'gluten'}}checked{{/ifContains}}>
-                                        <label class="form-check-label" for="gluten">Gluten</label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn hola text-white fw-bold">Guardar Cambios</button>
-                            </form>
+                                    <button type="submit" class="btn hola text-white fw-bold" style="margin-bottom: 20px;">Guardar Cambios</button>
+                                </form>
+                            </div>
+                            </center>
                         </div>
                     </div>
+                    {{else}}
+                    <div class="alert alert-warning" role="alert">
+                        No se encontraron datos del usuario. Por favor, asegúrate de haber iniciado sesión.
+                    </div>
+                    {{/if}}
                 </div>
-                {{else}}
-                <div class="alert alert-warning" role="alert">
-                    No se encontraron datos del usuario. Por favor, asegúrate de haber iniciado sesión.
-                </div>
-                {{/if}}
             </div>
         </div>
-    </div>
-    <script>
-        function toggleEditForm() {
-            var form = document.getElementById('editForm');
-            form.style.display = (form.style.display === 'none' ? 'block' : 'none');
-        }
-    </script>
+        <script>
+            function toggleEditForm() {
+                var form = document.getElementById('editForm');
+                form.style.display = (form.style.display === 'none' ? 'block' : 'none');
+            }
+        </script>
     </div>
 </body>
 </html>
