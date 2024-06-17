@@ -13,7 +13,7 @@
             margin-top: 20px;
         }
         .profile-header-img {
-             width: 200px;
+            width: 200px;
             height: 200px;
             background: #fff;
             border-radius: 50%;
@@ -42,7 +42,7 @@
                             </center>
                             <div class="ms-md-4">
                                 <center>
-                            <h4 style="margin-top: 10px;">{{user.name}} {{user.last_names}}</h1>
+                            <h4 style="margin-top: 10px;">{{user.name}} {{user.last_names}}</h4>
                             <p style="margin-bottom: 30px;">{{user.email}}</p>
                             </center>
                         </div>
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="mb-3 row align-items-center">
                                         <label for="email" class="col-form-label col-md-3"><strong>Email:</strong></label>
-                                        <div class="col-md-9" >
+                                        <div class="col-md-9">
                                             <input type="email" class="form-control form-control-sm rectangulo1" id="email" name="email" value="{{user.email}}">
                                         </div>
                                     </div>
@@ -135,11 +135,23 @@
                                                     <label class="form-check-label" for="gluten">Gluten</label>
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="tamarindo" id="tamarindo" {{#ifContains user.elements 'tamarindo'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="tamarindo">Tamarindo</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="elements" value="soya" id="soya" {{#ifContains user.elements 'soya'}}checked{{/ifContains}}>
+                                                    <label class="form-check-label" for="soya">Soya</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn hola text-white fw-bold" style="margin-bottom: 20px;">Guardar Cambios</button>
                                 </form>
-                                </div>
+                            </div>
                             </div>
                            
                         </div>
