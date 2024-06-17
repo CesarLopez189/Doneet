@@ -83,7 +83,6 @@ productoCtrl.createNewProducto = async (req, res) => {
     const arrayFN = [];
     const auth = await authorize();
 
-    console.log("esto es req.files en new-producto", req.files);
 
     if (filearray.length > 0) {
         // Asume que el primer archivo es la imagen principal y el segundo la secundaria, si existen
@@ -129,10 +128,6 @@ productoCtrl.renderProductos = async (req, res) => {
         var polvorosos = productos.filter(producto => producto.categoria.includes("polvoroso"));
         var picosos = productos.filter(producto => producto.categoria.includes("picoso"));
 
-        //imprimir cuantos chocolates hay
-        console.log("chocolates: ", chocolates.length);
-        //imprimir chocolates
-        console.log("chocolates: ", chocolates);
 
 
 
@@ -324,7 +319,6 @@ productoCtrl.updateProducto = async (req, res) => {
     const { nombre, marca, categoria, elementos, descripcion, trazas } = req.body;
     const auth = await authorize();
 
-    console.log("esto es req.files en edit-producto", req.files)
 
     let updatedProducto = {
         nombre,
