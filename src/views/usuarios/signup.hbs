@@ -10,34 +10,36 @@
 
         <div class="col-12 col-md-7">
 
-          <div class="row">
+          <div class="d-flex flex-column flex-md-row">
 
             <div class="col ">
-              <h5 class="titulo3"> Ingresa tu nombre </h5>
-              <input type="text" class="form-control form-control-sm rectangulo1 w-100" name="name" placeholder="nombre"
-                aria-label="name" value="{{name}}">
+              <h5 class="titulo3 pt-3"> Ingresa tu nombre </h5>
+              <input type="text" class="form-control form-control-sm rectangulo1" name="name" placeholder="nombre"
+                aria-label="name" value="{{name}}" required oninvalid="this.setCustomValidity('Ingresa tu nombre')" oninput="this.setCustomValidity('')" style="width: 90%;">
+                <h5 class="titulo3 pt-3"> Ingresa tus apellidos </h5>
+              <input type="text" class="form-control form-control-sm rectangulo1 " name="last_names"
+                placeholder="apellidos" aria-label="last_names" value="{{last_names}}" required oninvalid="this.setCustomValidity('Ingresa tus apellidos')" oninput="this.setCustomValidity('')" style="width: 90%;">
               <h5 class="titulo3 pt-3"> Ingresa tu edad </h5>
               <input type="text" class="form-control form-control-sm rectangulo1" name="age" placeholder="edad"
-                value="{{age}}">
-              <h5 class="titulo3 pt-3"> Ingresa tu contraseña </h5>
-              <input type="password" class="form-control form-control-sm rectangulo1" name="password"
-                placeholder="contraseña">
+                value="{{age}}" required oninvalid="this.setCustomValidity('Ingresa tu edad')" oninput="this.setCustomValidity('')" style="width: 90%;">
+              
             </div>
 
             <div class="col gx-5">
-              <h5 class="titulo3"> Ingresa tus apellidos </h5>
-              <input type="text" class="form-control form-control-sm rectangulo1 " name="last_names"
-                placeholder="apellidos" aria-label="last_names" value="{{last_names}}">
+              
               <h5 class="titulo3 pt-3"> Ingresa tu correo electronico </h5>
               <input type="email" class="form-control form-control-sm rectangulo1" name="email" placeholder="email"
-                value="{{email}}">
+                value="{{email}}" required oninvalid="this.setCustomValidity('Ingresa tu email')" oninput="this.setCustomValidity('')" style="width: 90%;">
+                <h5 class="titulo3 pt-3"> Ingresa tu contraseña </h5>
+              <input type="password" class="form-control form-control-sm rectangulo1" name="password"
+                placeholder="contraseña" required oninvalid="this.setCustomValidity('Ingresa tu contraseña')" oninput="this.setCustomValidity('')" style="width: 90%;">
               <h5 class="titulo3 pt-3"> Confirmar contraseña </h5>
               <input type="password" class="form-control form-control-sm rectangulo1" name="confirm_password"
-                placeholder="confirma la contraseña">
+                placeholder="confirma la contraseña" required oninvalid="this.setCustomValidity('Confirma tu contraseña')" oninput="this.setCustomValidity('')" style="width: 90%;">
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" >
             <h2 class="gy-4 titulo3" align="CENTER">Seleccione los ingredientes a los que es alérgico</h2>
             <div class="list justify-content-center">
 
@@ -316,7 +318,7 @@
             </div>
           </div>
 
-          <div class="col-11 gy-2" align="CENTER">
+          <div class="col-11 gy-2 pt-3 w-100" align="CENTER" >
             <button class="btn btn-warning titulo4 ">Registrarse</button>
           </div>
         </div>
