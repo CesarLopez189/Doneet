@@ -68,20 +68,6 @@ estadisticasCtrl.renderEstadisticas = async (req, res) => {
     const labelsValoraciones = valoracionesProductos.map(p => p.nombre);
     const dataValoraciones = valoracionesProductos.map(p => p.averageRating.toFixed(2)); // Formatear a 2 decimales
 
-    // Definir las alergias y sus colores
-    const alergias = [
-        { nombre: 'huevo', color: 'rgba(255, 99, 132, 0.2)', borde: 'rgba(255, 99, 132, 1)' },
-        { nombre: 'fresa', color: 'rgba(54, 162, 235, 0.2)', borde: 'rgba(54, 162, 235, 1)' },
-        { nombre: 'lacteo', color: 'rgba(255, 206, 86, 0.2)', borde: 'rgba(255, 206, 86, 1)' },
-        { nombre: 'almendra', color: 'rgba(75, 192, 192, 0.2)', borde: 'rgba(75, 192, 192, 1)' },
-        { nombre: 'cacahuate', color: 'rgba(153, 102, 255, 0.2)', borde: 'rgba(153, 102, 255, 1)' },
-        { nombre: 'chocolate', color: 'rgba(255, 159, 64, 0.2)', borde: 'rgba(255, 159, 64, 1)' },
-        { nombre: 'nuez', color: 'rgba(199, 199, 199, 0.2)', borde: 'rgba(199, 199, 199, 1)' },
-        { nombre: 'gluten', color: 'rgba(83, 102, 255, 0.2)', borde: 'rgba(83, 102, 255, 1)' },
-        { nombre: 'tamarindo', color: 'rgba(255, 234, 0, 0.2)', borde: 'rgba(255, 234, 0, 1)' },
-        { nombre: 'soya', color: 'rgba(255, 105, 180, 0.2)', borde: 'rgba(255, 105, 180, 1)' }
-    ];
-
     // Obtener estadísticas de rango de edad con la alergia más presentada en cada rango
     const ageRanges = [
         { min: 0, max: 10 },
@@ -107,40 +93,20 @@ estadisticasCtrl.renderEstadisticas = async (req, res) => {
             { $unwind: '$elements' },
             {
                 $group: {
-                    _id: '$elements',
+                    _id: null, // Agrupar todo junto
                     count: { $sum: 1 }
                 }
-            },
-            { $sort: { count: -1 } }
+            }
         ]);
         return {
             range: `${range.min}-${range.max}`,
-            allergies: result
+            count: result.length > 0 ? result[0].count : 0
         };
     }));
 
     // Crear las etiquetas y los datos para Chart.js
     const labelsEdades = edadesEstadisticas.map(e => e.range);
-    const datasets = alergias.map((alergia, index) => {
-        return {
-            label: alergia.nombre,
-            data: labelsEdades.map(range => {
-                const rangeData = edadesEstadisticas.find(e => e.range === range);
-                const allergyData = rangeData.allergies.find(a => a._id === alergia.nombre);
-                return allergyData ? allergyData.count : 0;
-            }),
-            backgroundColor: alergia.color,
-            borderColor: alergia.borde,
-            borderWidth: 1
-        };
-    });
-
-    // Ordenar los datasets por la suma de sus datos
-    datasets.sort((a, b) => {
-        const sumA = a.data.reduce((sum, value) => sum + value, 0);
-        const sumB = b.data.reduce((sum, value) => sum + value, 0);
-        return sumB - sumA; // Ordenar de mayor a menor
-    });
+    const dataEdades = edadesEstadisticas.map(e => e.count);
 
     console.log('edadesEstadisticas', edadesEstadisticas); // Para depuración
 
@@ -150,7 +116,7 @@ estadisticasCtrl.renderEstadisticas = async (req, res) => {
         productosData: JSON.stringify({ labels: labelsProductos, data: dataProductos }),
         alergenosData: JSON.stringify({ labels: labelsAlergenos, data: dataAlergenos }),  // Nuevo dato agregado
         valoracionesData: JSON.stringify({ labels: labelsValoraciones, data: dataValoraciones }),
-        edadesData: JSON.stringify({ labels: labelsEdades, datasets: datasets }) // Nueva estadística de edades
+        edadesData: JSON.stringify({ labels: labelsEdades, data: dataEdades }) // Nueva estadística de edades
     });
 };
 
