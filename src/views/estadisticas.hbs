@@ -10,11 +10,15 @@
             .responsive-width {
                 width: 100% !important;
 
+            }.responsive-canvas {
+                min-height: 300px; /* Ajusta este valor según tus necesidades */
             }
         }
         @media (min-width: 768px) {
             .responsive-width {
                 width: 75% !important;
+            }.responsive-canvas {
+                min-height: 400px; /* Ajusta este valor según tus necesidades */
             }
         }
     </style>
@@ -31,7 +35,7 @@
         <!-- Contenedor de la gráfica centrado horizontalmente con un ancho del 75% -->
         <div class="d-flex justify-content-center">
             <div class="responsive-width">
-                <canvas id="alergiasChart"></canvas>
+                <canvas id="alergiasChart" class="responsive-canvas"></canvas>
             </div>
         </div>
         <!-- Contenedor para la segunda gráfica de productos -->
@@ -43,7 +47,7 @@
         
         <div class="d-flex justify-content-center">
             <div class="responsive-width">
-                <canvas id="productosChart"></canvas>
+                <canvas id="productosChart" class="responsive-canvas"></canvas>
             </div>
         </div>
 
@@ -54,18 +58,18 @@
         </div>
         <div class="d-flex justify-content-center" style="margin-bottom: 25px;">
             <div class="responsive-width">
-                <canvas id="valoracionesChart"></canvas>
+                <canvas id="valoracionesChart" class="responsive-canvas"></canvas>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center mt-5">Alergia más presentada por rango de edad</h2>
+                <h2 class="text-center mt-5">Cantidad de alergias por edad</h2>
             </div>
         </div>
         <div class="d-flex justify-content-center" style="margin-bottom: 25px; padding-bottom: 25px">
             <div class="responsive-width">
-                <canvas id="edadesChart"></canvas>
+                <canvas id="edadesChart" class="responsive-canvas"></canvas>
             </div>
         </div>
     </div>
@@ -185,26 +189,27 @@
                 type: 'bar',
                 data: {
                     labels: edadesData.labels,
-                    datasets: edadesData.datasets
+                    datasets: [{
+                        label: 'Cantidad de Alergias',
+                        data: edadesData.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
                 },
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true
-                            
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cantidad de Alergias'
+                            }
                         },
                         x: {
-                            stacked: true,
                             title: {
                                 display: true,
                                 text: 'Rango de Edad'
-                            }
-                        },
-                        y: {
-                            stacked: true,
-                            title: {
-                                display: true,
-                                text: 'Usuarios'
                             }
                         }
                     }
