@@ -1,87 +1,3 @@
-
-<!--
-<div class="card-header">
-    <h3>Edit Producto</h3>
-</div>
-
-<div class="card-body">
-    <form action="/producto/edit/{{producto._id}}?_method=PUT" method="POST">
-    <input type="hidden" name="_method" value="PUT">
-    <div>
-        <input type="text" name="nombre" value="{{producto.nombre}}">Nombre</input>
-        </div>
-            <div>
-        <input type="text" name="marca" value="{{producto.marca}}">Marca</input>
-        </div>
-        <div>
-        <div><br>
-                <p>Seleccione la/s categorias del dulce</p>
-                <p>Categoria que tenía: {{producto.categoria}}</p>  
-                    <input type="checkbox" id="gomita" name="categoria" value="gomita">
-                        <label for="gomita">Gomita</label><br>
-                    <input type="checkbox" id="polvoroso" name="categoria" value="polvoroso">
-                        <label for="polvoroso">Polvoroso</label><br>
-                    <input type="checkbox" id="picoso" name="categoria" value="picoso">
-                        <label for="picoso">Picoso</label><br>
-                    <input type="checkbox" id="caramelo_suave" name="categoria" value="caramelo_suave">
-                        <label for="caramelo_suave">Caramelo_suave</label><br>
-                    <input type="checkbox" id="paleta" name="categoria" value="paleta">
-                        <label for="paleta">Paleta</label><br>
-                    <input type="checkbox" id="chicle" name="categoria" value="chicle">
-                        <label for="chicle">Chicle</label><br>
-                    <input type="checkbox" id="bombon" name="categoria" value="bombon">
-                        <label for="bombon">Bombon</label><br>
-                    <input type="checkbox" id="chocolate" name="categoria" value="chocolate">
-                        <label for="chocolate">Chocolate</label><br>
-                    <input type="checkbox" id="biscocho" name="categoria" value="biscocho">
-                        <label for="biscocho">Biscocho</label><br>
-                        
-            </div><br>
-            <div>
-                    <p>Seleccione los ingredientes alérgenos del dulce</p>
-                    <p>Ingredientes alérgenos que tenía: {{producto.elementos}}</p>
-                    <input type="checkbox" id="almendra" name="elementos" value="almendra">
-                        <label for="almendra">Almendra</label><br>
-                    <input type="checkbox" id="cacahuate" name="elementos" value="cacahuate">
-                        <label for="cacahuate">Cacahuate</label><br>
-                    <input type="checkbox" id="chocolate" name="elementos" value="chocolate">
-                        <label for="chocolate">Chocolate</label><br>
-                    <input type="checkbox" id="nuez" name="elementos" value="nuez">
-                        <label for="nuez">Nuez</label><br>
-                    <input type="checkbox" id="fresa" name="elementos" value="fresa">
-                        <label for="fresa">Fresa</label><br>
-                    <input type="checkbox" id="gluten" name="elementos" value="gluten">
-                        <label for="gluten">Gluten</label><br>
-                    <input type="checkbox" id="huevo" name="elementos" value="huevo">
-                        <label for="huevo">Huevo</label><br>
-                    <input type="checkbox" id="lacteo" name="elementos" value="lacteo">
-                        <label for="lacteo">Lacteo</label><br>
-                    <input type="checkbox" id="tamarindo" name="elementos" value="tamarindo">
-                        <label for="tamarindo">Tamarindo</label><br>
-                    <input type="checkbox" id="soya" name="elementos" value="soya">
-                        <label for="soya">Soya</label><br>
-                </div>
-                <div><br>
-            <p>Imagen 1</p>
-            <input type="file" name="image">
-            </div>
-            
-            <div>
-            <p>Imagen 2</p>
-            <input type="file" name="image">
-            </div>
-            <div>
-        <input type="text" name="descripcion" value="{{producto.descripcion}}">Descripcion</input>
-        </div>
-            <div>
-            <div class="form-group">
-        <button type="submit">
-            Save
-        </button>
-    </div>
-    </form>
-</div>
--->
 <section> 
   <div class="container-sm rectangulo p-4 "> 
     <form action="/producto/edit/{{producto._id}}?_method=PUT" method="POST" enctype="multipart/form-data">   
@@ -572,10 +488,10 @@
             <input type="file" name="image" class="form-control">
             </div>
           </div>
-            <div class="form-floating my-3">
-                 <textarea class="form-control" rows="5" type="text" name="descripcion" value="{{producto.descripcion}}" placeholder="Descripcion" style="height: 67px" ></textarea>
-                <label for="floatingTextarea2" class="m-1">Descripcion</label>
-            </div>
+            <div class="input-group mb-3 mt-4">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Descripción</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="descripcion" value="{{producto.descripcion}}">
+                    </div>
         </div>
       <div class="col-12  p-4" align="CENTER" >
                 <button class="btn btn-danger">
@@ -584,4 +500,14 @@
             </div>
     </form>
   </div>  
+
+<script>
+    document.getElementById('productForm').addEventListener('submit', function(event) {
+        const categories = document.querySelectorAll('input[name="categoria"]:checked');
+        if (categories.length === 0) {
+            alert('Por favor, seleccione al menos una categoría.');
+            event.preventDefault();
+        }
+    });
+</script>
 </section>

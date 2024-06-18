@@ -17,12 +17,12 @@
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{producto.imagenPrincipal}}" class="d-block img-fluid" alt="Imagen Principal"
-                                    onclick="openLightbox('{{producto.imagenPrincipal}}')">
+                                <img src="{{producto.imagenPrincipal}}" class="d-block img-fluid " alt="Imagen Principal"
+                                    onclick="openLightbox('{{producto.imagenPrincipal}}')" style="height: 300px;">
                             </div>
                             <div class="carousel-item">
-                                <img src="{{producto.imagenSecundaria}}" class="d-block img-fluid"
-                                    alt="Imagen Secundaria" onclick="openLightbox('{{producto.imagenSecundaria}}')">
+                                <img style="height: 300px;" src="{{producto.imagenSecundaria}}" class="d-block img-fluid"
+                                    alt="Imagen Secundaria" onclick="openLightbox('{{producto.imagenSecundaria}}')" style="width: 500px;" >
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -401,73 +401,6 @@
                 </div>
                 <br>
 
-                <!--
-                {{#if user}}
-                {{else}}
-
-                <div class="col-11 gy-2" align="CENTER">
-                    <h2 class="titulo7" align="CENTER">¡Inicia sesión para ver los sustitutos!</h2>
-                    <a href="/usuarios/signin"><button class="btn btn-warning titulo4">Ingresar</button></a>
-                </div>
-                {{/if}}
-                {{#if user}}
-
-                <h2 class="gy-4 titulo7 p-2"> <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zm240 80c0-8.8 7.2-16 16-16c45 0 85.6 20.5 115.7 53.1c6 6.5 5.6 16.6-.9 22.6s-16.6 5.6-22.6-.9c-25-27.1-57.4-42.9-92.3-42.9c-8.8 0-16-7.2-16-16zm-80 80c-26.5 0-48-21-48-47c0-20 28.6-60.4 41.6-77.7c3.2-4.4 9.6-4.4 12.8 0C179.6 308.6 208 349 208 369c0 26-21.5 47-48 47zM303.6 208c0-17.7 14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32s-32-14.3-32-32zm-128 32c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
-                    </svg>
-                    <path
-                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM164.1 325.5C182 346.2 212.6 368 256 368s74-21.8 91.9-42.5c5.8-6.7 15.9-7.4 22.6-1.6s7.4 15.9 1.6 22.6C349.8 372.1 311.1 400 256 400s-93.8-27.9-116.1-53.5c-5.8-6.7-5.1-16.8 1.6-22.6s16.8-5.1 22.6 1.6zM208.4 208c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32zm92.4 25.6c-5.3 7.1-15.3 8.5-22.4 3.2s-8.5-15.3-3.2-22.4c30.4-40.5 91.2-40.5 121.6 0c5.3 7.1 3.9 17.1-3.2 22.4s-17.1 3.9-22.4-3.2c-17.6-23.5-52.8-23.5-70.4 0z" />
-                    </svg>
-
-
-                    
-                    <h2>Sustitutos</h2>
-                    <div class="cols2">
-                        {{#if productoSus}}
-                        {{#each productoSus}}
-                        <center>
-                            <div class="columnaCard" ontouchstart="this.classList.toggle('hover');">
-                                <div class="containerCard">
-                                    <div class="frontCard" style="background-image:url({{imagenPrincipal}})">
-
-                                    </div>
-                                    <div class="backCard" style="background-image: url({{imagenPrincipal}});">
-                                        <div class="innerCard">
-
-
-
-                                            <div class="buttonCard">
-
-                                                <form action="/producto/edit/{{_id}}" method="">
-                                                    <button class="custom-btn btn-9 mb-2" type="submit">Editar</button>
-                                                </form>
-
-                                                <form action="/producto/delete/{{_id}}?_method=DELETE" method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button class="custom-btn btn-7 mb-2"
-                                                        type="sumbmit">Eliminar</button>
-                                                </form>
-
-                                                <form action="/producto/ver/{{_id}}">
-                                                    <button class="custom-btn btn-8 mb-2" type="submit">Ver</button>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </center>
-                        {{/each}}
-                        {{else}}
-                        <p align="center">No hay dulces sustitutos para esta misma categoría</p>
-                        {{/if}}
-                        {{/if}}
-                        
-                    </div>
-                    -->
 
                {{#if user}}
     <h2>Sustitutos</h2>
