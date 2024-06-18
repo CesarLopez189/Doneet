@@ -1436,10 +1436,10 @@ background: linear-gradient(0deg, #AB3597 0%,#F08A5E 100%);
   cursor: pointer;
   color: white;
 }
-.carousel img {
-  width: 100%; /* Asegura que el ancho sea siempre el 100% del contenedor */
-  height: auto; /* Ajusta la altura automáticamente para mantener la proporción de aspecto */
-  object-fit: cover; /* Cubre el área disponible sin distorsionar la imagen */
+.carousel img {width: 300px;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
                       }
                       .carousel-control-prev-icon, .carousel-control-next-icon {
       background-color: black; /* Cambia el color de fondo a negro */
