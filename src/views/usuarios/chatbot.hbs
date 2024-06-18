@@ -167,6 +167,8 @@ const funcionamiento = [
         console.log(gradoAlergia);
         const alergenoEspecifico = respuestaWit.entities['alergeno:alergeno'] ? respuestaWit.entities['alergeno:alergeno'][0].value : null;
         const accion = respuestaWit.entities['accion:accion'] ? respuestaWit.entities['accion:accion'][0].value : null;
+        const faqDefinicion = respuestaWit.entities['faq_definicion:faq_definicion'] ? respuestaWit.entities['faq_definicion:faq_definicion'][0].value : null;
+        console.log(faqDefinicion);
 
         if (intencion === "buscar_dulce") {
             if (nombreDulce && alergenosEvitar.length) {
@@ -222,11 +224,12 @@ const funcionamiento = [
                     return "Pregunta incompleta. Asegúrate de ser mas especifico en los datos que quieres obtener.";
                 }
             } else if (intencion == "cantidad_dulces"){
-                if (categoria){
+                /*if (categoria){
                     return cantidadDulcesCategoria(categoria);
                 }else{
                     return cantidadDulcesTotal();
-                }
+                }*/
+                return "Hay alrededor de 300 dulces en Doneet, entre todas nuestras categorías.";
             } else if (intencion == "funcionamiento"){
                 const respuestaFuncionamiento = funcionamiento[Math.floor(Math.random() * funcionamiento.length)];
                 return respuestaFuncionamiento;
@@ -238,9 +241,19 @@ const funcionamiento = [
                 } else {
                     return "No pude entender tu solicitud.";
                 }
-            }
-            else {
-            return "No pude entender tu solicitud.";
+            } else if (intencion == "faq"){
+                if (faqDefinicion == "alergeno"){
+                    return "Una alergia alimentaria es una respuesta anormal del sistema inmunológico a un alimento específico. Los síntomas pueden variar desde leves hasta graves, y pueden incluir erupciones cutáneas, hinchazón, dificultad para respirar y anafilaxia.";
+                } else if (faqDefinicion == "sintomas"){
+                    return "Los síntomas pueden variar desde leves hasta graves e incluyen urticaria, picazón, hinchazón de los labios, lengua o garganta, dificultad para respirar, dolor abdominal, vómitos, diarrea y, en casos severos, anafilaxia, que es una reacción potencialmente mortal que requiere atención médica inmediata.";
+                } else if (faqDefinicion == "alimentos"){
+                    return "Los alimentos más comunes que causan alergias incluyen la leche, el huevo, el pescado, los mariscos, los frutos secos (como almendras y nueces), el cacahuate, el trigo y la soya.";
+                }
+                else {
+                    return "No cuento con información sobre ese tema.";
+                }
+            } else {
+                return "No pude entender tu solicitud.";
             }
     }
 
