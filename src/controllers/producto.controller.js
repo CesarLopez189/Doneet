@@ -312,12 +312,14 @@ productoCtrl.renderProductoPost = async (req, res) => {
 
 productoCtrl.renderEditForm = async (req, res) => {
     const producto = await Producto.findById(req.params.id).lean();
+    console.log("producto: ", producto)
     res.render('productos/edit-producto', { producto });
 };
 
 productoCtrl.updateProducto = async (req, res) => {
     const { nombre, marca, categoria, elementos, descripcion, trazas } = req.body;
     const auth = await authorize();
+
 
 
     let updatedProducto = {
