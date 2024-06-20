@@ -81,8 +81,19 @@ document.addEventListener('DOMContentLoaded', function () {
         {"nombre": "aciduladito", "categoria": ["caramelo suave", "tipicos"], "alergenos": ["soya"]},
         {"nombre": "crunch", "categoria": ["chocolates"], "alergenos": ["soya", "gluten", "lacteo", "chocolate"]},
         {"nombre": "reeses", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "cacahuate", "lacteo", "chocolate"]},
-        {"nombre": "magnum", "categoria": ["chocolates", "paletas"], "alergenos": ["almendra", "chocolate"]}        
+        {"nombre": "mazapan", "categoria": ["polvoroso"], "alergenos": ["cacahuate"]},
+        {"nombre": "dragonzitos", "categoria": ["polvoroso", "picoso"], "alergenos": ["soya"]},
+        {"nombre": "alegria san martin", "categoria": ["polvoroso", "tipicos"], "alergenos": []},
+        {"nombre": "lucas muecas chamoy", "categoria": ["polvoroso", "picoso", "paletas"], "alergenos": ["soya"]},
+        {"nombre": "lucas polvos chamoy", "categoria": ["polvoroso", "picoso"], "alergenos": []},
+        {"nombre": "chipileta", "categoria": ["polvoroso", "picoso","paletas"], "alergenos": []},
+        {"nombre": "bubulubu", "categoria": ["bombones", "chocolates"], "alergenos": ["lacteo", "soya"]},
+        {"nombre": "malvabon", "categoria": ["bombones", "chocolates"], "alergenos": ["chocolate", "fresa"]},
+        {"nombre": "magnum", "categoria": ["paletas", "chocolates"], "alergenos": ["chocolate", "almendra"]},
     ];
+
+
+        
 
     const saludos = [
         "¡Hola! Soy Doneet ¿En qué puedo ayudarte hoy?",
@@ -187,8 +198,12 @@ const funcionamiento = [
                 return buscarPorAlergeno(alergenosEvitar);
             } else if (categoria && alergenosEvitar.length) {
                 return buscarPorCategoriaYAlergeno(categoria, alergenosEvitar);
+            } else if (!nombreDulce && !alergenosEvitar.length && categoria){
+                console.log("Entro aqui");
+                let categoriaArray = ['chocolate'];
+                return buscarPorAlergeno(categoriaArray);
             } else {
-                return "Pregunta incompleta. Asegúrate de proporcionar el dulce del que quieres obtener información.";
+                return "Pregunta incompleta. Asegúrate de proporcionar categoria, alergeno o dulce del que quieres obtener un sustituto.";
             }
             
             } else if (intencion === "consultar_alergeno") {
@@ -283,10 +298,11 @@ const funcionamiento = [
         return coincideCategoria && !contieneAlergeno;
     }).map(d => d.nombre);
 
-    return resultados.length ? `Los dulces sustitutos al dulce ${nombreDulce} son: ${resultados.join(', ')}` : "No se encontraron sustitutos.";
+    return resultados.length ? `Los dulces sustitutos de la misma categoria del dulce ${nombreDulce} son: ${resultados.join(', ')}` : "No se encontraron sustitutos.";
 }
 
     function buscarPorAlergeno(alergenosEvitar) {
+        console.log("Entro aqui x2");
         return buscarDulces(null, alergenosEvitar);
     }
 
@@ -295,22 +311,28 @@ const funcionamiento = [
     }
     
     function buscarAlternativasPorDulce(nombreDulce) {
-        const dulceObj = dulces.find(d => d.nombre === nombreDulce);
-        if (!dulceObj) return "Dulce no encontrado.";
+    const dulceObj = dulces.find(d => d.nombre === nombreDulce);
+    if (!dulceObj) return "Dulce no encontrado.";
 
-        const alergenosDulce = dulceObj.alergenos;
-        const categoriaDulce = dulceObj.categoria;
+    const alergenosDulce = dulceObj.alergenos;
+    const categoriaDulce = dulceObj.categoria;
 
-        let resultados = dulces.filter(dulce => {
-            return dulce.categoria.some(cat => categoriaDulce.includes(cat)) && 
-                   !alergenosDulce.some(alergeno => dulce.alergenos.includes(alergeno));
-        }).map(d => d.nombre);
-
-        let mensajeAlergenos = alergenosDulce.length > 0 ? `Los alérgenos que contiene el dulce son: ${alergenosDulce.join(', ')}.` : "Este dulce no tiene alérgenos conocidos.";
-        let mensajeResultados = resultados.length ? `Otros dulces recomendados: ${resultados.join(', ')}` : "No se encontraron alternativas sin esos alérgenos.";
-
-        return `${mensajeAlergenos} ${mensajeResultados}`;
+    // Si no tiene alérgenos, informa que el usuario puede consumirlo.
+    if (alergenosDulce.length === 0) {
+        return `El dulce ${nombreDulce} no tiene alérgenos conocidos y puedes consumirlo sin problemas.`;
     }
+
+    let resultados = dulces.filter(dulce => {
+        return dulce.categoria.some(cat => categoriaDulce.includes(cat)) && 
+               !alergenosDulce.some(alergeno => dulce.alergenos.includes(alergeno));
+    }).map(d => d.nombre);
+
+    let mensajeAlergenos = `Los alérgenos que contiene el dulce son: ${alergenosDulce.join(', ')}.`;
+    let mensajeResultados = resultados.length ? `Otros dulces recomendados: ${resultados.join(', ')}` : `No se encontraron sustitutos de la misma categoría de ${nombreDulce} sin esos alérgenos.`;
+
+    return `${mensajeAlergenos} ${mensajeResultados}`;
+}
+
 
     //Modificar funcion buscarAlternativasPorDulce para ademas de dar alternativas por categoria
 
