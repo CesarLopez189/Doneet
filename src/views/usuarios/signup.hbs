@@ -15,13 +15,13 @@
             <div class="col ">
               <h5 class="titulo3 pt-3"> Ingresa tu nombre </h5>
               <input type="text" class="form-control form-control-sm rectangulo1" name="name" placeholder="nombre"
-                aria-label="name" value="{{name}}" required oninvalid="this.setCustomValidity('Ingresa tu nombre')" oninput="this.setCustomValidity('')" style="width: 90%;">
+                aria-label="name" value="{{name}}" required oninvalid="this.setCustomValidity('Ingresa tu nombre')" oninput="this.value = this.value.replace(/[0-9]/g, ''); this.setCustomValidity('')" style="width: 90%;">
                 <h5 class="titulo3 pt-3"> Ingresa tus apellidos </h5>
               <input type="text" class="form-control form-control-sm rectangulo1 " name="last_names"
-                placeholder="apellidos" aria-label="last_names" value="{{last_names}}" required oninvalid="this.setCustomValidity('Ingresa tus apellidos')" oninput="this.setCustomValidity('')" style="width: 90%;">
+                placeholder="apellidos" aria-label="last_names" value="{{last_names}}" required oninvalid="this.setCustomValidity('Ingresa tus apellidos')" oninput="this.value = this.value.replace(/[0-9]/g, ''); this.setCustomValidity('')" style="width: 90%;">
               <h5 class="titulo3 pt-3"> Ingresa tu edad </h5>
               <input type="text" class="form-control form-control-sm rectangulo1" name="age" placeholder="edad"
-                value="{{age}}" required oninvalid="this.setCustomValidity('Ingresa tu edad')" oninput="this.setCustomValidity('')" style="width: 90%;">
+                value="{{age}}" required oninvalid="this.setCustomValidity('Ingresa tu edad')" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.setCustomValidity('')" style="width: 90%;">
               
             </div>
 
@@ -32,10 +32,10 @@
                 value="{{email}}" required oninvalid="this.setCustomValidity('Ingresa tu email')" oninput="this.setCustomValidity('')" style="width: 90%;">
                 <h5 class="titulo3 pt-3"> Ingresa tu contraseña </h5>
               <input type="password" class="form-control form-control-sm rectangulo1" name="password"
-                placeholder="contraseña" required oninvalid="this.setCustomValidity('Ingresa tu contraseña')" oninput="this.setCustomValidity('')" style="width: 90%;">
+                placeholder="contraseña" required minlength="6" oninvalid="this.setCustomValidity('Ingresa una contraseña de al menos 6 caracteres')" oninput="this.setCustomValidity('')" style="width: 90%;">
               <h5 class="titulo3 pt-3"> Confirmar contraseña </h5>
               <input type="password" class="form-control form-control-sm rectangulo1" name="confirm_password"
-                placeholder="confirma la contraseña" required oninvalid="this.setCustomValidity('Confirma tu contraseña')" oninput="this.setCustomValidity('')" style="width: 90%;">
+                placeholder="confirma la contraseña" required minlength="6" oninvalid="this.setCustomValidity('Ingresa una contraseña de al menos 6 caracteres')" oninput="this.setCustomValidity('')" style="width: 90%;">
             </div>
           </div>
 
