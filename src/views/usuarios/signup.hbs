@@ -1,6 +1,6 @@
 <section>
   <div class="container-sm rectangulo p-4 ">
-    <form action="/usuarios/signup" method="POST">
+    <form id="registroForm" action="/usuarios/signup" method="POST">
       <div class="row ">
 
         <div class="col">
@@ -325,4 +325,14 @@
       </div>
     </form>
   </div>
+  <script>
+  document.getElementById('registroForm').addEventListener('submit', function(event) {
+    const checkboxes = document.querySelectorAll('input[name="elements"]');
+    const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+    if (!isChecked) {
+      event.preventDefault(); // Evita el envío del formulario
+      alert('Debe seleccionar al menos un ingrediente alérgico.');
+    }
+  });
+</script>
 </section>
