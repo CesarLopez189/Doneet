@@ -19,14 +19,6 @@
 </head>
 
 <body>
-    <div class="back-button" style="margin: -5px 0px 0px 0px;">
-    <a href="javascript:history.back()" style="padding: 8px 8px; background: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%); border-radius: 10%; margin-left:30px;">
-      <svg fill="#fff" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 4l1.41 1.41L7.83 11H20v2H7.83l5.58 5.59L12 20l-8-8z"/>
-        <path d="M0 0h24v24H0V0z" fill="none"/>
-      </svg>
-    </a>
-  </div>
     <div class="container-sm rectangulo">
         <div class="row">
             <div class="chat-header">
@@ -34,7 +26,12 @@
             </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="message bot-message">
-                    El chatbot puede cometer errores. Por favor verifique las respuestas.
+                    ¡Hola!, bienvenido al chatbot de Doneet. Aquí puedes: </br>
+                    -Preguntar información sobre la página: "¿Cómo inicio sesión?"</br>
+                    -Consultar sobre alergias: "¿Qué es un alérgeno?"</br>
+                    -Obtener información sobre un dulce: "¿Qué alérgenos tiene el Carlos V?"</br>
+                    -Buscar un dulce sustituto: "Dame un sustituto del Carlos V sin soya."</br>
+                    -Preguntar sobre estadísticas: "¿Cuál es el dulce mejor valorado?"</br>
                 </div>
                 <!-- Los mensajes serán insertados aquí -->
             </div>
@@ -51,6 +48,10 @@
             </div>
         </div>
     </div>
+    <div style="background: #F31260; color: white; text-align: center; padding: 10px 20px; width: auto; max-width: 60%; margin: 20px auto; border-radius: 15px;">
+        El chatbot puede cometer errores. Por favor verifique las respuestas.
+    </div>
+
 
     <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -68,11 +69,11 @@ document.addEventListener('DOMContentLoaded', function () {
     
     const dulces = [
         {"nombre": "carlos v", "categoria": ["chocolates"], "alergenos": ["chocolate", "lacteo", "soya"]},
-        {"nombre": "bocadin", "categoria": ["chocolates", "biscochos"], "alergenos": ["cacahuate", "gluten", "lacteo", "soya", "chocolate"]},
-        {"nombre": "gansito", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo", "chocolate"]},
-        {"nombre": "mamut", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo", "chocolate"]},
+        {"nombre": "bocadin", "categoria": ["chocolates", "biscochos"], "alergenos": ["cacahuate", "gluten", "lacteo", "soya"]},
+        {"nombre": "gansito", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo", "huevo"]},
+        {"nombre": "mamut", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo"]},
         {"nombre": "kisses", "categoria": ["chocolates"], "alergenos": ["soya", "lacteo", "chocolate"]},
-        {"nombre": "paleta payaso", "categoria": ["paletas", "bombones", "chocolates"], "alergenos": ["soya", "lacteo"]},
+        {"nombre": "paleta payaso", "categoria": ["paletas", "bombones", "chocolates"], "alergenos": ["soya", "lacteo", "fresa"]},
         {"nombre": "freskas", "categoria": ["chocolates"], "alergenos": ["soya", "gluten", "lacteo"]},
         {"nombre": "mancha t", "categoria": ["gomitas"], "alergenos": ["gluten"]},
         {"nombre": "panditas", "categoria": ["gomitas"], "alergenos": []},
@@ -87,9 +88,97 @@ document.addEventListener('DOMContentLoaded', function () {
         {"nombre": "lucas muecas chamoy", "categoria": ["polvoroso", "picoso", "paletas"], "alergenos": ["soya"]},
         {"nombre": "lucas polvos chamoy", "categoria": ["polvoroso", "picoso"], "alergenos": []},
         {"nombre": "chipileta", "categoria": ["polvoroso", "picoso","paletas"], "alergenos": []},
-        {"nombre": "bubulubu", "categoria": ["bombones", "chocolates"], "alergenos": ["lacteo", "soya"]},
+        {"nombre": "bubulubu mini", "categoria": ["bombones", "chocolates"], "alergenos": ["lacteo", "soya"]},
         {"nombre": "malvabon", "categoria": ["bombones", "chocolates"], "alergenos": ["chocolate", "fresa"]},
+        {"nombre": "tamborines", "categoria": ["polvoroso", "picoso"], "alergenos": ["tamarindo"]},
+        {"nombre": "alegria san martin", "categoria": ["polvoroso", "tipicos"], "alergenos": []},
+        {"nombre": "obleas de amaranto", "categoria": ["polvoroso", "tipicos"], "alergenos": ["chocolate"]},
         {"nombre": "magnum", "categoria": ["paletas", "chocolates"], "alergenos": ["chocolate", "almendra"]},
+        {"nombre": "lucas polvo mango", "categoria": ["polvoroso", "picoso"], "alergenos": []},
+        {"nombre": "chipileta", "categoria": ["polvoroso", "picoso","paletas"], "alergenos": ["lacteo", "cacahuate","gluten"]},
+        {"nombre": "bibi polvis", "categoria": ["polvoroso", "picoso", "caramelo suave"], "alergenos": []},
+        {"nombre": "tix tix chupabarrita", "categoria": ["polvoroso"], "alergenos": []},
+        {"nombre": "vaso de menta", "categoria": ["polvoroso", "tipicos"], "alergenos": []},
+        {"nombre": "portico", "categoria": ["polvoroso", "picoso"], "alergenos": []},
+        {"nombre": "lemon 7", "categoria": ["polvoroso"], "alergenos": []},
+        {"nombre": "lucas muecas aciditos", "categoria": ["polvoroso", "paletas"], "alergenos": ["soya"]},
+        {"nombre": "crazy dips", "categoria": ["polvoroso", "paletas"], "alergenos": ["lacteo"]},
+        {"nombre": "caramelo baby bottle pop", "categoria": ["polvoroso", "caramelo suave"], "alergenos": []},
+        {"nombre": "selz soda", "categoria": ["polvoroso", "caramelo suave"], "alergenos": []},
+        {"nombre": "inspireka goma de mascar", "categoria": ["polvoroso", "chicle"], "alergenos": ["soya"]},
+        {"nombre": "polvo miguelito", "categoria": ["polvoroso", "picoso"], "alergenos": ["soya"]},
+        {"nombre": "rockaleta esferas de tamarindo", "categoria": ["polvoroso", "picoso", "caramelo"], "alergenos": ["tamarindo"]},
+        {"nombre": "Paleta Lemon 7", "categoria": ["polvoroso", "paletas"], "alergenos": []},
+        {"nombre": "super rebanaditas", "categoria": ["polvoroso", "picoso", "paletas"], "alergenos": ["soya"]},
+        {"nombre": "takis paleta fuego", "categoria": ["polvoroso", "picoso", "paletas"], "alergenos": ["soya"]},
+        {"nombre": "burbu soda", "categoria": ["polvoroso"], "alergenos": []},
+        {"nombre": "bubbaloo xtreme", "categoria": ["polvoroso", "picoso", "paletas", "chicle"], "alergenos": ["soya"]},
+        {"nombre": "bubbaloo fresa", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "trident", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "doublemint", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "clorets", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "wrigleys orbit", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "hubba bubba", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "winterfresh", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "winterfresh", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "clorets plus", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "juicy fruit", "categoria": ["chicle"], "alergenos": ["soya"]},
+        {"nombre": "trident xtraCare", "categoria": ["chicle"], "alergenos": ["soya", "lacteo"]},
+        {"nombre": "bolichik", "categoria": ["chicle"], "alergenos": []},
+        {"nombre": "surtido", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "glorias", "categoria": ["caramelo suave","tipicos"], "alergenos": ["nuez","lacteo"]},
+        {"nombre": "duvalin", "categoria": ["caramelo suave"], "alergenos": ["lacteo","soya"]},
+        {"nombre": "palanqueta", "categoria": ["caramelo suave","tipicos"], "alergenos": ["cacahuate"]},
+        {"nombre": "marina chica", "categoria": ["caramelo suave","tipicos"], "alergenos": ["nuez","lacteo","soya"]},
+        {"nombre": "damy", "categoria": ["caramelo suave","tipicos"], "alergenos": ["nuez","lacteo","soya"]},
+        {"nombre": "life savers", "categoria": ["caramelo suave"], "alergenos": ["fresa"]},
+        {"nombre": "smint", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "sonrics diviertete", "categoria": ["caramelo suave"], "alergenos": ["nuez","lacteo","soya","gluten"]},
+        {"nombre": "halls", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "skittles", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "mentos", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "ice breakers", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "tic tac", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "pulparindots", "categoria": ["caramelo suave"], "alergenos": []},
+        {"nombre": "pelon pelonazo", "categoria": ["caramelo suave"], "alergenos": ["gluten"]},
+        {"nombre": "rellerindos", "categoria": ["caramelo suave","picoso"], "alergenos": ["soya"]},
+        {"nombre": "lucas panzon", "categoria": ["caramelo suave","picoso"], "alergenos": ["soya"]},
+        {"nombre": "rellerindos", "categoria": ["caramelo suave","picoso"], "alergenos": ["soya"]},
+        {"nombre": "delice", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo", "huevo", "cacahuate","chocolate"]},
+        {"nombre": "brownie little debbie", "categoria": ["chocolates", "biscochos"], "alergenos": ["soya", "gluten", "lacteo", "huevo","chocolate"]},
+        {"nombre": "pastelitos little debbie zebra", "categoria": ["biscochos"], "alergenos": ["soya", "gluten", "lacteo", "huevo"]},
+        {"nombre": "waffers", "categoria": ["biscochos"], "alergenos": ["soya", "gluten", "lacteo"]},
+        {"nombre": "pulparindo", "categoria": ["picoso"], "alergenos": ["tamarindo"]},
+        {"nombre": "barquillos", "categoria": ["biscochos"], "alergenos": ["soya", "gluten", "lacteo","huevo"]},
+        {"nombre": "skwinkles", "categoria": ["gomitas","picoso"], "alergenos": ["soya", "gluten"]},
+        {"nombre": "lucas gusano", "categoria": ["picoso"], "alergenos": []},
+        {"nombre": "ollita de tamarindo", "categoria": ["picoso","tipico"], "alergenos": ["tamarindo"]},
+        {"nombre": "paleta de tarrito", "categoria": ["paletas"], "alergenos": ["soya"]},
+        {"nombre": "paleta de cajeta", "categoria": ["paletas"], "alergenos": ["soya","lacteo"]},
+        {"nombre": "chupa chups", "categoria": ["paletas"], "alergenos": ["soya","gluten"]},
+        {"nombre": "soler", "categoria": ["paletas"], "alergenos": []},
+        {"nombre": "dulci gomas", "categoria": ["gomitas"], "alergenos": ["fresa"]},
+        {"nombre": "glowworms", "categoria": ["gomitas"], "alergenos": []},
+        {"nombre": "gummy pop", "categoria": ["gomitas"], "alergenos": []},
+        {"nombre": "gomitas great value", "categoria": ["gomitas"], "alergenos": []},
+        {"nombre": "ate de membrillo", "categoria": ["gomitas", "tipico"], "alergenos": []},
+        {"nombre": "ate de guayaba", "categoria": ["gomitas", "tipico"], "alergenos": []},
+        {"nombre": "welch's", "categoria": ["gomitas", "tipico"], "alergenos": []},
+        {"nombre": "sour punch", "categoria": ["gomitas"], "alergenos": ["gluten"]},
+        {"nombre": "malvaviscos chocolate", "categoria": ["bombones","chocolate"], "alergenos": ["chocolate","gluten","lacteo","soya"]},
+        {"nombre": "malvaviscos chocolate", "categoria": ["bombones","chocolate"], "alergenos": ["chocolate","gluten","lacteo","soya"]},
+        {"nombre": "paleton", "categoria": ["bombones","paletas"], "alergenos": ["lacteo","soya"]},
+        {"nombre": "drums", "categoria": ["bombones"], "alergenos": ["lacteo","soya","gluten"]},
+        {"nombre": "larin nuez", "categoria": ["chocolates"], "alergenos": ["lacteo","soya","nuez"]},
+        {"nombre": "kinder bueno", "categoria": ["chocolates"], "alergenos": ["lacteo","soya","gluten","chocolate"]},
+        {"nombre": "ferrero rocher", "categoria": ["chocolates"], "alergenos": ["lacteo","soya","gluten","chocolate"]},
+        {"nombre": "turin conejo", "categoria": ["chocolates"], "alergenos": ["lacteo","soya","chocolate"]},
+        {"nombre": "winis", "categoria": ["caramelo suave"], "alergenos": ["soya"]},
+        {"nombre": "nutella go", "categoria": ["chocolates"], "alergenos": ["lacteo","soya","gluten"]},
+        {"nombre": "milky way", "categoria": ["chocolates"], "alergenos": ["chocolate","soya","gluten","huevo"]},
+        {"nombre": "kit kat", "categoria": ["chocolates"], "alergenos": ["chocolate","soya","gluten","lacteo"]},
+        {"nombre": "kinder sorpresa", "categoria": ["chocolates"], "alergenos": ["chocolate","soya","lacteo"]},
+        {"nombre": "larin cero", "categoria": ["chocolates"], "alergenos": ["chocolate","soya","lacteo","almendra"]},
     ];
 
 
@@ -157,6 +246,10 @@ const funcionamiento = [
         newMessage.className = 'message user-message';
         newMessage.textContent = message;
         chatMessages.appendChild(newMessage);
+        window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
     }
 
     function consultarWitAi(textoUsuario) {
@@ -176,6 +269,7 @@ const funcionamiento = [
             return respuestaNointencion;
         }
         const intencion = respuestaWit.intents[0].name;
+        console.log(intencion);
         const alergenosEvitar = respuestaWit.entities['alergeno:alergeno'] ? respuestaWit.entities['alergeno:alergeno'].map(a => a.value) : [];
         console.log(alergenosEvitar);
         const nombreDulce = respuestaWit.entities['nombre_dulce:nombre_dulce'] ? respuestaWit.entities['nombre_dulce:nombre_dulce'][0].value : null;
@@ -185,7 +279,9 @@ const funcionamiento = [
         const gradoAlergia = respuestaWit.entities['grado_alergia:grado_alergia'] ? respuestaWit.entities['grado_alergia:grado_alergia'][0].value : null;
         console.log(gradoAlergia);
         const alergenoEspecifico = respuestaWit.entities['alergeno:alergeno'] ? respuestaWit.entities['alergeno:alergeno'][0].value : null;
+        console.log(alergenoEspecifico);
         const accion = respuestaWit.entities['accion:accion'] ? respuestaWit.entities['accion:accion'][0].value : null;
+        console.log(accion);
         const faqDefinicion = respuestaWit.entities['faq_definicion:faq_definicion'] ? respuestaWit.entities['faq_definicion:faq_definicion'][0].value : null;
         console.log(faqDefinicion);
 
@@ -202,7 +298,12 @@ const funcionamiento = [
                 console.log("Entro aqui");
                 let categoriaArray = ['chocolate'];
                 return buscarPorAlergeno(categoriaArray);
-            } else {
+            } else if (nombreDulce && categoria){
+                console.log("Entro aqui x3");
+                let categoriaArray = ['chocolate'];
+                return buscarPorDulceYAlergeno(nombreDulce, categoriaArray);
+            }
+             else {
                 return "Pregunta incompleta. Asegúrate de proporcionar categoria, alergeno o dulce del que quieres obtener un sustituto.";
             }
             
@@ -274,18 +375,29 @@ const funcionamiento = [
                 } else if (faqDefinicion == "alergia"){
                     return "La alergia se define como una reacción anormal del organismo debido a que responde de manera exagerada cuando entra en contacto con una sustancia procedente del exterior.  Fuente: Hospital Quirónsalud Toledo, \"Alergología,\" Hospital Quirónsalud Toledo, 2024. [Online]. Available: https://www.quironsalud.com.";
                 } else if (faqDefinicion == "reaccion" || faqDefinicion == "alergica" ){
-                    return "En caso de una reacción alérgica severa, es crucial administrar una inyección de epinefrina (si está disponible) y buscar atención médica inmediata. La anafilaxia es una emergencia médica que puede ser fatal si no se trata rápidamente. Fuente: National Institute of Allergy and Infectious Diseases, \"Anaphylaxis,\" 2020. [Online]. Available: https://www.niaid.nih.gov/diseases-conditions/anaphylaxis";
-                } else {
-                    return "No cuento con información sobre ese tema.";
+                    return "Si los síntomas son leves, administre un antihistamínico por vía oral, como difenhidramina. En caso de una reacccion alérgica severa, es crucial administrar una inyección de epinefrina (si está disponible) y buscar atención médica inmediata. La anafilaxia es una emergencia médica que puede ser fatal si no se trata rápidamente. Fuente: National Institute of Allergy and Infectious Diseases, \"Anaphylaxis,\" 2020. [Online]. Available: https://www.niaid.nih.gov/diseases-conditions/anaphylaxis";
+                } else if (faqDefinicion == "traza") {
+                    return "Las trazas en alimentos son pequeñas partículas de un alimento que pueden llegar a él involuntariamente por parte del fabricante, de forma accidental o casual, por una contaminación cruzada. Fuente: ACONSA, \"Trazas en alimentos,\" ACONSA, 2021. [Online]. Available: https://aconsa-lab.com/trazas-en-alimentos/#:~:text=Las%20trazas%20en%20alimentos%20son,casual%2C%20por%20una%20contaminaci%C3%B3n%20cruzada.";
+                } else if (faqDefinicion == "anafilaxia"){
+                    return "La anafilaxia es una reacción alérgica grave y potencialmente mortal que puede afectar a varios sistemas del cuerpo. Los síntomas pueden incluir dificultad para respirar, hinchazón de la garganta, ritmo cardíaco rápido, mareos, desmayos y otros. Fuente: American College of Allergy, Asthma & Immunology, \"Anaphylaxis,\" 2020. [Online]. Available: https://acaai.org/allergies/anaphylaxis";
+                }
+                else {
+                    return "No cuento con información sobre esa definición.";
                 }
             } else {
-                return "No pude entender tu solicitud.";
+                return "No pude entender tu solicitud. Por favor, reformula tu pregunta.";
             }
     }
 
     function buscarPorDulceYAlergeno(nombreDulce, alergenosEvitar) {
     const dulceObj = dulces.find(d => d.nombre === nombreDulce);
     if (!dulceObj) return "Dulce no encontrado.";
+
+    // Verificar si el dulce contiene alguno de los alérgenos especificados
+    const contieneAlergeno = alergenosEvitar.some(alergeno => dulceObj.alergenos.includes(alergeno));
+    if (!contieneAlergeno) {
+        return `El dulce ${nombreDulce} no contiene los alérgenos ${alergenosEvitar.join(', ')}, por lo tanto, puedes consumirlo sin problemas.`;
+    }
 
     // Asegura que las categorías se manejen como listas
     const categoriasDulce = Array.isArray(dulceObj.categoria) ? dulceObj.categoria : [dulceObj.categoria];
@@ -294,12 +406,13 @@ const funcionamiento = [
     let resultados = dulces.filter(dulce => {
         const categoriasCandidato = Array.isArray(dulce.categoria) ? dulce.categoria : [dulce.categoria];
         const coincideCategoria = categoriasDulce.some(cat => categoriasCandidato.includes(cat));
-        const contieneAlergeno = alergenosEvitar.some(alergeno => dulce.alergenos.includes(alergeno));
-        return coincideCategoria && !contieneAlergeno;
+        const contieneAlergenoFiltro = alergenosEvitar.some(alergeno => dulce.alergenos.includes(alergeno));
+        return coincideCategoria && !contieneAlergenoFiltro;
     }).map(d => d.nombre);
 
-    return resultados.length ? `Los dulces sustitutos de la misma categoria del dulce ${nombreDulce} son: ${resultados.join(', ')}` : "No se encontraron sustitutos.";
+    return resultados.length ? `Los dulces sustitutos de la misma categoría del dulce ${nombreDulce} sin ${alergenosEvitar.join(', ')} son: ${resultados.join(', ')}.` : "No se encontraron sustitutos de la misma categoría sin esos alérgenos.";
 }
+
 
     function buscarPorAlergeno(alergenosEvitar) {
         console.log("Entro aqui x2");
@@ -328,7 +441,7 @@ const funcionamiento = [
     }).map(d => d.nombre);
 
     let mensajeAlergenos = `Los alérgenos que contiene el dulce son: ${alergenosDulce.join(', ')}.`;
-    let mensajeResultados = resultados.length ? `Otros dulces recomendados: ${resultados.join(', ')}` : `No se encontraron sustitutos de la misma categoría de ${nombreDulce} sin esos alérgenos.`;
+    let mensajeResultados = resultados.length ? `Dulces recomendados de la misma categoría: ${resultados.join(', ')}` : `No se encontraron sustitutos de la misma categoría de ${nombreDulce} sin esos alérgenos.`;
 
     return `${mensajeAlergenos} ${mensajeResultados}`;
 }
@@ -342,7 +455,7 @@ const funcionamiento = [
             const cumpleAlergenos = !alergenosEvitar.some(alergeno => dulce.alergenos.includes(alergeno));
             return cumpleCategoria && cumpleAlergenos;
         }).map(d => d.nombre);
-        return resultados.length ? `Los dulces sustitutos son: ${resultados.join(', ')}` : "No se encontraron sustitutos.";
+        return resultados.length ? `Los dulces recomendados que puedes consumir son: ${resultados.join(', ')}` : "No se encontraron sustitutos.";
     }
 
     function listarAlergenos(nombreDulce) {
@@ -469,17 +582,37 @@ function estadisticaValoracion(gradoAlergia, valoracionesData) {
         return "Los datos de dulces y valoraciones no coinciden.";
     }
 
-    let indiceResultado;
+    let valorBuscado;
     if (gradoAlergia === "mas" || gradoAlergia === "mejor") {
-        indiceResultado = valoraciones.indexOf(Math.max(...valoraciones));
+        valorBuscado = Math.max(...valoraciones);
     } else if (gradoAlergia === "menos" || gradoAlergia === "peor") {
-        indiceResultado = valoraciones.indexOf(Math.min(...valoraciones));
+        valorBuscado = Math.min(...valoraciones);
     } else {
         return "No se especificó correctamente el grado de valoración.";
     }
 
-    return `El dulce ${dulces[indiceResultado]} tiene una valoración de ${valoraciones[indiceResultado]} de 5, por lo tanto es ${gradoAlergia === "mas" || gradoAlergia === "mejor" ? "más" : "menos"} recomendado por los usuarios.`;
+    let indicesResultados = valoraciones.reduce((acc, val, idx) => {
+        if (val === valorBuscado) {
+            acc.push(idx);
+        }
+        return acc;
+    }, []);
+
+    if (indicesResultados.length === 0) {
+        return "No se encontraron dulces con los criterios especificados.";
+    }
+
+    const esPlural = indicesResultados.length > 1;
+    const articulo = esPlural ? "Los" : "El";
+    const cantidad = esPlural ? "son" : "es";
+    const recomendacion = esPlural ? "recomendados" : "recomendado";
+    const dulceTexto = esPlural ? "dulces" : "dulce";
+    const verb = esPlural ? "tienen" : "tiene";
+
+    const nombresDulces = indicesResultados.map(index => `${dulces[index]}`).join(", ");
+    return `${articulo} ${dulceTexto} ${nombresDulces} ${verb} una valoración de ${valorBuscado} de 5, por lo tanto ${cantidad} ${gradoAlergia === "mas" || gradoAlergia === "mejor" ? "más" : "menos"} ${recomendacion} por los usuarios.`;
 }
+
 
 function estadisticaValoracionEspecifico(nombreDulce, valoracionesData) {
     const index = valoracionesData.dulces.findIndex(dulce => dulce.toLowerCase() === nombreDulce.toLowerCase());
@@ -517,7 +650,7 @@ function cantidadDulcesTotal() {
             //respuestaMessage.style.minHeight = 'auto';
             chatMessages.appendChild(respuestaMessage);
             let i = 0;
-            const speed = 30; // Velocidad de escritura en milisegundos
+            const speed = 20; // Velocidad de escritura en milisegundos
 
             function typeWriter() {
                 if (i < mensaje.length) {
